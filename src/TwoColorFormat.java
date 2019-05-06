@@ -1,4 +1,3 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -18,7 +17,7 @@ public class TwoColorFormat {
 	
 	public TwoColorFormat() {}
 	
-	public boolean write(String filename) {
+	public boolean writeColors(String filename) {
 		boolean isPrimaryColor = writeToFile(filename, this.primaryColorOffset, this.primaryColor);
 		boolean isSecondaryColor = writeToFile(filename, this.secondaryColorOffset, this.secondaryColor);
 		
@@ -26,7 +25,7 @@ public class TwoColorFormat {
 	}
 	
 	private boolean writeToFile(String filename, final int writeAddress, HexRGB rgb) {
-		RandomAccessFile raf = createRandomAccessFile(filename);
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 		
 		try {
 		    raf.seek(writeAddress);
@@ -47,20 +46,8 @@ public class TwoColorFormat {
 		return true;
 	}
 	
-	private RandomAccessFile createRandomAccessFile(String filename) {
-		RandomAccessFile raf = null;
-
-		try {
-			raf = new RandomAccessFile(filename, "rw");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		return raf;
-	}
-	
 	public Color read(String filename, final int readAddress) {
-		RandomAccessFile raf = createRandomAccessFile(filename);
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 		
 		Color color = null;
 		try {
