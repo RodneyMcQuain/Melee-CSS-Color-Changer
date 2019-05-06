@@ -73,6 +73,41 @@ public class Format4248 extends TwoColorFormat {
 		return true;
 	}
 	
+	public static boolean writeVisibleSelectBackgroundColor(String filename) {
+		RandomAccessFile raf = null;
+
+		try {
+			raf = new RandomAccessFile(filename, "rw");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			for (int i = BACKGROUND_SELECT_OFFSET_START; i <= BACKGROUND_SELECT_OFFSET_END; i += 0x1) {
+				if (is4248Format(raf, i)) {
+					Format4248 format = new Format4248(i);
+
+					raf.seek(format.transparencyOffset);
+			    	raf.write(0x3E);
+			    	raf.write(0xEE);
+			    	raf.write(0xEE);
+			    	raf.write(0xFA);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				raf.close();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+		
+		return true;
+	}
+	
 	public static boolean writeRandomSelectBackgroundColor(String filename) {
 		RandomAccessFile raf = null;
 
