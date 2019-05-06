@@ -33,7 +33,7 @@ public class App extends Application {
 	private final String SELECT_BACKGROUND_RANDOM = "Random";
 	private final String SELECT_BACKGROUND_TRANSPARENT = "Transparent";
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
         Application.launch(args);
 	}
 	
