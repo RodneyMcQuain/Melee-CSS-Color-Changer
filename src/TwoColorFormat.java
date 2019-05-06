@@ -9,7 +9,8 @@ public class TwoColorFormat {
 	protected HexRGB secondaryColor;
 	protected int primaryColorOffset;
 	protected int secondaryColorOffset;
-	
+	protected int transparencyOffset;
+
 	public TwoColorFormat(Color primary, Color secondary) {
 		primaryColor = new HexRGB(primary);
 		secondaryColor = new HexRGB(secondary);
