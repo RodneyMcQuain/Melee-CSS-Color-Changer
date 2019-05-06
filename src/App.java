@@ -89,6 +89,7 @@ public class App extends Application {
 			SELECT_BACKGROUND_RANDOM,
 			SELECT_BACKGROUND_TRANSPARENT
 		);
+    	cbSelectBackgroundOptions.setValue(SELECT_BACKGROUND_DO_NOTHING);
     	
     	gridPaneCenter.add(lblPrimaryColor, 1, 0);
     	gridPaneCenter.add(lblSecondaryColor, 2, 0);
