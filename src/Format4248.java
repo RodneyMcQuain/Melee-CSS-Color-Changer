@@ -39,13 +39,7 @@ public class Format4248 extends TwoColorFormat {
 	}
 	
 	public static boolean writeTransparentSelectBackgroundColor(String filename) {
-		RandomAccessFile raf = null;
-
-		try {
-			raf = new RandomAccessFile(filename, "rw");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		try {
 			for (int i = BACKGROUND_SELECT_OFFSET_START; i <= BACKGROUND_SELECT_OFFSET_END; i += 0x1) {
@@ -74,13 +68,7 @@ public class Format4248 extends TwoColorFormat {
 	}
 	
 	public static boolean writeVisibleSelectBackgroundColor(String filename) {
-		RandomAccessFile raf = null;
-
-		try {
-			raf = new RandomAccessFile(filename, "rw");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		try {
 			for (int i = BACKGROUND_SELECT_OFFSET_START; i <= BACKGROUND_SELECT_OFFSET_END; i += 0x1) {
@@ -109,13 +97,7 @@ public class Format4248 extends TwoColorFormat {
 	}
 	
 	public static boolean writeRandomSelectBackgroundColor(String filename) {
-		RandomAccessFile raf = null;
-
-		try {
-			raf = new RandomAccessFile(filename, "rw");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		boolean isSuccess = true;
 		try {
@@ -146,13 +128,7 @@ public class Format4248 extends TwoColorFormat {
 	}
 	
 	public static boolean writeAllSelectBackgroundColor(String filename, HexRGB rgb1, HexRGB rgb2) {
-		RandomAccessFile raf = null;
-
-		try {
-			raf = new RandomAccessFile(filename, "rw");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		boolean isSuccess = true;
 		try {
@@ -174,13 +150,7 @@ public class Format4248 extends TwoColorFormat {
 	}
 	
 	public static boolean writeAlternateSelectBackgroundColor(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
-		RandomAccessFile raf = null;
-
-		try {
-			raf = new RandomAccessFile(filename, "rw");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		int j = 0;
 		boolean isSuccess = true;
