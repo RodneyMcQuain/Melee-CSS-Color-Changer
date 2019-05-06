@@ -32,7 +32,8 @@ public class App extends Application {
 	private final String SELECT_BACKGROUND_ALTERNATE = "Alternate";
 	private final String SELECT_BACKGROUND_RANDOM = "Random";
 	private final String SELECT_BACKGROUND_TRANSPARENT = "Transparent";
-
+	private final String SELECT_BACKGROUND_VISIBLE = "Visible";
+	
 	public static void main(String[] args) {
         Application.launch(args);
 	}
@@ -87,7 +88,8 @@ public class App extends Application {
 			SELECT_BACKGROUND_ALL,
 			SELECT_BACKGROUND_ALTERNATE,
 			SELECT_BACKGROUND_RANDOM,
-			SELECT_BACKGROUND_TRANSPARENT
+			SELECT_BACKGROUND_TRANSPARENT,
+			SELECT_BACKGROUND_VISIBLE
 		);
     	cbSelectBackgroundOptions.setValue(SELECT_BACKGROUND_DO_NOTHING);
     	
@@ -225,6 +227,8 @@ public class App extends Application {
 			Format4248.writeAlternateSelectBackgroundColor(filename, rgb1, rgb2);
 		} else if (option.equals(SELECT_BACKGROUND_TRANSPARENT))
 			Format4248.writeTransparentSelectBackgroundColor(filename);
+		else if (option.equals(SELECT_BACKGROUND_VISIBLE))
+			Format4248.writeVisibleSelectBackgroundColor(filename);
 	}
 	
 	public boolean updateFile(
