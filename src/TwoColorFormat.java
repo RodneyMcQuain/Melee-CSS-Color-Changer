@@ -6,9 +6,7 @@ import javafx.scene.paint.Color;
 abstract class TwoColorFormat {
 	protected HexRGB primaryColor;
 	protected HexRGB secondaryColor;
-	protected int primaryColorOffset;
-	protected int secondaryColorOffset;
-	protected int transparencyOffset;
+	protected int startOffset;
 
 	public TwoColorFormat(Color primary, Color secondary) {
 		primaryColor = new HexRGB(primary);
@@ -16,12 +14,15 @@ abstract class TwoColorFormat {
 	}
 	
 	public TwoColorFormat() {}
-	
+
+	public abstract int getPrimaryColorOffset();
+	public abstract int getSecondaryColorOffset();
+	public abstract int getTransparencyOffset();
 	public abstract void writeTransparency(String filename, boolean isTransparent);
 	
 	public void writeColors(String filename) {
-		writeToFile(filename, this.primaryColorOffset, this.primaryColor);
-		writeToFile(filename, this.secondaryColorOffset, this.secondaryColor);
+		writeToFile(filename, getPrimaryColorOffset(), this.primaryColor);
+		writeToFile(filename, getSecondaryColorOffset(), this.secondaryColor);
 	}
 	
 	private void writeToFile(String filename, final int writeAddress, HexRGB rgb) {
@@ -70,7 +71,7 @@ abstract class TwoColorFormat {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 		
 		try {
-		    raf.seek(transparencyOffset);
+		    raf.seek(getTransparencyOffset());
 		    if (raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00)
 		    	return true;
 		} catch (IOException ioe) {
