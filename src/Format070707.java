@@ -7,28 +7,27 @@ public class Format070707 extends TwoColorFormat {
 	public Format070707(int startOffset, Color primaryColor, Color secondaryColor) {
 		super(primaryColor, secondaryColor);
 		
-		primaryColorOffset = getPrimaryColorOffset(startOffset);
-		secondaryColorOffset = getSecondaryColorOffset(startOffset);
-		transparencyOffset = getTransparencyOffset(startOffset);
+		this.startOffset = startOffset;
 	}
 	
 	public Format070707(int startOffset) {
 		super();
-		
-		primaryColorOffset = getPrimaryColorOffset(startOffset);
-		secondaryColorOffset = getSecondaryColorOffset(startOffset);
-		transparencyOffset = getTransparencyOffset(startOffset);
+
+		this.startOffset = startOffset;
 	}
 	
-	private int getPrimaryColorOffset(int startOffset) {
+	@Override
+	public int getPrimaryColorOffset() {
 		return startOffset + 0x000004;
 	}
 	
-	private int getSecondaryColorOffset(int startOffset) {
+	@Override
+	public int getSecondaryColorOffset() {
 		return startOffset + 0x000008;
 	}
 	
-	private int getTransparencyOffset(int startOffset) {
+	@Override
+	public int getTransparencyOffset() {
 		return startOffset + 0x000003;
 	}
 	
@@ -37,7 +36,7 @@ public class Format070707 extends TwoColorFormat {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 		
 		try {
-		    raf.seek(transparencyOffset);
+		    raf.seek(getTransparencyOffset());
 		    if (isTransparent)
 		    	raf.write(0x00);
 		    else
