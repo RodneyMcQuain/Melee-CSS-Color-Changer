@@ -3,7 +3,7 @@ import java.io.RandomAccessFile;
 
 import javafx.scene.paint.Color;
 
-public class TwoColorFormat {
+abstract class TwoColorFormat {
 	protected HexRGB primaryColor;
 	protected HexRGB secondaryColor;
 	protected int primaryColorOffset;
@@ -16,6 +16,8 @@ public class TwoColorFormat {
 	}
 	
 	public TwoColorFormat() {}
+	
+	public abstract void writeTransparency(String filename, boolean isTransparent);
 	
 	public void writeColors(String filename) {
 		writeToFile(filename, this.primaryColorOffset, this.primaryColor);
@@ -41,7 +43,7 @@ public class TwoColorFormat {
 		}
 	}
 	
-	public Color read(String filename, final int readAddress) {
+	public Color readColors(String filename, final int readAddress) {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 		
 		Color color = null;
@@ -62,5 +64,25 @@ public class TwoColorFormat {
 		}
 		
 		return color;
+	}
+	
+	public boolean readTransparency(String filename) {
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
+		
+		try {
+		    raf.seek(transparencyOffset);
+		    if (raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00)
+		    	return true;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} finally {
+			try {
+				raf.close();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+		
+		return false;
 	}
 }
