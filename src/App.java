@@ -79,18 +79,8 @@ public class App extends Application {
     	Button btUpdateFile = new Button("Update File");
     	Button btChooseFile = new Button("Choose a File to Modify");
     	TextField tfSourceFile = new TextField();
-    	CheckBox chbTopFrameTransparency = new CheckBox();
-    	CheckBox chbBottomFrameTransparency = new CheckBox();
-    	CheckBox chbRulesTransparency = new CheckBox();
     	CheckBox chbBackgroundTransparency = new CheckBox();
-    	CheckBox[] transparencyCheckboxes = { 
-    			chbTopFrameTransparency, 
-    			chbBottomFrameTransparency, 
-    			chbRulesTransparency, 
-    			chbBackgroundTransparency 
-		};
-    	for (CheckBox cb : transparencyCheckboxes)
-    		GridPane.setHalignment(cb, HPos.CENTER);
+		GridPane.setHalignment(chbBackgroundTransparency, HPos.CENTER);
     	
     	ComboBox<String> cbSelectBackgroundOptions = new ComboBox<String>();
     	cbSelectBackgroundOptions.getItems().addAll(
@@ -111,17 +101,14 @@ public class App extends Application {
     	gridPaneCenter.add(lblTopFrame, 0, 1);
     	gridPaneCenter.add(cpTopFrame[0], 1, 1);
     	gridPaneCenter.add(cpTopFrame[1], 2, 1);
-    	gridPaneCenter.add(chbTopFrameTransparency, 3, 1);
 
     	gridPaneCenter.add(lblBottomFrame, 0, 2);
     	gridPaneCenter.add(cpBottomFrame[0], 1, 2);
     	gridPaneCenter.add(cpBottomFrame[1], 2, 2);
-    	gridPaneCenter.add(chbBottomFrameTransparency, 3, 2);
 
     	gridPaneCenter.add(lblRules, 0, 3);
     	gridPaneCenter.add(cpRules[0], 1, 3);
     	gridPaneCenter.add(cpRules[1], 2, 3);
-    	gridPaneCenter.add(chbRulesTransparency, 3, 3);
 
     	gridPaneCenter.add(lblBackground, 0, 4);
     	gridPaneCenter.add(cpBackground[0], 1, 4);
@@ -181,6 +168,7 @@ public class App extends Application {
 	    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
 	    		setColorPickerColor(filename, cpRules, rules);
 	    		setColorPickerColor(filename, cpBackground, background);
+				setCheckBoxTick(filename, chbBackgroundTransparency, background);
     		} else {
     			btUpdateFile.setDisable(true);
     		}
@@ -192,10 +180,9 @@ public class App extends Application {
 			updateSelectBackgroundFile(filename, cbSelectBackgroundOptions.getValue(), cpSelectBackground1, cpSelectBackground2);
 			
 			updateBackground(filename, cpBackground, chbBackgroundTransparency);
-			updateTopFrame(filename, cpTopFrame, chbTopFrameTransparency);
-			updateBottomFrame(filename, cpBottomFrame, chbBottomFrameTransparency);
-			updateRules(filename, cpRules, chbRulesTransparency);
-
+			updateTopFrame(filename, cpTopFrame);
+			updateBottomFrame(filename, cpBottomFrame);
+			updateRules(filename, cpRules);
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Update Dialog");
@@ -209,30 +196,40 @@ public class App extends Application {
 	
 	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, CheckBox chbBackground) {
 		Format4248 background = createFormat4248(BACKGROUND_START_OFFSET, cpBackgrounds);	
-		updateFile(filename, background, chbBackground.isSelected());
+		boolean isTransparent = chbBackground.isSelected();
+		
+		background.writeColors(filename);
+		background.writeTransparency(filename, isTransparent);
 	}
 	
-	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames, CheckBox chbTopFrame) {
+	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
 		Format070707 topFrame = createFormat070707(TOP_FRAME_START_OFFSET, cpTopFrames);		
-		updateFile(filename, topFrame, chbTopFrame.isSelected());
+		topFrame.writeColors(filename);
 	}
 	
-	private void updateBottomFrame(String filename, ColorPicker[] cpBottomFrames, CheckBox chbTopFrame) {
+	private void updateBottomFrame(String filename, ColorPicker[] cpBottomFrames) {
 		Format070707 bottomFrame = createFormat070707(BOTTOM_FRAME_START_OFFSET, cpBottomFrames);	
-		updateFile(filename, bottomFrame, chbTopFrame.isSelected());
+		bottomFrame.writeColors(filename);
 	}
 	
-	private void updateRules(String filename, ColorPicker[] cpRules, CheckBox chbRule) {
+	private void updateRules(String filename, ColorPicker[] cpRules) {
 		Format070707 rules = createFormat070707(RULES_START_OFFSET, cpRules);	
-		updateFile(filename, rules, chbRule.isSelected());
+		rules.writeColors(filename);
 	}
 	
 	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
-		Color color1 = f.read(filename, f.primaryColorOffset);
+		Color color1 = f.readColors(filename, f.primaryColorOffset);
 		cp[0].setValue(color1);	
 		
-		Color color2 = f.read(filename, f.secondaryColorOffset);
+		Color color2 = f.readColors(filename, f.secondaryColorOffset);
 		cp[1].setValue(color2);	
+	}
+	
+	private void setCheckBoxTick(String filename, CheckBox cp, Format4248 f) {
+		boolean isTransparent = f.readTransparency(filename);
+		System.out.println(isTransparent);
+		cp.setIndeterminate(false);
+		cp.setSelected(isTransparent);
 	}
 	
 	public boolean updateSelectBackgroundFile(
@@ -263,11 +260,6 @@ public class App extends Application {
 			Format4248.writeTransparentSelectBackgroundColor(filename);
 		else if (option.equals(SELECT_BACKGROUND_VISIBLE))
 			Format4248.writeVisibleSelectBackgroundColor(filename);
-	}
-	
-	private void updateFile(String filename, TwoColorFormat format, boolean isTransparent) {
-		format.writeColors(filename);
-		format.writeTransparency(filename, isTransparent);
 	}
 	
 	private Format070707 createFormat070707(int address, ColorPicker[] cp) {
