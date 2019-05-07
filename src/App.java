@@ -191,13 +191,11 @@ public class App extends Application {
 
 			updateSelectBackgroundFile(filename, cbSelectBackgroundOptions.getValue(), cpSelectBackground1, cpSelectBackground2);
 			
-			updateFile(
-					filename, 
-					cpTopFrame, 
-					cpBottomFrame, 
-					cpRules, 
-					cpBackground 
-			);
+			updateBackground(filename, cpBackground, chbBackgroundTransparency);
+			updateTopFrame(filename, cpTopFrame, chbTopFrameTransparency);
+			updateBottomFrame(filename, cpBottomFrame, chbBottomFrameTransparency);
+			updateRules(filename, cpRules, chbRulesTransparency);
+
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Update Dialog");
@@ -207,6 +205,26 @@ public class App extends Application {
 		});
 		
 		return mainMenu;
+	}
+	
+	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, CheckBox chbBackground) {
+		Format4248 background = createFormat4248(BACKGROUND_START_OFFSET, cpBackgrounds);	
+		updateFile(filename, background, chbBackground.isSelected());
+	}
+	
+	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames, CheckBox chbTopFrame) {
+		Format070707 topFrame = createFormat070707(TOP_FRAME_START_OFFSET, cpTopFrames);		
+		updateFile(filename, topFrame, chbTopFrame.isSelected());
+	}
+	
+	private void updateBottomFrame(String filename, ColorPicker[] cpBottomFrames, CheckBox chbTopFrame) {
+		Format070707 bottomFrame = createFormat070707(BOTTOM_FRAME_START_OFFSET, cpBottomFrames);	
+		updateFile(filename, bottomFrame, chbTopFrame.isSelected());
+	}
+	
+	private void updateRules(String filename, ColorPicker[] cpRules, CheckBox chbRule) {
+		Format070707 rules = createFormat070707(RULES_START_OFFSET, cpRules);	
+		updateFile(filename, rules, chbRule.isSelected());
 	}
 	
 	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
@@ -247,22 +265,9 @@ public class App extends Application {
 			Format4248.writeVisibleSelectBackgroundColor(filename);
 	}
 	
-	public void updateFile(
-			String filename, 
-			ColorPicker[] cpTopFrame, 
-			ColorPicker[] cpBottomFrame, 
-			ColorPicker[] cpRules, 
-			ColorPicker[] cpBackground
-	) 
-	{
-		Format070707 topFrame = createFormat070707(TOP_FRAME_START_OFFSET, cpTopFrame);		
-		Format070707 bottomFrame = createFormat070707(BOTTOM_FRAME_START_OFFSET, cpBottomFrame);	
-		Format070707 rules = createFormat070707(RULES_START_OFFSET, cpRules);	
-		Format4248 background = createFormat4248(BACKGROUND_START_OFFSET, cpBackground);	
-		
-		TwoColorFormat[] twoColorFormats = { topFrame, bottomFrame, rules, background };
-		for (TwoColorFormat format : twoColorFormats)
-			format.writeColors(filename);
+	private void updateFile(String filename, TwoColorFormat format, boolean isTransparent) {
+		format.writeColors(filename);
+		format.writeTransparency(filename, isTransparent);
 	}
 	
 	private Format070707 createFormat070707(int address, ColorPicker[] cp) {
