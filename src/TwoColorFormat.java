@@ -17,14 +17,12 @@ public class TwoColorFormat {
 	
 	public TwoColorFormat() {}
 	
-	public boolean writeColors(String filename) {
-		boolean isPrimaryColor = writeToFile(filename, this.primaryColorOffset, this.primaryColor);
-		boolean isSecondaryColor = writeToFile(filename, this.secondaryColorOffset, this.secondaryColor);
-		
-		return (!isPrimaryColor || !isSecondaryColor) ? false : true;
+	public void writeColors(String filename) {
+		writeToFile(filename, this.primaryColorOffset, this.primaryColor);
+		writeToFile(filename, this.secondaryColorOffset, this.secondaryColor);
 	}
 	
-	private boolean writeToFile(String filename, final int writeAddress, HexRGB rgb) {
+	private void writeToFile(String filename, final int writeAddress, HexRGB rgb) {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 		
 		try {
@@ -34,7 +32,6 @@ public class TwoColorFormat {
 		    raf.write(rgb.blue);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
-			return false;
 		} finally {
 			try {
 				raf.close();
@@ -42,8 +39,6 @@ public class TwoColorFormat {
 				ioe.printStackTrace();
 			}
 		}
-		
-		return true;
 	}
 	
 	public Color read(String filename, final int readAddress) {
