@@ -19,10 +19,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class App extends Application {
-	private final int TOP_FRAME_START_OFFSET = 0x349008;
-	private final int BOTTOM_FRAME_START_OFFSET = 0x348E88;
-	private final int RULES_START_OFFSET = 0x348F48;		
-	private final int BACKGROUND_START_OFFSET = 0x000958;		
 	private final String SELECT_BACKGROUND_DO_NOTHING = "Do Nothing";
 	private final String SELECT_BACKGROUND_ALL = "All";
 	private final String SELECT_BACKGROUND_ALTERNATE = "Alternate";
@@ -159,10 +155,10 @@ public class App extends Application {
 	    		String filename = file.toString();
 	    		tfSourceFile.setText(filename);
 	    		
-	    		Format070707 topFrame = new Format070707(TOP_FRAME_START_OFFSET);
-	    		Format070707 bottomFrame = new Format070707(BOTTOM_FRAME_START_OFFSET);
-	    		Format070707 rules = new Format070707(RULES_START_OFFSET);
-	    		Format4248 background = new Format4248(BACKGROUND_START_OFFSET);
+	    		Format070707 topFrame = new TopFrame();
+	    		Format070707 bottomFrame = new BottomFrame();
+	    		Format070707 rules = new Rules();
+	    		Format4248 background = new Background();
 	    		
 	    		setColorPickerColor(filename, cpTopFrame, topFrame);
 	    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
@@ -195,7 +191,8 @@ public class App extends Application {
 	}
 	
 	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, CheckBox chbBackground) {
-		Format4248 background = createFormat4248(BACKGROUND_START_OFFSET, cpBackgrounds);	
+		TwoColor twoColor = getTwoColor(cpBackgrounds);
+		Format4248 background = new Background(twoColor.primaryColor, twoColor.secondaryColor);	
 		boolean isTransparent = chbBackground.isSelected();
 		
 		background.writeColors(filename);
@@ -203,25 +200,28 @@ public class App extends Application {
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
-		Format070707 topFrame = createFormat070707(TOP_FRAME_START_OFFSET, cpTopFrames);		
+		TwoColor twoColor = getTwoColor(cpTopFrames);
+		Format070707 topFrame = new TopFrame(twoColor.primaryColor, twoColor.secondaryColor);		
 		topFrame.writeColors(filename);
 	}
 	
 	private void updateBottomFrame(String filename, ColorPicker[] cpBottomFrames) {
-		Format070707 bottomFrame = createFormat070707(BOTTOM_FRAME_START_OFFSET, cpBottomFrames);	
+		TwoColor twoColor = getTwoColor(cpBottomFrames);
+		Format070707 bottomFrame = new BottomFrame(twoColor.primaryColor, twoColor.secondaryColor);
 		bottomFrame.writeColors(filename);
 	}
 	
 	private void updateRules(String filename, ColorPicker[] cpRules) {
-		Format070707 rules = createFormat070707(RULES_START_OFFSET, cpRules);	
+		TwoColor twoColor = getTwoColor(cpRules);
+		Format070707 rules = new Rules(twoColor.primaryColor, twoColor.secondaryColor);
 		rules.writeColors(filename);
 	}
 	
 	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
-		Color color1 = f.readColors(filename, f.primaryColorOffset);
+		Color color1 = f.readColors(filename, f.getPrimaryColorOffset());
 		cp[0].setValue(color1);	
 		
-		Color color2 = f.readColors(filename, f.secondaryColorOffset);
+		Color color2 = f.readColors(filename, f.getSecondaryColorOffset());
 		cp[1].setValue(color2);	
 	}
 	
@@ -239,8 +239,10 @@ public class App extends Application {
 			ColorPicker[] cpSelectBackground2
 	) 
 	{
-		Format4248 selectBackground1 = createFormat4248(BACKGROUND_START_OFFSET, cpSelectBackground1);	
-		Format4248 selectBackground2 = createFormat4248(BACKGROUND_START_OFFSET, cpSelectBackground2);	
+		TwoColor twoColor1 = getTwoColor(cpSelectBackground1);
+		Format4248 selectBackground1 = new SelectBackground(twoColor1.primaryColor, twoColor1.secondaryColor);
+		TwoColor twoColor2 = getTwoColor(cpSelectBackground2);
+		Format4248 selectBackground2 = new SelectBackground(twoColor2.primaryColor, twoColor2.secondaryColor);
 
 		selectBackgroundOption(filename, selectBackgroundOption, selectBackground1, selectBackground2);
 
@@ -249,24 +251,20 @@ public class App extends Application {
 	
 	private void selectBackgroundOption(String filename, String option, Format4248 selectBackground1, Format4248 selectBackground2) {
 		if (option.equals(SELECT_BACKGROUND_RANDOM))
-			Format4248.writeRandomSelectBackgroundColor(filename);
+			SelectBackground.writeRandomSelectBackgroundColor(filename);
 		else if (option.equals(SELECT_BACKGROUND_ALL)) 
-			Format4248.writeAllSelectBackgroundColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
+			SelectBackground.writeAllSelectBackgroundColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
 		else if (option.equals(SELECT_BACKGROUND_ALTERNATE)) {
 			HexRGB[] rgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
 			HexRGB[] rgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-			Format4248.writeAlternateSelectBackgroundColor(filename, rgb1, rgb2);
+			SelectBackground.writeAlternateSelectBackgroundColor(filename, rgb1, rgb2);
 		} else if (option.equals(SELECT_BACKGROUND_TRANSPARENT))
-			Format4248.writeTransparentSelectBackgroundColor(filename);
+			SelectBackground.writeTransparentSelectBackgroundColor(filename);
 		else if (option.equals(SELECT_BACKGROUND_VISIBLE))
-			Format4248.writeVisibleSelectBackgroundColor(filename);
+			SelectBackground.writeVisibleSelectBackgroundColor(filename);
 	}
 	
-	private Format070707 createFormat070707(int address, ColorPicker[] cp) {
-		return new Format070707(address, cp[0].getValue(), cp[1].getValue());
-	}
-	
-	private Format4248 createFormat4248(int address, ColorPicker[] cp) {
-		return new Format4248(address, cp[0].getValue(), cp[1].getValue());
+	private TwoColor getTwoColor(ColorPicker[] cp) {
+		return new TwoColor(cp[0].getValue(), cp[1].getValue());
 	}
 }
