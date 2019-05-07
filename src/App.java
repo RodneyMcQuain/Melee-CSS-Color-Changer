@@ -191,23 +191,18 @@ public class App extends Application {
 
 			updateSelectBackgroundFile(filename, cbSelectBackgroundOptions.getValue(), cpSelectBackground1, cpSelectBackground2);
 			
-			
-			//Provide user with an informational dialog
-			boolean isUpdated = updateFile(
+			updateFile(
 					filename, 
 					cpTopFrame, 
 					cpBottomFrame, 
 					cpRules, 
 					cpBackground 
 			);
+			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Update Dialog");
 			alert.setHeaderText(null);
-			if (isUpdated)
-				alert.setContentText("File updated successfully.");
-			else
-				alert.setContentText("Error while updating file, please restart the program.");
-			
+			alert.setContentText("File updated successfully.");
 			alert.showAndWait();
 		});
 		
@@ -252,7 +247,7 @@ public class App extends Application {
 			Format4248.writeVisibleSelectBackgroundColor(filename);
 	}
 	
-	public boolean updateFile(
+	public void updateFile(
 			String filename, 
 			ColorPicker[] cpTopFrame, 
 			ColorPicker[] cpBottomFrame, 
@@ -266,14 +261,8 @@ public class App extends Application {
 		Format4248 background = createFormat4248(BACKGROUND_START_OFFSET, cpBackground);	
 		
 		TwoColorFormat[] twoColorFormats = { topFrame, bottomFrame, rules, background };
-		boolean isUpdated = true;
-		for (TwoColorFormat format : twoColorFormats) {
-			boolean temp = format.writeColors(filename);
-			if (!temp)
-				isUpdated = false;
-		}
-	
-		return isUpdated;
+		for (TwoColorFormat format : twoColorFormats)
+			format.writeColors(filename);
 	}
 	
 	private Format070707 createFormat070707(int address, ColorPicker[] cp) {
