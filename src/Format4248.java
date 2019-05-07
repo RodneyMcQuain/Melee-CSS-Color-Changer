@@ -1,7 +1,5 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Random;
 
 import javafx.scene.paint.Color;
 
@@ -36,6 +34,33 @@ public class Format4248 extends TwoColorFormat {
 	
 	private int getTransparencyOffset(int startOffset) {
 		return startOffset - 0x000004;
+	}
+	
+	public void writeTransparency(String filename, boolean isTransparent) {
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
+		
+		try {
+		    raf.seek(transparencyOffset);
+		    if (isTransparent) {
+		    	raf.write(0x00);
+		    	raf.write(0x00);
+		    	raf.write(0x00);
+		    	raf.write(0x00);
+		    } else {
+		    	raf.write(0x3F);
+		    	raf.write(0x6A);
+		    	raf.write(0x3D);
+		    	raf.write(0x71);
+		    }
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} finally {
+			try {
+				raf.close();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
 	}
 	
 	public static boolean writeTransparentSelectBackgroundColor(String filename) {
@@ -185,14 +210,14 @@ public class Format4248 extends TwoColorFormat {
 			Format4248 format = new Format4248(offset);
 
 			raf.seek(format.primaryColorOffset);
-	    	raf.write(rgb1.red);
-	    	raf.write(rgb1.green);
-	    	raf.write(rgb1.blue);
+			raf.write(rgb1.red);
+			raf.write(rgb1.green);
+			raf.write(rgb1.blue);
 	    	
 			raf.seek(format.secondaryColorOffset);
-	    	raf.write(rgb2.red);
-	    	raf.write(rgb2.green);
-	    	raf.write(rgb2.blue);
+			raf.write(rgb2.red);
+			raf.write(rgb2.green);
+			raf.write(rgb2.blue);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
