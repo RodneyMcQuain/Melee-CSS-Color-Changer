@@ -1,24 +1,20 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -58,7 +54,7 @@ public class App extends Application {
     	gridPaneBottom.setVgap(10);
     	gridPaneBottom.setPadding(new Insets(10, 10, 10, 10));
     	
-    	Scene mainMenu =  new Scene(main, 700, 350);
+    	Scene mainMenu =  new Scene(main, 900, 350);
     	main.setCenter(gridPaneCenter);
     	main.setBottom(gridPaneBottom);
     	FileChooser fcSourceFile = new FileChooser();
@@ -68,6 +64,7 @@ public class App extends Application {
     	Label lblSecondaryColor = new Label(SECONDARY_COLOR);
     	Label lblPrimaryColor2 = new Label(PRIMARY_COLOR);
     	Label lblSecondaryColor2 = new Label(SECONDARY_COLOR);
+    	Label lblTransparent = new Label("Transparent?");
     	Label lblTopFrame = new Label("Top Frame: ");
     	Label lblBottomFrame = new Label("Bottom Frame: ");
     	Label lblRules = new Label("Rules: ");
@@ -82,6 +79,19 @@ public class App extends Application {
     	Button btUpdateFile = new Button("Update File");
     	Button btChooseFile = new Button("Choose a File to Modify");
     	TextField tfSourceFile = new TextField();
+    	CheckBox chbTopFrameTransparency = new CheckBox();
+    	CheckBox chbBottomFrameTransparency = new CheckBox();
+    	CheckBox chbRulesTransparency = new CheckBox();
+    	CheckBox chbBackgroundTransparency = new CheckBox();
+    	CheckBox[] transparencyCheckboxes = { 
+    			chbTopFrameTransparency, 
+    			chbBottomFrameTransparency, 
+    			chbRulesTransparency, 
+    			chbBackgroundTransparency 
+		};
+    	for (CheckBox cb : transparencyCheckboxes)
+    		GridPane.setHalignment(cb, HPos.CENTER);
+    	
     	ComboBox<String> cbSelectBackgroundOptions = new ComboBox<String>();
     	cbSelectBackgroundOptions.getItems().addAll(
 			SELECT_BACKGROUND_DO_NOTHING,
@@ -93,33 +103,42 @@ public class App extends Application {
 		);
     	cbSelectBackgroundOptions.setValue(SELECT_BACKGROUND_DO_NOTHING);
     	
+    	//Add to center pane
     	gridPaneCenter.add(lblPrimaryColor, 1, 0);
     	gridPaneCenter.add(lblSecondaryColor, 2, 0);
+    	gridPaneCenter.add(lblTransparent, 3, 0);
 
     	gridPaneCenter.add(lblTopFrame, 0, 1);
     	gridPaneCenter.add(cpTopFrame[0], 1, 1);
     	gridPaneCenter.add(cpTopFrame[1], 2, 1);
-    	
+    	gridPaneCenter.add(chbTopFrameTransparency, 3, 1);
+
     	gridPaneCenter.add(lblBottomFrame, 0, 2);
     	gridPaneCenter.add(cpBottomFrame[0], 1, 2);
     	gridPaneCenter.add(cpBottomFrame[1], 2, 2);
-    	
+    	gridPaneCenter.add(chbBottomFrameTransparency, 3, 2);
+
     	gridPaneCenter.add(lblRules, 0, 3);
     	gridPaneCenter.add(cpRules[0], 1, 3);
     	gridPaneCenter.add(cpRules[1], 2, 3);
-    	
+    	gridPaneCenter.add(chbRulesTransparency, 3, 3);
+
     	gridPaneCenter.add(lblBackground, 0, 4);
     	gridPaneCenter.add(cpBackground[0], 1, 4);
     	gridPaneCenter.add(cpBackground[1], 2, 4);
-    	
+    	gridPaneCenter.add(chbBackgroundTransparency, 3, 4);
+
     	gridPaneCenter.add(lblSelectBackground, 4, 0);
     	gridPaneCenter.add(cbSelectBackgroundOptions, 5, 0);
     	
+    	
+    	//Add to bottom pane
     	gridPaneBottom.add(tfSourceFile, 0, 0, 20, 1);
     	gridPaneBottom.add(btChooseFile, 20, 0);
     	gridPaneBottom.add(btUpdateFile, 0, 1);
     	btUpdateFile.setDisable(true);
     	
+    	//Set actions
     	cbSelectBackgroundOptions.setOnAction(e -> {
     		String option = cbSelectBackgroundOptions.getValue();
     		
@@ -172,6 +191,8 @@ public class App extends Application {
 
 			updateSelectBackgroundFile(filename, cbSelectBackgroundOptions.getValue(), cpSelectBackground1, cpSelectBackground2);
 			
+			
+			//Provide user with an informational dialog
 			boolean isUpdated = updateFile(
 					filename, 
 					cpTopFrame, 
@@ -247,7 +268,7 @@ public class App extends Application {
 		TwoColorFormat[] twoColorFormats = { topFrame, bottomFrame, rules, background };
 		boolean isUpdated = true;
 		for (TwoColorFormat format : twoColorFormats) {
-			boolean temp = format.write(filename);
+			boolean temp = format.writeColors(filename);
 			if (!temp)
 				isUpdated = false;
 		}
