@@ -1,13 +1,11 @@
 import java.io.File;
 
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -25,7 +23,8 @@ public class App extends Application {
 	private final String SELECT_BACKGROUND_RANDOM = "Random";
 	private final String SELECT_BACKGROUND_TRANSPARENT = "Transparent";
 	private final String SELECT_BACKGROUND_VISIBLE = "Visible";
-	
+	private final String SPECIFY_COLOR = "Specify Color";
+
 	public static void main(String[] args) {
         Application.launch(args);
 	}
@@ -60,7 +59,6 @@ public class App extends Application {
     	Label lblSecondaryColor = new Label(SECONDARY_COLOR);
     	Label lblPrimaryColor2 = new Label(PRIMARY_COLOR);
     	Label lblSecondaryColor2 = new Label(SECONDARY_COLOR);
-    	Label lblTransparent = new Label("Transparent?");
     	Label lblTopFrame = new Label("Top Frame: ");
     	Label lblBottomFrame = new Label("Bottom Frame: ");
     	Label lblRules = new Label("Rules: ");
@@ -75,8 +73,13 @@ public class App extends Application {
     	Button btUpdateFile = new Button("Update File");
     	Button btChooseFile = new Button("Choose a File to Modify");
     	TextField tfSourceFile = new TextField();
-    	CheckBox chbBackgroundTransparency = new CheckBox();
-		GridPane.setHalignment(chbBackgroundTransparency, HPos.CENTER);
+
+    	ComboBox<String> cbBackgroundOptions = new ComboBox<String>();
+    	cbBackgroundOptions.getItems().addAll(
+    		SPECIFY_COLOR,
+			SELECT_BACKGROUND_TRANSPARENT
+		);
+    	cbBackgroundOptions.setValue(SPECIFY_COLOR);
     	
     	ComboBox<String> cbSelectBackgroundOptions = new ComboBox<String>();
     	cbSelectBackgroundOptions.getItems().addAll(
@@ -92,7 +95,6 @@ public class App extends Application {
     	//Add to center pane
     	gridPaneCenter.add(lblPrimaryColor, 1, 0);
     	gridPaneCenter.add(lblSecondaryColor, 2, 0);
-    	gridPaneCenter.add(lblTransparent, 3, 0);
 
     	gridPaneCenter.add(lblTopFrame, 0, 1);
     	gridPaneCenter.add(cpTopFrame[0], 1, 1);
@@ -109,7 +111,7 @@ public class App extends Application {
     	gridPaneCenter.add(lblBackground, 0, 4);
     	gridPaneCenter.add(cpBackground[0], 1, 4);
     	gridPaneCenter.add(cpBackground[1], 2, 4);
-    	gridPaneCenter.add(chbBackgroundTransparency, 3, 4);
+    	gridPaneCenter.add(cbBackgroundOptions, 3, 4);
 
     	gridPaneCenter.add(lblSelectBackground, 4, 0);
     	gridPaneCenter.add(cbSelectBackgroundOptions, 5, 0);
@@ -147,6 +149,25 @@ public class App extends Application {
     		}
 		});
     	
+    	cbBackgroundOptions.setOnAction(e -> {
+    		String option = cbBackgroundOptions.getValue();
+    		
+			gridPaneCenter.getChildren().remove(cpBackground[0]);
+			gridPaneCenter.getChildren().remove(cpBackground[1]);
+			gridPaneCenter.getChildren().remove(cbBackgroundOptions);
+    		
+    		switch(option) {
+    			case SPECIFY_COLOR:
+    	        	gridPaneCenter.add(cpBackground[0], 1, 4);
+    	        	gridPaneCenter.add(cpBackground[1], 2, 4);
+    	        	gridPaneCenter.add(cbBackgroundOptions, 3, 4);		
+    				break;
+    			case SELECT_BACKGROUND_TRANSPARENT:
+    	        	gridPaneCenter.add(cbBackgroundOptions, 1, 4);		
+    				break;
+    		}
+    	});
+    	
     	btChooseFile.setOnAction(e -> { 
     		File file = fcSourceFile.showOpenDialog(stage.getScene().getWindow());
     		
@@ -164,7 +185,7 @@ public class App extends Application {
 	    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
 	    		setColorPickerColor(filename, cpRules, rules);
 	    		setColorPickerColor(filename, cpBackground, background);
-				setCheckBoxTick(filename, chbBackgroundTransparency, background);
+				setBackgroundComboBox(filename, cbBackgroundOptions, background);
     		} else {
     			btUpdateFile.setDisable(true);
     		}
@@ -175,7 +196,7 @@ public class App extends Application {
 
 			updateSelectBackgroundFile(filename, cbSelectBackgroundOptions.getValue(), cpSelectBackground1, cpSelectBackground2);
 			
-			updateBackground(filename, cpBackground, chbBackgroundTransparency);
+			updateBackground(filename, cpBackground, cbBackgroundOptions);
 			updateTopFrame(filename, cpTopFrame);
 			updateBottomFrame(filename, cpBottomFrame);
 			updateRules(filename, cpRules);
@@ -190,10 +211,10 @@ public class App extends Application {
 		return mainMenu;
 	}
 	
-	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, CheckBox chbBackground) {
+	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, ComboBox<String> cbBackgroundOptions) {
 		TwoColor twoColor = getTwoColor(cpBackgrounds);
 		Format4248 background = new Background(twoColor.primaryColor, twoColor.secondaryColor);	
-		boolean isTransparent = chbBackground.isSelected();
+		boolean isTransparent = cbBackgroundOptions.getValue() == SELECT_BACKGROUND_TRANSPARENT ? true : false;
 		
 		background.writeColors(filename);
 		background.writeTransparency(filename, isTransparent);
@@ -225,11 +246,13 @@ public class App extends Application {
 		cp[1].setValue(color2);	
 	}
 	
-	private void setCheckBoxTick(String filename, CheckBox cp, Format4248 f) {
+	private void setBackgroundComboBox(String filename, ComboBox<String> cb, Format4248 f) {
 		boolean isTransparent = f.readTransparency(filename);
-		System.out.println(isTransparent);
-		cp.setIndeterminate(false);
-		cp.setSelected(isTransparent);
+		
+		if (isTransparent)
+			cb.setValue(SELECT_BACKGROUND_TRANSPARENT);
+		else
+			cb.setValue(SPECIFY_COLOR);
 	}
 	
 	public boolean updateSelectBackgroundFile(
