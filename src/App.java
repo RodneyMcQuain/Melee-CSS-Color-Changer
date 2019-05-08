@@ -63,11 +63,13 @@ public class App extends Application {
     	Label lblBottomFrame = new Label("Bottom Frame: ");
     	Label lblRules = new Label("Rules: ");
     	Label lblBackground = new Label("Background: ");
+    	Label lblCursor = new Label("Cursor: ");
     	Label lblSelectBackground = new Label("Selects in Background: ");
     	ColorPicker[] cpTopFrame = { new ColorPicker(), new ColorPicker() };
     	ColorPicker[] cpBottomFrame = { new ColorPicker(), new ColorPicker() };
     	ColorPicker[] cpRules = { new ColorPicker(), new ColorPicker() };
     	ColorPicker[] cpBackground = { new ColorPicker(), new ColorPicker() };
+    	ColorPicker[] cpCursor = { new ColorPicker(), new ColorPicker() };
     	ColorPicker[] cpSelectBackground1 = { new ColorPicker(), new ColorPicker() };
     	ColorPicker[] cpSelectBackground2 = { new ColorPicker(), new ColorPicker() };
     	Button btUpdateFile = new Button("Update File");
@@ -113,6 +115,10 @@ public class App extends Application {
     	gridPaneCenter.add(cpBackground[1], 2, 4);
     	gridPaneCenter.add(cbBackgroundOptions, 3, 4);
 
+    	gridPaneCenter.add(lblCursor, 0, 5);
+    	gridPaneCenter.add(cpCursor[0], 1, 5);
+    	gridPaneCenter.add(cpCursor[1], 2, 5);
+    	
     	gridPaneCenter.add(lblSelectBackground, 4, 0);
     	gridPaneCenter.add(cbSelectBackgroundOptions, 5, 0);
     	
@@ -180,11 +186,13 @@ public class App extends Application {
 	    		Format070707 bottomFrame = new BottomFrame();
 	    		Format070707 rules = new Rules();
 	    		Format4248 background = new Background();
-	    		
+	    		Format070707 cursor = new Cursor();
+
 	    		setColorPickerColor(filename, cpTopFrame, topFrame);
 	    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
 	    		setColorPickerColor(filename, cpRules, rules);
 	    		setColorPickerColor(filename, cpBackground, background);
+	    		setColorPickerColor(filename, cpCursor, cursor);
 				setBackgroundComboBox(filename, cbBackgroundOptions, background);
     		} else {
     			btUpdateFile.setDisable(true);
@@ -200,6 +208,7 @@ public class App extends Application {
 			updateTopFrame(filename, cpTopFrame);
 			updateBottomFrame(filename, cpBottomFrame);
 			updateRules(filename, cpRules);
+			updateCursor(filename, cpCursor);
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Update Dialog");
@@ -238,6 +247,12 @@ public class App extends Application {
 		rules.writeColors(filename);
 	}
 	
+	private void updateCursor(String filename, ColorPicker[] cpCursor) {
+		TwoColor twoColor = getTwoColor(cpCursor);
+		Format070707 cursor = new Cursor(twoColor.primaryColor, twoColor.secondaryColor);
+		cursor.writeColors(filename);
+	}
+
 	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
 		Color color1 = f.readColors(filename, f.getPrimaryColorOffset());
 		cp[0].setValue(color1);	
