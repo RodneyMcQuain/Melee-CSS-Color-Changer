@@ -288,18 +288,25 @@ public class App extends Application {
 	}
 	
 	private void selectBackgroundOption(String filename, String option, Format4248 selectBackground1, Format4248 selectBackground2) {
-		if (option.equals(SELECT_BACKGROUND_RANDOM))
-			SelectBackground.writeRandomSelectBackgroundColor(filename);
-		else if (option.equals(SELECT_BACKGROUND_ALL)) 
-			SelectBackground.writeAllSelectBackgroundColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
-		else if (option.equals(SELECT_BACKGROUND_ALTERNATE)) {
-			HexRGB[] rgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
-			HexRGB[] rgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-			SelectBackground.writeAlternateSelectBackgroundColor(filename, rgb1, rgb2);
-		} else if (option.equals(SELECT_BACKGROUND_TRANSPARENT))
-			SelectBackground.writeTransparentSelectBackgroundColor(filename);
-		else if (option.equals(SELECT_BACKGROUND_VISIBLE))
-			SelectBackground.writeVisibleSelectBackgroundColor(filename);
+		switch (option) {
+			case SELECT_BACKGROUND_RANDOM:
+				SelectBackground.writeRandomSelectBackgroundColor(filename);
+				break;
+			case SELECT_BACKGROUND_ALL:
+				SelectBackground.writeAllSelectBackgroundColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
+				break;
+			case SELECT_BACKGROUND_ALTERNATE:
+				HexRGB[] rgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
+				HexRGB[] rgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
+				SelectBackground.writeAlternateSelectBackgroundColor(filename, rgb1, rgb2);
+				break;
+			case SELECT_BACKGROUND_TRANSPARENT:
+				SelectBackground.writeTransparentSelectBackgroundColor(filename);
+				break;
+			case SELECT_BACKGROUND_VISIBLE:
+				SelectBackground.writeVisibleSelectBackgroundColor(filename);
+				break;
+		}
 	}
 	
 	private TwoColor getTwoColor(ColorPicker[] cp) {
