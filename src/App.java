@@ -140,19 +140,22 @@ public class App extends Application {
 			gridPaneCenter.getChildren().remove(cpSelectBackground2[0]);
 			gridPaneCenter.getChildren().remove(cpSelectBackground2[1]);
     		
-    		if (option.equals(SELECT_BACKGROUND_ALL)) { 
-    	    	gridPaneCenter.add(lblPrimaryColor2, 4, 1);
-    	    	gridPaneCenter.add(lblSecondaryColor2, 5, 1);
-    			gridPaneCenter.add(cpSelectBackground1[0], 4, 1);
-    	    	gridPaneCenter.add(cpSelectBackground1[1], 5, 1);
-    		} else if (option.equals(SELECT_BACKGROUND_ALTERNATE)) {
-    	    	gridPaneCenter.add(lblPrimaryColor2, 4, 1);
-    	    	gridPaneCenter.add(lblSecondaryColor2, 5, 1);
-    	    	gridPaneCenter.add(cpSelectBackground1[0], 4, 2);
-    	    	gridPaneCenter.add(cpSelectBackground1[1], 5, 2);
-		    	gridPaneCenter.add(cpSelectBackground2[0], 4, 3);
-		    	gridPaneCenter.add(cpSelectBackground2[1], 5, 3);
-    		}
+			switch (option) {
+				case SELECT_BACKGROUND_ALL:
+	    	    	gridPaneCenter.add(lblPrimaryColor2, 4, 1);
+	    	    	gridPaneCenter.add(lblSecondaryColor2, 5, 1);
+	    			gridPaneCenter.add(cpSelectBackground1[0], 4, 1);
+	    	    	gridPaneCenter.add(cpSelectBackground1[1], 5, 1);
+					break;
+				case SELECT_BACKGROUND_ALTERNATE:
+	    	    	gridPaneCenter.add(lblPrimaryColor2, 4, 1);
+	    	    	gridPaneCenter.add(lblSecondaryColor2, 5, 1);
+	    	    	gridPaneCenter.add(cpSelectBackground1[0], 4, 2);
+	    	    	gridPaneCenter.add(cpSelectBackground1[1], 5, 2);
+			    	gridPaneCenter.add(cpSelectBackground2[0], 4, 3);
+			    	gridPaneCenter.add(cpSelectBackground2[1], 5, 3);
+					break;
+			}
 		});
     	
     	cbBackgroundOptions.setOnAction(e -> {
