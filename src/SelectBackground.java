@@ -34,11 +34,7 @@ public class SelectBackground extends Format4248 {
 			e.printStackTrace();
 			return false;
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 		
 		return true;
@@ -63,11 +59,7 @@ public class SelectBackground extends Format4248 {
 			e.printStackTrace();
 			return false;
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 		
 		return true;
@@ -94,11 +86,7 @@ public class SelectBackground extends Format4248 {
 					return false;
 			}
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 		
 		return true;
@@ -146,11 +134,7 @@ public class SelectBackground extends Format4248 {
 					return false;
 			}
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 		
 		return true;

@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class Utility {
@@ -12,5 +13,13 @@ public class Utility {
 		}
 		
 		return raf;
+	}
+	
+	public static void closeRandomAccessFile(RandomAccessFile raf) {
+		try {
+			raf.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 }

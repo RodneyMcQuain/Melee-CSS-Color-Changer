@@ -44,11 +44,7 @@ public class Format070707 extends TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 	}
 }

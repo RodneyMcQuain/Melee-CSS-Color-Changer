@@ -36,11 +36,7 @@ abstract class TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 	}
 	
@@ -57,11 +53,7 @@ abstract class TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 		
 		return color;
@@ -77,11 +69,7 @@ abstract class TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			try {
-				raf.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+			Utility.closeRandomAccessFile(raf);
 		}
 		
 		return false;
