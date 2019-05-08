@@ -15,7 +15,7 @@ public class SelectBackground extends Format4248 {
 		super(SELECT_BACKGROUND_OFFSET_START);
 	}
 	
-	public static boolean writeTransparentSelectBackgroundColor(String filename) {
+	public static void writeTransparentSelectBackgroundColor(String filename) {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		try {
@@ -32,15 +32,12 @@ public class SelectBackground extends Format4248 {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
 		} finally {
 			Utility.closeRandomAccessFile(raf);
 		}
-		
-		return true;
 	}
 	
-	public static boolean writeVisibleSelectBackgroundColor(String filename) {
+	public static void writeVisibleSelectBackgroundColor(String filename) {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		try {
@@ -57,18 +54,14 @@ public class SelectBackground extends Format4248 {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
 		} finally {
 			Utility.closeRandomAccessFile(raf);
 		}
-		
-		return true;
 	}
 	
-	public static boolean writeRandomSelectBackgroundColor(String filename) {
+	public static void writeRandomSelectBackgroundColor(String filename) {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
-		boolean isSuccess = true;
 		try {
 			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
 				if (Format4248.is4248Format(raf, i)) {
@@ -79,29 +72,21 @@ public class SelectBackground extends Format4248 {
 					
 					HexRGB rgb = new HexRGB(color);
 					
-					isSuccess = writeSelectBackgroundToFile(raf, i, rgb, rgb);
+					writeSelectBackgroundToFile(raf, i, rgb, rgb);
 				}
-				
-				if (!isSuccess)
-					return false;
 			}
 		} finally {
 			Utility.closeRandomAccessFile(raf);
 		}
-		
-		return true;
 	}
 	
-	public static boolean writeAllSelectBackgroundColor(String filename, HexRGB rgb1, HexRGB rgb2) {
+	public static void writeAllSelectBackgroundColor(String filename, HexRGB rgb1, HexRGB rgb2) {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
-		boolean isSuccess = true;
 		try {
 			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
 				if (Format4248.is4248Format(raf, i))
-					isSuccess = writeSelectBackgroundToFile(raf, i, rgb1, rgb2);
-				if (!isSuccess)
-					return false;
+					writeSelectBackgroundToFile(raf, i, rgb1, rgb2);
 			}
 		} finally {
 			try {
@@ -110,37 +95,29 @@ public class SelectBackground extends Format4248 {
 				ioe.printStackTrace();
 			}
 		}
-		
-		return true;
 	}
 	
-	public static boolean writeAlternateSelectBackgroundColor(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
+	public static void writeAlternateSelectBackgroundColor(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
 		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
 
 		int j = 0;
-		boolean isSuccess = true;
 		try {
 			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
 				if (Format4248.is4248Format(raf, i)) {
 					if (j % 2 == 0)
-						isSuccess = writeSelectBackgroundToFile(raf, i, rgb1[0], rgb1[1]);
+						writeSelectBackgroundToFile(raf, i, rgb1[0], rgb1[1]);
 					else
-						isSuccess = writeSelectBackgroundToFile(raf, i, rgb2[0], rgb2[1]);
+						writeSelectBackgroundToFile(raf, i, rgb2[0], rgb2[1]);
 					
 					j++;
 				}
-				
-				if (!isSuccess)
-					return false;
 			}
 		} finally {
 			Utility.closeRandomAccessFile(raf);
 		}
-		
-		return true;
 	}
 	
-	private static boolean writeSelectBackgroundToFile(RandomAccessFile raf, int offset, HexRGB rgb1, HexRGB rgb2) {
+	private static void writeSelectBackgroundToFile(RandomAccessFile raf, int offset, HexRGB rgb1, HexRGB rgb2) {
 		try {
 			raf.seek(offset);
 			Format4248 format = new Format4248(offset);
@@ -156,9 +133,6 @@ public class SelectBackground extends Format4248 {
 			raf.write(rgb2.blue);
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
 		}
-		
-		return true;
 	}
 }
