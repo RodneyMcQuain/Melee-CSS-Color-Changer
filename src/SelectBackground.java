@@ -117,6 +117,26 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
+	public static void writeTriSelectBackgroundColor(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
+		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
+
+		int j = 0;
+		try {
+			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
+				if (Format4248.is4248Format(raf, i)) {
+					if (j % 3 == 0)
+						writeSelectBackgroundToFile(raf, i, rgb1[0], rgb1[1]);
+					else
+						writeSelectBackgroundToFile(raf, i, rgb2[0], rgb2[1]);
+					
+					j++;
+				}
+			}
+		} finally {
+			Utility.closeRandomAccessFile(raf);
+		}
+	}
+	
 	private static void writeSelectBackgroundToFile(RandomAccessFile raf, int offset, HexRGB rgb1, HexRGB rgb2) {
 		try {
 			raf.seek(offset);
