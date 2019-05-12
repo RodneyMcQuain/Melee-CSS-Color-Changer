@@ -20,6 +20,7 @@ public class App extends Application {
 	private final String SELECT_BACKGROUND_DO_NOTHING = "Do Nothing";
 	private final String SELECT_BACKGROUND_ALL = "All";
 	private final String SELECT_BACKGROUND_ALTERNATE = "Alternate";
+	private final String SELECT_BACKGROUND_TRI = "Tri";
 	private final String SELECT_BACKGROUND_RANDOM = "Random";
 	private final String SELECT_BACKGROUND_TRANSPARENT = "Transparent";
 	private final String SELECT_BACKGROUND_VISIBLE = "Visible";
@@ -88,6 +89,7 @@ public class App extends Application {
 			SELECT_BACKGROUND_DO_NOTHING,
 			SELECT_BACKGROUND_ALL,
 			SELECT_BACKGROUND_ALTERNATE,
+			SELECT_BACKGROUND_TRI,
 			SELECT_BACKGROUND_RANDOM,
 			SELECT_BACKGROUND_TRANSPARENT,
 			SELECT_BACKGROUND_VISIBLE
@@ -148,6 +150,7 @@ public class App extends Application {
 	    	    	gridPaneCenter.add(cpSelectBackground1[1], 5, 1);
 					break;
 				case SELECT_BACKGROUND_ALTERNATE:
+				case SELECT_BACKGROUND_TRI:
 	    	    	gridPaneCenter.add(lblPrimaryColor2, 4, 1);
 	    	    	gridPaneCenter.add(lblSecondaryColor2, 5, 1);
 	    	    	gridPaneCenter.add(cpSelectBackground1[0], 4, 2);
@@ -299,9 +302,14 @@ public class App extends Application {
 				SelectBackground.writeAllSelectBackgroundColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
 				break;
 			case SELECT_BACKGROUND_ALTERNATE:
-				HexRGB[] rgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
-				HexRGB[] rgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-				SelectBackground.writeAlternateSelectBackgroundColor(filename, rgb1, rgb2);
+				HexRGB[] altRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
+				HexRGB[] altRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
+				SelectBackground.writeAlternateSelectBackgroundColor(filename, altRgb1, altRgb2);
+				break;
+			case SELECT_BACKGROUND_TRI:
+				HexRGB[] triRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
+				HexRGB[] triRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
+				SelectBackground.writeTriSelectBackgroundColor(filename, triRgb1, triRgb2);
 				break;
 			case SELECT_BACKGROUND_TRANSPARENT:
 				SelectBackground.writeTransparentSelectBackgroundColor(filename);
