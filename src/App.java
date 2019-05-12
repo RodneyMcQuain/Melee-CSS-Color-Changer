@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -54,6 +55,11 @@ public class App extends Application {
     	main.setCenter(gridPaneCenter);
     	main.setBottom(gridPaneBottom);
     	FileChooser fcSourceFile = new FileChooser();
+    	fcSourceFile.setTitle("Open MnSlChr.*sd File");
+    	fcSourceFile.getExtensionFilters().addAll(
+    			new ExtensionFilter(".usd, .0sd, etc. Files", "*.*sd"),
+    			new ExtensionFilter("All Files", "*.*")
+		);
     	final String PRIMARY_COLOR = "Primary Color";
     	final String SECONDARY_COLOR = "Secondary Color";
     	Label lblPrimaryColor = new Label(PRIMARY_COLOR);
