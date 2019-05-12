@@ -178,8 +178,8 @@ public class App extends Application {
     	formatFileChooserForUsdFiles(fcSourceFile);
     	setInitialDirectory(fcSourceFile);
     	
-    	gp.add(tfSourceFile, 0, 0, 20, 1);
-    	gp.add(btChooseFile, 20, 0);
+    	gp.add(tfSourceFile, 0, 0, 30, 1);
+    	gp.add(btChooseFile, 30, 0);
     	gp.add(btUpdateFile, 0, 1);
 	}
 	
