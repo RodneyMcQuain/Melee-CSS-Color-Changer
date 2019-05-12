@@ -65,7 +65,7 @@ public class App extends Application {
 	
 	private Scene createMainMenu() {
 		BorderPane borderPane = new BorderPane();
-    	Scene mainMenu =  new Scene(borderPane, 900, 350);
+    	Scene mainMenu =  new Scene(borderPane, 550, 400);
     	
 		gridPaneCenter = new GridPane();
     	gridPaneBottom = new GridPane();
@@ -74,9 +74,7 @@ public class App extends Application {
     	borderPane.setCenter(gridPaneCenter);
     	borderPane.setBottom(gridPaneBottom);
     	
-    	Label lblPrimaryColor = new Label(PRIMARY_COLOR);
-    	Label lblSecondaryColor = new Label(SECONDARY_COLOR);
-    	cbSelectBackgroundOptions.setOnAction(e -> onAction_cbSelectBackgroundOptions(lblPrimaryColor, lblSecondaryColor));
+    	cbSelectBackgroundOptions.setOnAction(e -> onAction_cbSelectBackgroundOptions());
     	cbBackgroundOptions.setOnAction(e -> onAction_cbBackgroundOptions());
     	
     	btChooseFile.setOnAction(e -> onAction_btChooseFile());
@@ -128,8 +126,8 @@ public class App extends Application {
     	gp.add(cpCursor[0], 1, 5);
     	gp.add(cpCursor[1], 2, 5);
     	
-    	gp.add(lblSelectBackground, 4, 0);
-    	gp.add(cbSelectBackgroundOptions, 5, 0);
+    	gp.add(lblSelectBackground, 0, 6);
+    	gp.add(cbSelectBackgroundOptions, 1, 6);
 	}
 	
 	private void setBackgroundOptions(ComboBox<String> cb) {
@@ -223,11 +221,9 @@ public class App extends Application {
 		}
 	}
 	
-	private void onAction_cbSelectBackgroundOptions(Label lblPrimaryColor, Label lblSecondaryColor) {
+	private void onAction_cbSelectBackgroundOptions() {
 		String option = cbSelectBackgroundOptions.getValue();
 		
-		gridPaneCenter.getChildren().remove(lblPrimaryColor);
-		gridPaneCenter.getChildren().remove(lblSecondaryColor);
 		gridPaneCenter.getChildren().remove(cpSelectBackground1[0]);
 		gridPaneCenter.getChildren().remove(cpSelectBackground1[1]);
 		gridPaneCenter.getChildren().remove(cpSelectBackground2[0]);
@@ -235,19 +231,15 @@ public class App extends Application {
 		
 		switch (option) {
 			case SELECT_BACKGROUND_ALL:
-    	    	gridPaneCenter.add(lblPrimaryColor, 4, 1);
-    	    	gridPaneCenter.add(lblSecondaryColor, 5, 1);
-    			gridPaneCenter.add(cpSelectBackground1[0], 4, 1);
-    	    	gridPaneCenter.add(cpSelectBackground1[1], 5, 1);
+    			gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
+    	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
 				break;
 			case SELECT_BACKGROUND_ALTERNATE:
 			case SELECT_BACKGROUND_TRI:
-    	    	gridPaneCenter.add(lblPrimaryColor, 4, 1);
-    	    	gridPaneCenter.add(lblSecondaryColor, 5, 1);
-    	    	gridPaneCenter.add(cpSelectBackground1[0], 4, 2);
-    	    	gridPaneCenter.add(cpSelectBackground1[1], 5, 2);
-		    	gridPaneCenter.add(cpSelectBackground2[0], 4, 3);
-		    	gridPaneCenter.add(cpSelectBackground2[1], 5, 3);
+    	    	gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
+    	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
+		    	gridPaneCenter.add(cpSelectBackground2[0], 1, 8);
+		    	gridPaneCenter.add(cpSelectBackground2[1], 2, 8);
 				break;
 		}
 	}
