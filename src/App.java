@@ -76,7 +76,8 @@ public class App extends Application {
     	
     	cbSelectBackgroundOptions.setOnAction(e -> onAction_cbSelectBackgroundOptions());
     	cbBackgroundOptions.setOnAction(e -> onAction_cbBackgroundOptions());
-    	
+
+		tfSourceFile.textProperty().addListener(e -> onAction_tfSourceFile());
     	btChooseFile.setOnAction(e -> onAction_btChooseFile());
 		btUpdateFile.setOnAction(e -> onAction_btUpdateFile());
 		
@@ -260,6 +261,16 @@ public class App extends Application {
 		alert.setHeaderText(null);
 		alert.setContentText("File updated successfully.");
 		alert.showAndWait();
+	}
+	
+	private void onAction_tfSourceFile() {
+		String filename = tfSourceFile.getText();
+		File file = new File(filename);
+		
+		if (file != null && file.exists())
+			btUpdateFile.setDisable(false);
+		else
+			btUpdateFile.setDisable(true);
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
