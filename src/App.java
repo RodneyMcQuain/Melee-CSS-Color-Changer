@@ -28,6 +28,7 @@ public class App extends Application {
 	private final String SPECIFY_COLOR = "Specify Color";
 
 	public static void main(String[] args) {
+		DefaultDirectory.createSettings();
         Application.launch(args);
 	}
 	
@@ -60,6 +61,8 @@ public class App extends Application {
     			new ExtensionFilter(".usd, .0sd, etc. Files", "*.*sd"),
     			new ExtensionFilter("All Files", "*.*")
 		);
+    	String defaultDirectory = DefaultDirectory.deserialize();
+    	fcSourceFile.setInitialDirectory(new File(defaultDirectory));
     	final String PRIMARY_COLOR = "Primary Color";
     	final String SECONDARY_COLOR = "Secondary Color";
     	Label lblPrimaryColor = new Label(PRIMARY_COLOR);
@@ -194,12 +197,16 @@ public class App extends Application {
 	    		String filename = file.toString();
 	    		tfSourceFile.setText(filename);
 	    		
+	    		new DefaultDirectory(filename).serialize();
+	        	fcSourceFile.setInitialDirectory(file.getParentFile());
+	    		
 	    		Format070707 topFrame = new TopFrame();
 	    		Format070707 bottomFrame = new BottomFrame();
 	    		Format070707 rules = new Rules();
 	    		Format4248 background = new Background();
 	    		Format070707 cursor = new Cursor();
 
+	    		// Read offsets and set UI elements
 	    		setColorPickerColor(filename, cpTopFrame, topFrame);
 	    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
 	    		setColorPickerColor(filename, cpRules, rules);
