@@ -26,7 +26,7 @@ abstract class TwoColorFormat {
 	}
 	
 	private void writeToFile(String filename, final int writeAddress, HexRGB rgb) {
-		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
+		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		
 		try {
 		    raf.seek(writeAddress);
@@ -36,12 +36,12 @@ abstract class TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			Utility.closeRandomAccessFile(raf);
+			RandomAccessFileUtility.closeRandomAccessFile(raf);
 		}
 	}
 	
 	public Color readColors(String filename, final int readAddress) {
-		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
+		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		
 		Color color = null;
 		try {
@@ -53,14 +53,14 @@ abstract class TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			Utility.closeRandomAccessFile(raf);
+			RandomAccessFileUtility.closeRandomAccessFile(raf);
 		}
 		
 		return color;
 	}
 	
 	public boolean readTransparency(String filename) {
-		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
+		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		
 		try {
 		    raf.seek(getTransparencyOffset());
@@ -69,7 +69,7 @@ abstract class TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			Utility.closeRandomAccessFile(raf);
+			RandomAccessFileUtility.closeRandomAccessFile(raf);
 		}
 		
 		return false;

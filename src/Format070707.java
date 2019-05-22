@@ -33,7 +33,7 @@ public class Format070707 extends TwoColorFormat {
 	
 	@Override
 	public void writeTransparency(String filename, boolean isTransparent) {
-		RandomAccessFile raf = Utility.createRandomAccessFile(filename);
+		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		
 		try {
 		    raf.seek(getTransparencyOffset());
@@ -44,7 +44,7 @@ public class Format070707 extends TwoColorFormat {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
-			Utility.closeRandomAccessFile(raf);
+			RandomAccessFileUtility.closeRandomAccessFile(raf);
 		}
 	}
 }
