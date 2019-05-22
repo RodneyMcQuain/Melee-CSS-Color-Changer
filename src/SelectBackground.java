@@ -138,7 +138,6 @@ public class SelectBackground extends Format4248 {
 	
 	private static void writeSelectBackgroundToFile(RandomAccessFile raf, int offset, HexRGB rgb1, HexRGB rgb2) {
 		try {
-			raf.seek(offset);
 			Format4248 format = new Format4248(offset);
 
 			raf.seek(format.getPrimaryColorOffset());
