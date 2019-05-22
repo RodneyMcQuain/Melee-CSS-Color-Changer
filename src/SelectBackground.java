@@ -64,12 +64,7 @@ public class SelectBackground extends Format4248 {
 		try {
 			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
 				if (Format4248.is4248Format(raf, i)) {
-					double red = Math.random();
-					double green = Math.random();
-					double blue = Math.random();
-					Color color = new Color (red, green, blue, 1);
-					
-					HexRGB rgb = new HexRGB(color);
+					HexRGB rgb = getRandomColor();
 					
 					writeSelectBackgroundToFile(raf, i, rgb, rgb);
 				}
@@ -152,5 +147,14 @@ public class SelectBackground extends Format4248 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static HexRGB getRandomColor() {
+		double red = Math.random();
+		double green = Math.random();
+		double blue = Math.random();
+		Color color = new Color (red, green, blue, 1);
+		
+		return new HexRGB(color);
 	}
 }
