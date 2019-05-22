@@ -74,6 +74,28 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
+	public static void writeRandomDiamondSelectBackgroundColor(String filename) {
+		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
+
+		int j = 0;
+		try {
+			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
+				if (Format4248.is4248Format(raf, i)) {
+					HexRGB rgb;
+					if (j % 2 == 0)
+						rgb = getRandomColor();	
+					else
+						rgb = new HexRGB(Color.BLACK);
+						
+					writeSelectBackgroundToFile(raf, i, rgb, rgb);
+					j++;
+				}
+			}
+		} finally {
+			RandomAccessFileUtility.closeRandomAccessFile(raf);
+		}
+	}
+	
 	public static void writeAllSelectBackgroundColor(String filename, HexRGB rgb1, HexRGB rgb2) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
