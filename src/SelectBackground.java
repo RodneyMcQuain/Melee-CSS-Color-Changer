@@ -121,7 +121,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeAll(String filename, HexRGB rgb1, HexRGB rgb2) {
+	public static void writeOneColor(String filename, HexRGB rgb1, HexRGB rgb2) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		try {

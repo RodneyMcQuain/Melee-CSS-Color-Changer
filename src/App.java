@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 	private final String SELECT_BACKGROUND_DO_NOTHING = "Do Nothing";
-	private final String SELECT_BACKGROUND_ALL = "All";
+	private final String SELECT_BACKGROUND_ONE_COLOR = "One Color";
 	private final String SELECT_BACKGROUND_ALTERNATE = "Alternate";
 	private final String SELECT_BACKGROUND_TRI = "Tri";
 	private final String SELECT_BACKGROUND_RANDOM = "Random";
@@ -149,7 +149,7 @@ public class App extends Application {
 			SELECT_BACKGROUND_RANDOM,
 			SELECT_BACKGROUND_RANDOM_DIAMOND,
 			SELECT_BACKGROUND_RANDOM_INDIVIDUAL,
-			SELECT_BACKGROUND_ALL,
+			SELECT_BACKGROUND_ONE_COLOR,
 			SELECT_BACKGROUND_ALTERNATE,
 			SELECT_BACKGROUND_TRI
 		);
@@ -235,7 +235,7 @@ public class App extends Application {
 		gridPaneCenter.getChildren().remove(cpSelectBackground2[1]);
 		
 		switch (option) {
-			case SELECT_BACKGROUND_ALL:
+			case SELECT_BACKGROUND_ONE_COLOR:
     			gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
     	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
 				break;
@@ -330,8 +330,8 @@ public class App extends Application {
 			case SELECT_BACKGROUND_RANDOM_INDIVIDUAL:
 				SelectBackground.writeRandomIndividual(filename);
 				break;
-			case SELECT_BACKGROUND_ALL:
-				SelectBackground.writeAll(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
+			case SELECT_BACKGROUND_ONE_COLOR:
+				SelectBackground.writeOneColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
 				break;
 			case SELECT_BACKGROUND_ALTERNATE:
 				HexRGB[] altRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
