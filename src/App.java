@@ -24,6 +24,7 @@ public class App extends Application {
 	private final String SELECT_BACKGROUND_TRI = "Tri";
 	private final String SELECT_BACKGROUND_RANDOM = "Random";
 	private final String SELECT_BACKGROUND_RANDOM_DIAMOND = "Random Diamond";
+	private final String SELECT_BACKGROUND_RANDOM_INDIVIDUAL = "Random Individual";
 	private final String SELECT_BACKGROUND_TRANSPARENT = "Transparent";
 	private final String SELECT_BACKGROUND_VISIBLE = "Visible";
 	private final String SPECIFY_COLOR = "Specify Color";
@@ -147,6 +148,7 @@ public class App extends Application {
 			SELECT_BACKGROUND_VISIBLE,
 			SELECT_BACKGROUND_RANDOM,
 			SELECT_BACKGROUND_RANDOM_DIAMOND,
+			SELECT_BACKGROUND_RANDOM_INDIVIDUAL,
 			SELECT_BACKGROUND_ALL,
 			SELECT_BACKGROUND_ALTERNATE,
 			SELECT_BACKGROUND_TRI
@@ -324,6 +326,9 @@ public class App extends Application {
 				break;
 			case SELECT_BACKGROUND_RANDOM_DIAMOND:
 				SelectBackground.writeRandomDiamondSelectBackgroundColor(filename);
+				break;
+			case SELECT_BACKGROUND_RANDOM_INDIVIDUAL:
+				SelectBackground.writeRandomIndividualSelectBackgroundColor(filename);
 				break;
 			case SELECT_BACKGROUND_ALL:
 				SelectBackground.writeAllSelectBackgroundColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
