@@ -322,32 +322,32 @@ public class App extends Application {
 	private void selectBackgroundOption(String filename, String option, Format4248 selectBackground1, Format4248 selectBackground2) {
 		switch (option) {
 			case SELECT_BACKGROUND_RANDOM:
-				SelectBackground.writeRandomSelectBackgroundColor(filename);
+				SelectBackground.writeRandom(filename);
 				break;
 			case SELECT_BACKGROUND_RANDOM_DIAMOND:
-				SelectBackground.writeRandomDiamondSelectBackgroundColor(filename);
+				SelectBackground.writeRandomDiamond(filename);
 				break;
 			case SELECT_BACKGROUND_RANDOM_INDIVIDUAL:
-				SelectBackground.writeRandomIndividualSelectBackgroundColor(filename);
+				SelectBackground.writeRandomIndividual(filename);
 				break;
 			case SELECT_BACKGROUND_ALL:
-				SelectBackground.writeAllSelectBackgroundColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
+				SelectBackground.writeAll(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
 				break;
 			case SELECT_BACKGROUND_ALTERNATE:
 				HexRGB[] altRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
 				HexRGB[] altRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-				SelectBackground.writeAlternateSelectBackgroundColor(filename, altRgb1, altRgb2);
+				SelectBackground.writeAlternate(filename, altRgb1, altRgb2);
 				break;
 			case SELECT_BACKGROUND_TRI:
 				HexRGB[] triRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
 				HexRGB[] triRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-				SelectBackground.writeTriSelectBackgroundColor(filename, triRgb1, triRgb2);
+				SelectBackground.writeTri(filename, triRgb1, triRgb2);
 				break;
 			case SELECT_BACKGROUND_TRANSPARENT:
-				SelectBackground.writeTransparentSelectBackgroundColor(filename);
+				SelectBackground.writeTransparent(filename);
 				break;
 			case SELECT_BACKGROUND_VISIBLE:
-				SelectBackground.writeVisibleSelectBackgroundColor(filename);
+				SelectBackground.writeVisible(filename);
 				break;
 		}
 	}

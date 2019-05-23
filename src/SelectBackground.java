@@ -16,7 +16,7 @@ public class SelectBackground extends Format4248 {
 		super(SELECT_BACKGROUND_OFFSET_START);
 	}
 	
-	public static void writeTransparentSelectBackgroundColor(String filename) {
+	public static void writeTransparent(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		try {
@@ -38,7 +38,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeVisibleSelectBackgroundColor(String filename) {
+	public static void writeVisible(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		try {
@@ -58,7 +58,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeRandomSelectBackgroundColor(String filename) {
+	public static void writeRandom(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		try {
@@ -74,7 +74,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeRandomIndividualSelectBackgroundColor(String filename) {
+	public static void writeRandomIndividual(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		final int NUMBER_OF_CHARACTERS_IN_SELECT = 6;
 		int currentCharacter = 1;
@@ -99,7 +99,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeRandomDiamondSelectBackgroundColor(String filename) {
+	public static void writeRandomDiamond(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		int j = 0;
@@ -121,7 +121,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeAllSelectBackgroundColor(String filename, HexRGB rgb1, HexRGB rgb2) {
+	public static void writeAll(String filename, HexRGB rgb1, HexRGB rgb2) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		try {
@@ -138,7 +138,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeAlternateSelectBackgroundColor(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
+	public static void writeAlternate(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		int j = 0;
@@ -158,7 +158,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeTriSelectBackgroundColor(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
+	public static void writeTri(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		int j = 0;
