@@ -130,7 +130,7 @@ public class App extends Application {
     	gp.add(cpCursor[1], 2, 5);
     	
     	gp.add(lblSelectBackground, 0, 6);
-    	gp.add(cbSelectBackgroundOptions, 1, 6);
+    	gp.add(cbSelectBackgroundOptions, 1, 6, 2, 1);
 	}
 	
 	private void setBackgroundOptions(ComboBox<String> cb) {
