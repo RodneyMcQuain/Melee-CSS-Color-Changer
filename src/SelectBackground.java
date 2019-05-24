@@ -74,7 +74,7 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeRandomIndividual(String filename) {
+	public static void writeRandomFull(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		final int NUMBER_OF_CHARACTERS_IN_SELECT = 6;
 		int currentCharacter = 1;

@@ -331,7 +331,7 @@ public class App extends Application {
 				SelectBackground.writeRandomDiamond(filename);
 				break;
 			case SELECT_BACKGROUND_RANDOM_INDIVIDUAL:
-				SelectBackground.writeRandomIndividual(filename);
+				SelectBackground.writeRandomFull(filename);
 				break;
 			case SELECT_BACKGROUND_ONE_COLOR:
 				SelectBackground.writeOneColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
