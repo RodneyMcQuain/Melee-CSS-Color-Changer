@@ -323,6 +323,9 @@ public class App extends Application {
 	}
 	
 	private void selectBackgroundOption(String filename, String option, Format4248 selectBackground1, Format4248 selectBackground2) {
+		HexRGB[] twoColorRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
+		HexRGB[] twoColorRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
+		
 		switch (option) {
 			case SELECT_BACKGROUND_RANDOM:
 				SelectBackground.writeRandom(filename);
@@ -336,26 +339,20 @@ public class App extends Application {
 			case SELECT_BACKGROUND_ONE_COLOR:
 				SelectBackground.writeOneColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
 				break;
-			case SELECT_BACKGROUND_ALTERNATE:
-				HexRGB[] altRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
-				HexRGB[] altRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-				SelectBackground.writeAlternate(filename, altRgb1, altRgb2);
-				break;
-			case SELECT_BACKGROUND_ALTERNATE_FULL:
-				HexRGB[] altFullRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
-				HexRGB[] altFullRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-				SelectBackground.writeAlternateFull(filename, altFullRgb1, altFullRgb2);
-				break;
-			case SELECT_BACKGROUND_TRI:
-				HexRGB[] triRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
-				HexRGB[] triRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
-				SelectBackground.writeTri(filename, triRgb1, triRgb2);
-				break;
 			case SELECT_BACKGROUND_TRANSPARENT:
 				SelectBackground.writeTransparent(filename);
 				break;
 			case SELECT_BACKGROUND_VISIBLE:
 				SelectBackground.writeVisible(filename);
+				break;
+			case SELECT_BACKGROUND_ALTERNATE:
+				SelectBackground.writeAlternate(filename, twoColorRgb1, twoColorRgb2);
+				break;
+			case SELECT_BACKGROUND_ALTERNATE_FULL:
+				SelectBackground.writeAlternateFull(filename, twoColorRgb1, twoColorRgb2);
+				break;
+			case SELECT_BACKGROUND_TRI:
+				SelectBackground.writeTri(filename, twoColorRgb1, twoColorRgb2);
 				break;
 		}
 	}
