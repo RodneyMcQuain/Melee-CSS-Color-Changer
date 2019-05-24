@@ -21,6 +21,7 @@ public class App extends Application {
 	private final String SELECT_BACKGROUND_DO_NOTHING = "Do Nothing";
 	private final String SELECT_BACKGROUND_ONE_COLOR = "One Color";
 	private final String SELECT_BACKGROUND_ALTERNATE = "Alternate";
+	private final String SELECT_BACKGROUND_ALTERNATE_FULL = "Alternate Full";
 	private final String SELECT_BACKGROUND_TRI = "Tri";
 	private final String SELECT_BACKGROUND_RANDOM = "Random";
 	private final String SELECT_BACKGROUND_RANDOM_DIAMOND = "Random Diamond";
@@ -151,6 +152,7 @@ public class App extends Application {
 			SELECT_BACKGROUND_RANDOM_INDIVIDUAL,
 			SELECT_BACKGROUND_ONE_COLOR,
 			SELECT_BACKGROUND_ALTERNATE,
+			SELECT_BACKGROUND_ALTERNATE_FULL,
 			SELECT_BACKGROUND_TRI
 		);
 		cb.setValue(SELECT_BACKGROUND_DO_NOTHING);
@@ -240,6 +242,7 @@ public class App extends Application {
     	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
 				break;
 			case SELECT_BACKGROUND_ALTERNATE:
+			case SELECT_BACKGROUND_ALTERNATE_FULL:
 			case SELECT_BACKGROUND_TRI:
     	    	gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
     	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
@@ -337,6 +340,11 @@ public class App extends Application {
 				HexRGB[] altRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
 				HexRGB[] altRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
 				SelectBackground.writeAlternate(filename, altRgb1, altRgb2);
+				break;
+			case SELECT_BACKGROUND_ALTERNATE_FULL:
+				HexRGB[] altFullRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
+				HexRGB[] altFullRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
+				SelectBackground.writeAlternateFull(filename, altFullRgb1, altFullRgb2);
 				break;
 			case SELECT_BACKGROUND_TRI:
 				HexRGB[] triRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };

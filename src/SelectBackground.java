@@ -99,6 +99,31 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
+	public static void writeAlternateFull(String filename, HexRGB[] rgb1, HexRGB[] rgb2) {
+		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
+		final int NUMBER_OF_CHARACTERS_IN_SELECT = 6;
+		int currentCharacter = 0;
+		
+		try {
+			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
+				if (Format4248.is4248Format(raf, i)) {											
+					currentCharacter++;
+
+					if (currentCharacter <= NUMBER_OF_CHARACTERS_IN_SELECT) {
+						writeSelectBackgroundToFile(raf, i, rgb1[0], rgb1[1]);
+					} else if (currentCharacter <= NUMBER_OF_CHARACTERS_IN_SELECT * 2) {
+						writeSelectBackgroundToFile(raf, i, rgb2[0], rgb2[1]);
+
+						if (currentCharacter == NUMBER_OF_CHARACTERS_IN_SELECT * 2)
+							currentCharacter = 0; //reset
+					}
+				}
+			} 
+		} finally {
+			RandomAccessFileUtility.closeRandomAccessFile(raf);
+		}
+	}
+	
 	public static void writeRandomDiamond(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
