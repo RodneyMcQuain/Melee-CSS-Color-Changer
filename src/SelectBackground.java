@@ -84,7 +84,6 @@ public class SelectBackground extends Format4248 {
 			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
 				if (Format4248.is4248Format(raf, i)) {											
 					writeSelectBackgroundToFile(raf, i, random, random);
-					
 
 					if (currentCharacter == NUMBER_OF_CHARACTERS_IN_SELECT) {
 						currentCharacter = 1; //reset
