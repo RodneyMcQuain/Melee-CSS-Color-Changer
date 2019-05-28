@@ -51,6 +51,8 @@ public class App extends Application {
 	private ComboBox<String> cbBackgroundOptions;
 	private ComboBox<String> cbSelectBackgroundOptions;
 
+	private Label lblColor1;
+	private Label lblColor2;
 	
 	public static void main(String[] args) {
 		DefaultDirectory.createSettings();
@@ -98,7 +100,9 @@ public class App extends Application {
     	Label lblBackground = new Label("Background: ");
     	Label lblCursor = new Label("Cursor: ");
     	Label lblSelectBackground = new Label("Selects in Background: ");
-		
+		lblColor1 = new Label("Color 1: ");
+		lblColor2 = new Label("Color 2: ");
+    	
     	initializeColorPickers();
 
     	cbBackgroundOptions = new ComboBox<String>();
@@ -235,17 +239,22 @@ public class App extends Application {
 		gridPaneCenter.getChildren().remove(cpSelectBackground1[1]);
 		gridPaneCenter.getChildren().remove(cpSelectBackground2[0]);
 		gridPaneCenter.getChildren().remove(cpSelectBackground2[1]);
+		gridPaneCenter.getChildren().remove(lblColor1);
+		gridPaneCenter.getChildren().remove(lblColor2);
 		
 		switch (option) {
 			case SELECT_BACKGROUND_ONE_COLOR:
+    	    	gridPaneCenter.add(lblColor1, 0, 7);
     			gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
     	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
 				break;
 			case SELECT_BACKGROUND_ALTERNATE:
 			case SELECT_BACKGROUND_ALTERNATE_FULL:
 			case SELECT_BACKGROUND_TRI:
-    	    	gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
+    	    	gridPaneCenter.add(lblColor1, 0, 7);
+				gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
     	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
+    	    	gridPaneCenter.add(lblColor2, 0, 8);
 		    	gridPaneCenter.add(cpSelectBackground2[0], 1, 8);
 		    	gridPaneCenter.add(cpSelectBackground2[1], 2, 8);
 				break;
