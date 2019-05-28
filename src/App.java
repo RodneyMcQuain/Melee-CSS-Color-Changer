@@ -18,6 +18,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class App extends Application {
+	private final String APP_VERSION = "1.0";
 	private final String SELECT_BACKGROUND_DO_NOTHING = "Do Nothing";
 	private final String SELECT_BACKGROUND_ONE_COLOR = "One Color";
 	private final String SELECT_BACKGROUND_ALTERNATE = "Alternate";
@@ -69,7 +70,7 @@ public class App extends Application {
     	stage = primaryStage;
 		Scene mainMenu = createMainMenu();
     	
-		stage.setTitle("Melee CSS Color Changer");
+		stage.setTitle("Melee CSS Color Changer - v" + APP_VERSION);
 		stage.setScene(mainMenu);
 		stage.show();
     }
