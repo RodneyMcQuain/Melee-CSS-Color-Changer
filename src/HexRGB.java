@@ -15,7 +15,7 @@ public class HexRGB {
 	        getColorInt(color.getRed()),
 	        getColorInt(color.getGreen()),
 	        getColorInt(color.getBlue())
-        );
+        ).toUpperCase();
 		
 		red = getRedDigits(hex);
 		green = getGreenDigits(hex);
@@ -35,6 +35,6 @@ public class HexRGB {
 	}
 	
 	private int getColorInt(double colorDouble) {
-		return (int) colorDouble * RGB_MAX;
+		return (int) (colorDouble * RGB_MAX);
 	}
 }
