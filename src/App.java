@@ -121,8 +121,8 @@ public class App extends Application {
     	Label lblBackground = new Label("Background: ");
     	Label lblCursor = new Label("Cursor: ");
     	Label lblSelectBackground = new Label("Selects in Background: ");
-		lblColor1 = new Label("Color 1: ");
-		lblColor2 = new Label("Color 2: ");
+		lblColor1 = new Label("\tColor 1: ");
+		lblColor2 = new Label("\tColor 2: ");
     	
     	initializeColorPickers();
 
