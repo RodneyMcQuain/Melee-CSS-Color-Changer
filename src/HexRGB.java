@@ -10,11 +10,12 @@ public class HexRGB {
 	final int RGB_MAX = 255;
 	
 	public HexRGB(Color color) {
-		String hex = String.format("%02X%02X%02X",
-	            (int)(color.getRed() * RGB_MAX),
-	            (int)(color.getGreen() * RGB_MAX),
-	            (int)(color.getBlue() * RGB_MAX ))
-				.toUpperCase();
+		String hex = String.format(
+			"%02X%02X%02X",
+	        (int) (color.getRed() * RGB_MAX),
+	        (int) (color.getGreen() * RGB_MAX),
+	        (int) (color.getBlue() * RGB_MAX)
+        ).toUpperCase();
 		
 		red = getRedDigits(hex);
 		green = getGreenDigits(hex);
