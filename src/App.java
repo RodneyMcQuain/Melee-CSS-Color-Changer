@@ -434,10 +434,15 @@ public class App extends Application {
 	private void setBackgroundComboBox(String filename, ComboBox<String> cb, Format4248 f) {
 		boolean isTransparent = f.readTransparency(filename);
 		
-		if (isTransparent)
+		if (isTransparent) {
 			cb.setValue(SELECT_BACKGROUND_TRANSPARENT);
-		else
+			gridPaneCenter.getChildren().remove(cpBackground[0]);
+			gridPaneCenter.getChildren().remove(cpBackground[1]);
+			gridPaneCenter.getChildren().remove(cbBackgroundOptions);
+			gridPaneCenter.add(cbBackgroundOptions, 1, 4);		
+		} else {
 			cb.setValue(SPECIFY_COLOR);
+		}
 	}
 	
 	private TwoColor getTwoColor(ColorPicker[] cp) {
