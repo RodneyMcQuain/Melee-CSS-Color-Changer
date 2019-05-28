@@ -31,8 +31,10 @@ public class App extends Application {
 	private final String SPECIFY_COLOR = "Specify Color";
 	private final String PRIMARY_COLOR = "Primary Color";
 	private final String SECONDARY_COLOR = "Secondary Color";
-	private final int SCENE_WIDTH = 550;
+	private final int STAGE_WIDTH = 550;
+	private final int INVALID_FILE_STAGE_HEIGHT = 45;
 	
+	private Stage stage;
 	private BorderPane mainBorderPane;
 	private GridPane gridPaneTop;
 	private GridPane gridPaneCenter;
@@ -64,16 +66,17 @@ public class App extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-    	Scene mainMenu = createMainMenu();
+    	stage = primaryStage;
+		Scene mainMenu = createMainMenu();
     	
-	    primaryStage.setTitle("Melee CSS Color Changer");
-	    primaryStage.setScene(mainMenu);
-	    primaryStage.show();
+		stage.setTitle("Melee CSS Color Changer");
+		stage.setScene(mainMenu);
+		stage.show();
     }
 	
 	private Scene createMainMenu() {
 		mainBorderPane = new BorderPane();
-    	Scene mainMenu =  new Scene(mainBorderPane, SCENE_WIDTH, 420);
+    	Scene mainMenu =  new Scene(mainBorderPane, STAGE_WIDTH, INVALID_FILE_STAGE_HEIGHT);
     	
     	gridPaneTop = new GridPane();
 		gridPaneCenter = new GridPane();
@@ -98,7 +101,7 @@ public class App extends Application {
 
     	btChooseFile = new Button("Choose a File to Modify");
     	tfSourceFile = new TextField();
-    	tfSourceFile.setPrefWidth(SCENE_WIDTH - 175);
+    	tfSourceFile.setPrefWidth(STAGE_WIDTH - 175);
     	fcSourceFile = new FileChooser();
     	formatFileChooserForUsdFiles(fcSourceFile);
     	setInitialDirectory(fcSourceFile);
@@ -407,12 +410,14 @@ public class App extends Application {
 	}
 
 	private void setValidFile() {
+		stage.setHeight(460);
 		btUpdateFile.setDisable(false);
 		mainBorderPane.setCenter(gridPaneCenter);
     	mainBorderPane.setBottom(gridPaneBottom);
 	}
 	
 	private void setInvalidFile() {
+		stage.setHeight(INVALID_FILE_STAGE_HEIGHT + 40);
 		btUpdateFile.setDisable(true);
 		mainBorderPane.setCenter(null);
     	mainBorderPane.setBottom(null);
