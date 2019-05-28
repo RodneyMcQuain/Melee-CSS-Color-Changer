@@ -15,7 +15,7 @@ public class HexRGB {
 	        (int) (color.getRed() * RGB_MAX),
 	        (int) (color.getGreen() * RGB_MAX),
 	        (int) (color.getBlue() * RGB_MAX)
-        ).toUpperCase();
+        );
 		
 		red = getRedDigits(hex);
 		green = getGreenDigits(hex);
