@@ -5,13 +5,15 @@ public class HexRGB {
 	protected int red;
 	protected int green;
 	protected int blue;
+	
 	final int HEX_BASE = 16;
+	final int RGB_MAX = 255;
 	
 	public HexRGB(Color color) {
 		String hex = String.format("%02X%02X%02X",
-	            (int)(color.getRed() * 255),
-	            (int)(color.getGreen() * 255),
-	            (int)(color.getBlue() * 255 ))
+	            (int)(color.getRed() * RGB_MAX),
+	            (int)(color.getGreen() * RGB_MAX),
+	            (int)(color.getBlue() * RGB_MAX ))
 				.toUpperCase();
 		
 		red = getRedDigits(hex);
