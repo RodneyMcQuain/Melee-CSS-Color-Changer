@@ -31,7 +31,9 @@ public class App extends Application {
 	private final String SPECIFY_COLOR = "Specify Color";
 	private final String PRIMARY_COLOR = "Primary Color";
 	private final String SECONDARY_COLOR = "Secondary Color";
-	
+
+	private BorderPane mainBorderPane;
+	private GridPane gridPaneTop;
 	private GridPane gridPaneCenter;
 	private GridPane gridPaneBottom;
 
@@ -69,15 +71,16 @@ public class App extends Application {
     }
 	
 	private Scene createMainMenu() {
-		BorderPane borderPane = new BorderPane();
-    	Scene mainMenu =  new Scene(borderPane, 550, 400);
+		mainBorderPane = new BorderPane();
+    	Scene mainMenu =  new Scene(mainBorderPane, 550, 420);
     	
+    	gridPaneTop = new GridPane();
 		gridPaneCenter = new GridPane();
     	gridPaneBottom = new GridPane();
+    	createTopPane(gridPaneTop);
     	createCenterPane(gridPaneCenter);
     	createBottomPane(gridPaneBottom);
-    	borderPane.setCenter(gridPaneCenter);
-    	borderPane.setBottom(gridPaneBottom);
+    	mainBorderPane.setTop(gridPaneTop);
     	
     	cbSelectBackgroundOptions.setOnAction(e -> onAction_cbSelectBackgroundOptions());
     	cbBackgroundOptions.setOnAction(e -> onAction_cbBackgroundOptions());
@@ -87,6 +90,19 @@ public class App extends Application {
 		btUpdateFile.setOnAction(e -> onAction_btUpdateFile());
 		
 		return mainMenu;
+	}
+	
+	private void createTopPane(GridPane gp) {
+    	formatGridPane(gp);
+
+    	btChooseFile = new Button("Choose a File to Modify");
+    	tfSourceFile = new TextField();
+    	fcSourceFile = new FileChooser();
+    	formatFileChooserForUsdFiles(fcSourceFile);
+    	setInitialDirectory(fcSourceFile);
+    	
+    	gp.add(tfSourceFile, 0, 0, 30, 1);
+    	gp.add(btChooseFile, 30, 0);
 	}
 	
 	private void createCenterPane(GridPane gp) {
@@ -183,14 +199,6 @@ public class App extends Application {
     	btUpdateFile = new Button("Update File");
     	btUpdateFile.setDisable(true);
     	
-    	btChooseFile = new Button("Choose a File to Modify");
-    	tfSourceFile = new TextField();
-    	fcSourceFile = new FileChooser();
-    	formatFileChooserForUsdFiles(fcSourceFile);
-    	setInitialDirectory(fcSourceFile);
-    	
-    	gp.add(tfSourceFile, 0, 0, 30, 1);
-    	gp.add(btChooseFile, 30, 0);
     	gp.add(btUpdateFile, 0, 1);
 	}
 	
@@ -284,9 +292,9 @@ public class App extends Application {
 		File file = new File(filename);
 		
 		if (file != null && file.exists())
-			btUpdateFile.setDisable(false);
+			setValidFile();
 		else
-			btUpdateFile.setDisable(true);
+			setInvalidFile();
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
@@ -367,10 +375,9 @@ public class App extends Application {
 	}
     	
 	private void onAction_btChooseFile() {
-		File file = fcSourceFile.showOpenDialog(gridPaneCenter.getScene().getWindow());
+		File file = fcSourceFile.showOpenDialog(mainBorderPane.getScene().getWindow());
 		
 		if (file != null) {
-			btUpdateFile.setDisable(false);
     		String filename = file.toString();
     		tfSourceFile.setText(filename);
     		
@@ -390,11 +397,25 @@ public class App extends Application {
     		setColorPickerColor(filename, cpBackground, background);
     		setColorPickerColor(filename, cpCursor, cursor);
 			setBackgroundComboBox(filename, cbBackgroundOptions, background);
+
+			setValidFile();
 		} else {
-			btUpdateFile.setDisable(true);
+			setInvalidFile();
 		}
 	}
 
+	private void setValidFile() {
+		btUpdateFile.setDisable(false);
+		mainBorderPane.setCenter(gridPaneCenter);
+    	mainBorderPane.setBottom(gridPaneBottom);
+	}
+	
+	private void setInvalidFile() {
+		btUpdateFile.setDisable(true);
+		mainBorderPane.setCenter(null);
+    	mainBorderPane.setBottom(null);
+	}
+	
 	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
 		Color color1 = f.readColors(filename, f.getPrimaryColorOffset());
 		cp[0].setValue(color1);	
