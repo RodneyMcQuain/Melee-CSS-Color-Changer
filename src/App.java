@@ -31,7 +31,8 @@ public class App extends Application {
 	private final String SPECIFY_COLOR = "Specify Color";
 	private final String PRIMARY_COLOR = "Primary Color";
 	private final String SECONDARY_COLOR = "Secondary Color";
-
+	private final int SCENE_WIDTH = 550;
+	
 	private BorderPane mainBorderPane;
 	private GridPane gridPaneTop;
 	private GridPane gridPaneCenter;
@@ -72,7 +73,7 @@ public class App extends Application {
 	
 	private Scene createMainMenu() {
 		mainBorderPane = new BorderPane();
-    	Scene mainMenu =  new Scene(mainBorderPane, 550, 420);
+    	Scene mainMenu =  new Scene(mainBorderPane, SCENE_WIDTH, 420);
     	
     	gridPaneTop = new GridPane();
 		gridPaneCenter = new GridPane();
@@ -97,12 +98,13 @@ public class App extends Application {
 
     	btChooseFile = new Button("Choose a File to Modify");
     	tfSourceFile = new TextField();
+    	tfSourceFile.setPrefWidth(SCENE_WIDTH - 175);
     	fcSourceFile = new FileChooser();
     	formatFileChooserForUsdFiles(fcSourceFile);
     	setInitialDirectory(fcSourceFile);
     	
-    	gp.add(tfSourceFile, 0, 0, 30, 1);
-    	gp.add(btChooseFile, 30, 0);
+    	gp.add(tfSourceFile, 0, 0);
+    	gp.add(btChooseFile, 1, 0);
 	}
 	
 	private void createCenterPane(GridPane gp) {
