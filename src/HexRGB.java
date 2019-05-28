@@ -12,9 +12,9 @@ public class HexRGB {
 	public HexRGB(Color color) {
 		String hex = String.format(
 			"%02X%02X%02X",
-	        (int) (color.getRed() * RGB_MAX),
-	        (int) (color.getGreen() * RGB_MAX),
-	        (int) (color.getBlue() * RGB_MAX)
+	        getColorInt(color.getRed()),
+	        getColorInt(color.getGreen()),
+	        getColorInt(color.getBlue())
         );
 		
 		red = getRedDigits(hex);
@@ -32,5 +32,9 @@ public class HexRGB {
 	
 	private int getBlueDigits(String hex) {
 		return Integer.parseInt(hex.substring(4, 6), HEX_BASE);
+	}
+	
+	private int getColorInt(double colorDouble) {
+		return (int) colorDouble * RGB_MAX;
 	}
 }
