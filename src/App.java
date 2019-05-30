@@ -433,7 +433,7 @@ public class App extends Application {
 	}
 	
 	private void setBackgroundComboBox(String filename, ComboBox<String> cb, Format4248 f) {
-		boolean isTransparent = f.readTransparency(filename);
+		boolean isTransparent = f.isTransparent(filename);
 		
 		if (isTransparent) {
 			cb.setValue(SELECT_BACKGROUND_TRANSPARENT);
