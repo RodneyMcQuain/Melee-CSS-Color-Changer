@@ -31,6 +31,22 @@ public class Format4248 extends TwoColorFormat {
 		return startOffset - 0x000004;
 	}
 	
+	public boolean readTransparency(String filename) {
+		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
+		
+		try {
+		    raf.seek(getTransparencyOffset());
+		    if (raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00)
+		    	return true;
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} finally {
+			RandomAccessFileUtility.closeRandomAccessFile(raf);
+		}
+		
+		return false;
+	}
+	
 	public void writeTransparency(String filename, boolean isTransparent) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		

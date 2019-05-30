@@ -58,20 +58,4 @@ abstract class TwoColorFormat {
 		
 		return color;
 	}
-	
-	public boolean readTransparency(String filename) {
-		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
-		
-		try {
-		    raf.seek(getTransparencyOffset());
-		    if (raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00 && raf.read() == 0x00)
-		    	return true;
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			RandomAccessFileUtility.closeRandomAccessFile(raf);
-		}
-		
-		return false;
-	}
 }
