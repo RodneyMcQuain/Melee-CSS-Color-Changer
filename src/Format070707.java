@@ -1,6 +1,3 @@
-import java.io.IOException;
-import java.io.RandomAccessFile;
-
 import javafx.scene.paint.Color;
 
 public class Format070707 extends TwoColorFormat {
@@ -29,22 +26,5 @@ public class Format070707 extends TwoColorFormat {
 	@Override
 	public int getTransparencyOffset() {
 		return startOffset + 0x000003;
-	}
-	
-	@Override
-	public void writeTransparency(String filename, boolean isTransparent) {
-		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
-		
-		try {
-		    raf.seek(getTransparencyOffset());
-		    if (isTransparent)
-		    	raf.write(0x00);
-		    else
-		    	raf.write(0x07);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			RandomAccessFileUtility.closeRandomAccessFile(raf);
-		}
 	}
 }
