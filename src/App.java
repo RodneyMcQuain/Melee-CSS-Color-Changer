@@ -329,11 +329,14 @@ public class App extends Application {
 	
 	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, ComboBox<String> cbBackgroundOptions) {
 		TwoColor twoColor = getTwoColor(cpBackgrounds);
-		Format4248 background = new Background(twoColor.primaryColor, twoColor.secondaryColor);	
+		Background background = new Background(twoColor.primaryColor, twoColor.secondaryColor);	
 		boolean isTransparent = cbBackgroundOptions.getValue() == SELECT_BACKGROUND_TRANSPARENT ? true : false;
 		
 		background.writeColors(filename);
-		background.writeTransparency(filename, isTransparent);
+		if (isTransparent)
+			background.writeTransparent(filename);
+		else
+			background.writeVisible(filename);
 	}
 	
 	public void updateSelectBackgroundFile(String filename, String selectBackgroundOption) {
