@@ -18,7 +18,6 @@ abstract class TwoColorFormat {
 	public abstract int getPrimaryColorOffset();
 	public abstract int getSecondaryColorOffset();
 	public abstract int getTransparencyOffset();
-	public abstract void writeTransparency(String filename, boolean isTransparent);
 	
 	public void writeColors(String filename) {
 		writeToFile(filename, getPrimaryColorOffset(), this.primaryColor);
