@@ -30,7 +30,7 @@ public class Format4248 extends TwoColorFormat {
 	public int getTransparencyOffset() {
 		return startOffset - 0x000004;
 	}
-	
+		
 	public boolean isTransparent(String filename) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 		
@@ -45,29 +45,6 @@ public class Format4248 extends TwoColorFormat {
 		}
 		
 		return false;
-	}
-	
-	public void writeTransparency(String filename, boolean isTransparent) {
-		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
-		
-		try {
-		    raf.seek(getTransparencyOffset());
-		    if (isTransparent) {
-		    	raf.write(0x00);
-		    	raf.write(0x00);
-		    	raf.write(0x00);
-		    	raf.write(0x00);
-		    } else {
-		    	raf.write(0x3F);
-		    	raf.write(0x6A);
-		    	raf.write(0x3D);
-		    	raf.write(0x71);
-		    }
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		} finally {
-			RandomAccessFileUtility.closeRandomAccessFile(raf);
-		}
 	}
 	
 	public static boolean is4248Format(RandomAccessFile raf, int offset) {
