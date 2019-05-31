@@ -6,8 +6,8 @@ import javafx.scene.paint.Color;
 public class SelectBackground extends Format4248 {
 	final static int SELECT_BACKGROUND_OFFSET_START = 0x000984;
 	final static int SELECT_BACKGROUND_OFFSET_END = 0x0019D8;
-	final static int[] SELECT_BACKGROUND_ORIGINAL_TRANSPARENCY_OFFSETS = { 0x3E, 0xEE, 0xEE, 0xFA };
-	final static int[] SELECT_BACKGROUND_TRANSPARENT_OFFSETS = { 0x00, 0x00, 0x00, 0x00 };
+	final static int[] SELECT_BACKGROUND_ORIGINAL_TRANSPARENCY_VALUES = { 0x3E, 0xEE, 0xEE, 0xFA };
+	final static int[] SELECT_BACKGROUND_TRANSPARENT_VALUES = { 0x00, 0x00, 0x00, 0x00 };
 
 	public SelectBackground(Color primaryColor, Color secondaryColor) {
 		super(SELECT_BACKGROUND_OFFSET_START, primaryColor, secondaryColor);
@@ -26,8 +26,8 @@ public class SelectBackground extends Format4248 {
 					Format4248 format = new Format4248(i);
 
 					raf.seek(format.getTransparencyOffset());
-					for (int offset : SELECT_BACKGROUND_TRANSPARENT_OFFSETS)
-						raf.write(offset);
+					for (int value : SELECT_BACKGROUND_TRANSPARENT_VALUES)
+						raf.write(value);
 				}
 			}
 		} catch (IOException e) {
@@ -46,8 +46,8 @@ public class SelectBackground extends Format4248 {
 					Format4248 format = new Format4248(i);
 
 					raf.seek(format.getTransparencyOffset());
-					for (int offset : SELECT_BACKGROUND_ORIGINAL_TRANSPARENCY_OFFSETS)
-						raf.write(offset);
+					for (int value : SELECT_BACKGROUND_ORIGINAL_TRANSPARENCY_VALUES)
+						raf.write(value);
 				}
 			}
 		} catch (IOException e) {
