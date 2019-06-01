@@ -414,7 +414,8 @@ public class App extends Application {
 	}
 
 	private void setValidFile() {
-		stage.setHeight(460);
+		final int VALID_FILE_STAGE_HEIGHT = 460;
+		stage.setHeight(VALID_FILE_STAGE_HEIGHT);
 		btUpdateFile.setDisable(false);
 		mainBorderPane.setCenter(gridPaneCenter);
     	mainBorderPane.setBottom(gridPaneBottom);
