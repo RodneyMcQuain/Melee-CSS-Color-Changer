@@ -331,16 +331,17 @@ public class App extends Application {
 	
 	public void updateSelectBackgroundFile(String filename, String selectBackgroundOption) {
 		TwoColor twoColor1 = getTwoColor(cpSelectBackground1);
-		Format4248 selectBackground1 = new SelectBackground(twoColor1.primaryColor, twoColor1.secondaryColor);
 		TwoColor twoColor2 = getTwoColor(cpSelectBackground2);
+		Format4248 selectBackground1 = new SelectBackground(twoColor1.primaryColor, twoColor1.secondaryColor);
 		Format4248 selectBackground2 = new SelectBackground(twoColor2.primaryColor, twoColor2.secondaryColor);
-
-		selectBackgroundOption(filename, selectBackgroundOption, selectBackground1, selectBackground2);
+		Format4248[] selectBackgroundColors = { selectBackground1, selectBackground2 };
+		
+		selectBackgroundOption(filename, selectBackgroundOption, selectBackgroundColors);
 	}
 	
-	private void selectBackgroundOption(String filename, String option, Format4248 selectBackground1, Format4248 selectBackground2) {
-		HexRGB[] twoColorRgb1 = { selectBackground1.primaryColor, selectBackground1.secondaryColor };
-		HexRGB[] twoColorRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
+	private void selectBackgroundOption(String filename, String option, Format4248[] selectBackgroundColors) {
+		HexRGB[] twoColorRgb1 = { selectBackgroundColors[0].primaryColor, selectBackgroundColors[0].secondaryColor };
+		HexRGB[] twoColorRgb2 = { selectBackgroundColors[1].primaryColor,  selectBackgroundColors[1].secondaryColor };
 		
 		switch (option) {
 			case SelectBackgroundUtility.RANDOM:
@@ -353,7 +354,7 @@ public class App extends Application {
 				SelectBackground.writeRandomFull(filename);
 				break;
 			case SelectBackgroundUtility.ONE_COLOR:
-				SelectBackground.writeOneColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
+				SelectBackground.writeOneColor(filename, twoColorRgb1);
 				break;
 			case SelectBackgroundUtility.TRANSPARENT:
 				SelectBackground.writeTransparent(filename);
