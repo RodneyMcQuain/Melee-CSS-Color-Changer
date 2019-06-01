@@ -1,3 +1,4 @@
+import javafx.scene.control.ComboBox;
 
 public class SelectBackgroundUtility {
 	public final static String DO_NOTHING = "Do Nothing";
@@ -44,5 +45,21 @@ public class SelectBackgroundUtility {
 				SelectBackground.writeTri(filename, twoColorRgb1, twoColorRgb2);
 				break;
 		}
+	}
+	
+	public static void setComboBoxOptions(ComboBox<String> cb) {
+		cb.getItems().addAll(
+				SelectBackgroundUtility.DO_NOTHING,
+				SelectBackgroundUtility.TRANSPARENT,
+				SelectBackgroundUtility.VISIBLE,
+				SelectBackgroundUtility.RANDOM,
+				SelectBackgroundUtility.RANDOM_DIAMOND,
+				SelectBackgroundUtility.RANDOM_FULL,
+				SelectBackgroundUtility.ONE_COLOR,
+				SelectBackgroundUtility.ALTERNATE,
+				SelectBackgroundUtility.ALTERNATE_FULL,
+				SelectBackgroundUtility.TRI
+			);
+			cb.setValue(SelectBackgroundUtility.DO_NOTHING);
 	}
 }
