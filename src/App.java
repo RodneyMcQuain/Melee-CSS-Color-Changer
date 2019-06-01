@@ -120,7 +120,7 @@ public class App extends Application {
     	cbBackgroundOptions = new ComboBox<String>();
     	cbSelectBackgroundOptions = new ComboBox<String>();
     	setBackgroundOptions(cbBackgroundOptions);
-    	setSelectBackgroundOptions(cbSelectBackgroundOptions);
+    	SelectBackgroundUtility.setComboBoxOptions(cbSelectBackgroundOptions);
     	
     	gp.add(lblPrimaryColor, 1, 0);
     	gp.add(lblSecondaryColor, 2, 0);
@@ -156,22 +156,6 @@ public class App extends Application {
     			SelectBackgroundUtility.TRANSPARENT
 		);
 		cb.setValue(SPECIFY_COLOR);
-	}
-	
-	private void setSelectBackgroundOptions(ComboBox<String> cb) {
-		cb.getItems().addAll(
-			SelectBackgroundUtility.DO_NOTHING,
-			SelectBackgroundUtility.TRANSPARENT,
-			SelectBackgroundUtility.VISIBLE,
-			SelectBackgroundUtility.RANDOM,
-			SelectBackgroundUtility.RANDOM_DIAMOND,
-			SelectBackgroundUtility.RANDOM_FULL,
-			SelectBackgroundUtility.ONE_COLOR,
-			SelectBackgroundUtility.ALTERNATE,
-			SelectBackgroundUtility.ALTERNATE_FULL,
-			SelectBackgroundUtility.TRI
-		);
-		cb.setValue(SelectBackgroundUtility.DO_NOTHING);
 	}
 	
 	private void initializeColorPickers() {
