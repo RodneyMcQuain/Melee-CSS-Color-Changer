@@ -144,13 +144,13 @@ public class SelectBackground extends Format4248 {
 		}
 	}
 	
-	public static void writeOneColor(String filename, HexRGB rgb1, HexRGB rgb2) {
+	public static void writeOneColor(String filename, HexRGB[] rgb) {
 		RandomAccessFile raf = RandomAccessFileUtility.createRandomAccessFile(filename);
 
 		try {
 			for (int i = SELECT_BACKGROUND_OFFSET_START; i <= SELECT_BACKGROUND_OFFSET_END; i += 0x1) {
 				if (Format4248.is4248Format(raf, i))
-					writeSelectBackgroundToFile(raf, i, rgb1, rgb2);
+					writeSelectBackgroundToFile(raf, i, rgb[0], rgb[1]);
 			}
 		} finally {
 			try {
