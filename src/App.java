@@ -103,7 +103,14 @@ public class App extends Application {
 	
 	private void createCenterPane(GridPane gp) {
     	formatGridPane(gp);
-    	
+    
+		initialAddToCenterPane(gp);
+
+    	setBackgroundOptions(cbBackgroundOptions);
+    	SelectBackgroundUtility.setComboBoxOptions(cbSelectBackgroundOptions);
+	}
+	
+	private void initialAddToCenterPane(GridPane gp) {
     	Label lblPrimaryColor = new Label(PRIMARY_COLOR);
     	Label lblSecondaryColor = new Label(SECONDARY_COLOR);
     	Label lblTopFrame = new Label("Top Frame: ");
@@ -114,15 +121,11 @@ public class App extends Application {
     	Label lblSelectBackground = new Label("Selects in Background: ");
 		lblColor1 = new Label("\tColor 1: ");
 		lblColor2 = new Label("\tColor 2: ");
-    	
-    	initializeColorPickers();
-
-    	cbBackgroundOptions = new ComboBox<String>();
-    	cbSelectBackgroundOptions = new ComboBox<String>();
-    	setBackgroundOptions(cbBackgroundOptions);
-    	SelectBackgroundUtility.setComboBoxOptions(cbSelectBackgroundOptions);
-    	
-    	gp.add(lblPrimaryColor, 1, 0);
+		cbBackgroundOptions = new ComboBox<String>();
+		cbSelectBackgroundOptions = new ComboBox<String>();
+		initializeColorPickers();
+		
+		gp.add(lblPrimaryColor, 1, 0);
     	gp.add(lblSecondaryColor, 2, 0);
 
     	gp.add(lblTopFrame, 0, 1);
