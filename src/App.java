@@ -19,16 +19,6 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 	private final String APP_VERSION = "1.0";
-	private final String SELECT_BACKGROUND_DO_NOTHING = "Do Nothing";
-	private final String SELECT_BACKGROUND_ONE_COLOR = "One Color";
-	private final String SELECT_BACKGROUND_ALTERNATE = "Alternate";
-	private final String SELECT_BACKGROUND_ALTERNATE_FULL = "Alternate Full";
-	private final String SELECT_BACKGROUND_TRI = "Tri";
-	private final String SELECT_BACKGROUND_RANDOM = "Random";
-	private final String SELECT_BACKGROUND_RANDOM_DIAMOND = "Random Diamond";
-	private final String SELECT_BACKGROUND_RANDOM_FULL = "Random Full";
-	private final String SELECT_BACKGROUND_TRANSPARENT = "Transparent";
-	private final String SELECT_BACKGROUND_VISIBLE = "Visible";
 	private final String SPECIFY_COLOR = "Specify Color";
 	private final String PRIMARY_COLOR = "Primary Color";
 	private final String SECONDARY_COLOR = "Secondary Color";
@@ -163,25 +153,25 @@ public class App extends Application {
 	private void setBackgroundOptions(ComboBox<String> cb) {
 		cb.getItems().addAll(
         		SPECIFY_COLOR,
-    			SELECT_BACKGROUND_TRANSPARENT
+    			SelectBackgroundUtility.TRANSPARENT
 		);
 		cb.setValue(SPECIFY_COLOR);
 	}
 	
 	private void setSelectBackgroundOptions(ComboBox<String> cb) {
 		cb.getItems().addAll(
-			SELECT_BACKGROUND_DO_NOTHING,
-			SELECT_BACKGROUND_TRANSPARENT,
-			SELECT_BACKGROUND_VISIBLE,
-			SELECT_BACKGROUND_RANDOM,
-			SELECT_BACKGROUND_RANDOM_DIAMOND,
-			SELECT_BACKGROUND_RANDOM_FULL,
-			SELECT_BACKGROUND_ONE_COLOR,
-			SELECT_BACKGROUND_ALTERNATE,
-			SELECT_BACKGROUND_ALTERNATE_FULL,
-			SELECT_BACKGROUND_TRI
+			SelectBackgroundUtility.DO_NOTHING,
+			SelectBackgroundUtility.TRANSPARENT,
+			SelectBackgroundUtility.VISIBLE,
+			SelectBackgroundUtility.RANDOM,
+			SelectBackgroundUtility.RANDOM_DIAMOND,
+			SelectBackgroundUtility.RANDOM_FULL,
+			SelectBackgroundUtility.ONE_COLOR,
+			SelectBackgroundUtility.ALTERNATE,
+			SelectBackgroundUtility.ALTERNATE_FULL,
+			SelectBackgroundUtility.TRI
 		);
-		cb.setValue(SELECT_BACKGROUND_DO_NOTHING);
+		cb.setValue(SelectBackgroundUtility.DO_NOTHING);
 	}
 	
 	private void initializeColorPickers() {
@@ -240,7 +230,7 @@ public class App extends Application {
 	        	gridPaneCenter.add(cpBackground[1], 2, 4);
 	        	gridPaneCenter.add(cbBackgroundOptions, 3, 4);		
 				break;
-			case SELECT_BACKGROUND_TRANSPARENT:
+			case SelectBackgroundUtility.TRANSPARENT:
 	        	gridPaneCenter.add(cbBackgroundOptions, 1, 4);		
 				break;
 		}
@@ -257,14 +247,14 @@ public class App extends Application {
 		gridPaneCenter.getChildren().remove(lblColor2);
 		
 		switch (option) {
-			case SELECT_BACKGROUND_ONE_COLOR:
+			case SelectBackgroundUtility.ONE_COLOR:
     	    	gridPaneCenter.add(lblColor1, 0, 7);
     			gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
     	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
 				break;
-			case SELECT_BACKGROUND_ALTERNATE:
-			case SELECT_BACKGROUND_ALTERNATE_FULL:
-			case SELECT_BACKGROUND_TRI:
+			case SelectBackgroundUtility.ALTERNATE:
+			case SelectBackgroundUtility.ALTERNATE_FULL:
+			case SelectBackgroundUtility.TRI:
     	    	gridPaneCenter.add(lblColor1, 0, 7);
 				gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
     	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
@@ -330,7 +320,7 @@ public class App extends Application {
 	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, ComboBox<String> cbBackgroundOptions) {
 		TwoColor twoColor = getTwoColor(cpBackgrounds);
 		Background background = new Background(twoColor.primaryColor, twoColor.secondaryColor);	
-		boolean isTransparent = cbBackgroundOptions.getValue() == SELECT_BACKGROUND_TRANSPARENT ? true : false;
+		boolean isTransparent = cbBackgroundOptions.getValue() == SelectBackgroundUtility.TRANSPARENT ? true : false;
 		
 		background.writeColors(filename);
 		if (isTransparent)
@@ -353,31 +343,31 @@ public class App extends Application {
 		HexRGB[] twoColorRgb2 = { selectBackground2.primaryColor, selectBackground2.secondaryColor };
 		
 		switch (option) {
-			case SELECT_BACKGROUND_RANDOM:
+			case SelectBackgroundUtility.RANDOM:
 				SelectBackground.writeRandom(filename);
 				break;
-			case SELECT_BACKGROUND_RANDOM_DIAMOND:
+			case SelectBackgroundUtility.RANDOM_DIAMOND:
 				SelectBackground.writeRandomDiamond(filename);
 				break;
-			case SELECT_BACKGROUND_RANDOM_FULL:
+			case SelectBackgroundUtility.RANDOM_FULL:
 				SelectBackground.writeRandomFull(filename);
 				break;
-			case SELECT_BACKGROUND_ONE_COLOR:
+			case SelectBackgroundUtility.ONE_COLOR:
 				SelectBackground.writeOneColor(filename, selectBackground1.primaryColor, selectBackground1.secondaryColor);
 				break;
-			case SELECT_BACKGROUND_TRANSPARENT:
+			case SelectBackgroundUtility.TRANSPARENT:
 				SelectBackground.writeTransparent(filename);
 				break;
-			case SELECT_BACKGROUND_VISIBLE:
+			case SelectBackgroundUtility.VISIBLE:
 				SelectBackground.writeVisible(filename);
 				break;
-			case SELECT_BACKGROUND_ALTERNATE:
+			case SelectBackgroundUtility.ALTERNATE:
 				SelectBackground.writeAlternate(filename, twoColorRgb1, twoColorRgb2);
 				break;
-			case SELECT_BACKGROUND_ALTERNATE_FULL:
+			case SelectBackgroundUtility.ALTERNATE_FULL:
 				SelectBackground.writeAlternateFull(filename, twoColorRgb1, twoColorRgb2);
 				break;
-			case SELECT_BACKGROUND_TRI:
+			case SelectBackgroundUtility.TRI:
 				SelectBackground.writeTri(filename, twoColorRgb1, twoColorRgb2);
 				break;
 		}
@@ -440,7 +430,7 @@ public class App extends Application {
 		boolean isTransparent = f.isTransparent(filename);
 		
 		if (isTransparent) {
-			cb.setValue(SELECT_BACKGROUND_TRANSPARENT);
+			cb.setValue(SelectBackgroundUtility.TRANSPARENT);
 			gridPaneCenter.getChildren().remove(cpBackground[0]);
 			gridPaneCenter.getChildren().remove(cpBackground[1]);
 			gridPaneCenter.getChildren().remove(cbBackgroundOptions);
