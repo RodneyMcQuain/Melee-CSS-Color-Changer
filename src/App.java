@@ -270,36 +270,6 @@ public class App extends Application {
 		alert.showAndWait();
 	}
 	
-	private void onAction_tfSourceFile() {
-		String filename = tfSourceFile.getText();
-		File file = new File(filename);
-		
-		if (isValidFile(file)) {
-    		Format070707 topFrame = new TopFrame();
-    		Format070707 bottomFrame = new BottomFrame();
-    		Format070707 rules = new Rules();
-    		Format4248 background = new Background();
-    		Format070707 cursor = new Cursor();
-
-    		// Read offsets and set UI elements
-    		setColorPickerColor(filename, cpTopFrame, topFrame);
-    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
-    		setColorPickerColor(filename, cpRules, rules);
-    		setColorPickerColor(filename, cpBackground, background);
-    		setColorPickerColor(filename, cpCursor, cursor);
-			setBackgroundComboBox(filename, cbBackgroundOptions, background);
-			
-			setValidFile();
-		} else
-			setInvalidFile();
-	}
-	
-	private boolean isValidFile(File file) {
-		return file != null
-				&& file.exists()
-				&& file.getName().matches("^(.*sd)");
-	}
-	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
 		TwoColor twoColor = getTwoColor(cpTopFrames);
 		Format070707 topFrame = new TopFrame(twoColor.primaryColor, twoColor.secondaryColor);		
@@ -345,19 +315,37 @@ public class App extends Application {
 		
 		SelectBackgroundUtility.writeByOption(filename, selectBackgroundOption, selectBackgroundColors);
 	}
-    	
-	private void onAction_btChooseFile() {
-		File file = fcSourceFile.showOpenDialog(mainBorderPane.getScene().getWindow());
+	
+	private void onAction_tfSourceFile() {
+		String filename = tfSourceFile.getText();
+		File file = new File(filename);
 		
-		if (file != null) {
-    		String filename = file.toString();
-    		tfSourceFile.setText(filename);
-    		
-    		new DefaultDirectory(filename).serialize();
-        	fcSourceFile.setInitialDirectory(file.getParentFile());
-		}
-	}
+		if (isValidFile(file)) {
+    		Format070707 topFrame = new TopFrame();
+    		Format070707 bottomFrame = new BottomFrame();
+    		Format070707 rules = new Rules();
+    		Format4248 background = new Background();
+    		Format070707 cursor = new Cursor();
 
+    		// Read offsets and set UI elements
+    		setColorPickerColor(filename, cpTopFrame, topFrame);
+    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
+    		setColorPickerColor(filename, cpRules, rules);
+    		setColorPickerColor(filename, cpBackground, background);
+    		setColorPickerColor(filename, cpCursor, cursor);
+			setBackgroundComboBox(filename, cbBackgroundOptions, background);
+			
+			setValidFile();
+		} else
+			setInvalidFile();
+	}
+	
+	private boolean isValidFile(File file) {
+		return file != null
+				&& file.exists()
+				&& file.getName().matches("^(.*sd)");
+	}
+	
 	private void setValidFile() {
 		final int VALID_FILE_STAGE_HEIGHT = 460;
 		stage.setHeight(VALID_FILE_STAGE_HEIGHT);
@@ -392,6 +380,18 @@ public class App extends Application {
 			gridPaneCenter.add(cbBackgroundOptions, 1, 4);		
 		} else {
 			cb.setValue(SPECIFY_COLOR);
+		}
+	}
+    	
+	private void onAction_btChooseFile() {
+		File file = fcSourceFile.showOpenDialog(mainBorderPane.getScene().getWindow());
+		
+		if (file != null) {
+    		String filename = file.toString();
+    		tfSourceFile.setText(filename);
+    		
+    		new DefaultDirectory(filename).serialize();
+        	fcSourceFile.setInitialDirectory(file.getParentFile());
 		}
 	}
 	
