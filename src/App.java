@@ -349,10 +349,6 @@ public class App extends Application {
     		setColorPickerColor(filename, cpBackground, background);
     		setColorPickerColor(filename, cpCursor, cursor);
 			setBackgroundComboBox(filename, cbBackgroundOptions, background);
-
-			setValidFile();
-		} else {
-			setInvalidFile();
 		}
 	}
 
