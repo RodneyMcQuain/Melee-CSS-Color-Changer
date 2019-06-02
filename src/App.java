@@ -274,10 +274,16 @@ public class App extends Application {
 		String filename = tfSourceFile.getText();
 		File file = new File(filename);
 		
-		if (file != null && file.exists())
+		if (isValidFile(file))
 			setValidFile();
 		else
 			setInvalidFile();
+	}
+	
+	private boolean isValidFile(File file) {
+		return file != null
+				&& file.exists()
+				&& file.getName().matches("^(.*sd)");
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
