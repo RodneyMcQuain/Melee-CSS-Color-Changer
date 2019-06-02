@@ -274,9 +274,23 @@ public class App extends Application {
 		String filename = tfSourceFile.getText();
 		File file = new File(filename);
 		
-		if (isValidFile(file))
+		if (isValidFile(file)) {
+    		Format070707 topFrame = new TopFrame();
+    		Format070707 bottomFrame = new BottomFrame();
+    		Format070707 rules = new Rules();
+    		Format4248 background = new Background();
+    		Format070707 cursor = new Cursor();
+
+    		// Read offsets and set UI elements
+    		setColorPickerColor(filename, cpTopFrame, topFrame);
+    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
+    		setColorPickerColor(filename, cpRules, rules);
+    		setColorPickerColor(filename, cpBackground, background);
+    		setColorPickerColor(filename, cpCursor, cursor);
+			setBackgroundComboBox(filename, cbBackgroundOptions, background);
+			
 			setValidFile();
-		else
+		} else
 			setInvalidFile();
 	}
 	
@@ -341,20 +355,6 @@ public class App extends Application {
     		
     		new DefaultDirectory(filename).serialize();
         	fcSourceFile.setInitialDirectory(file.getParentFile());
-    		
-    		Format070707 topFrame = new TopFrame();
-    		Format070707 bottomFrame = new BottomFrame();
-    		Format070707 rules = new Rules();
-    		Format4248 background = new Background();
-    		Format070707 cursor = new Cursor();
-
-    		// Read offsets and set UI elements
-    		setColorPickerColor(filename, cpTopFrame, topFrame);
-    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
-    		setColorPickerColor(filename, cpRules, rules);
-    		setColorPickerColor(filename, cpBackground, background);
-    		setColorPickerColor(filename, cpCursor, cursor);
-			setBackgroundComboBox(filename, cbBackgroundOptions, background);
 		}
 	}
 
