@@ -82,7 +82,7 @@ public class App extends Application {
 
 		tfSourceFile.textProperty().addListener(e -> onAction_tfSourceFile());
     	btChooseFile.setOnAction(e -> onAction_btChooseFile());
-		btUpdateFile.setOnAction(e -> onAction_btUpdateFile());
+		btUpdateFile.setOnAction(e -> writeToFile());
 		
 		return mainMenu;
 	}
@@ -252,7 +252,7 @@ public class App extends Application {
 		}
 	}
 	
-	private void onAction_btUpdateFile() {
+	private void writeToFile() {
 		String filename = tfSourceFile.getText();
 
 		updateSelectBackgroundFile(filename, cbSelectBackgroundOptions.getValue());
