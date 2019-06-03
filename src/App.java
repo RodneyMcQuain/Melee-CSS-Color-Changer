@@ -1,6 +1,7 @@
 import java.io.File;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -49,6 +50,7 @@ public class App extends Application {
 
 	private Label lblColor1;
 	private Label lblColor2;
+	private Label lblProvideValidFile;
 	
 	public static void main(String[] args) {
 		DefaultDirectory.createSettings();
@@ -90,15 +92,20 @@ public class App extends Application {
 	private void createTopPane(GridPane gp) {
     	formatGridPane(gp);
 
+    	lblProvideValidFile = new Label("Please provide a valid file.");
+    	lblProvideValidFile.setTextFill(Color.RED);
+    	GridPane.setHalignment(lblProvideValidFile, HPos.CENTER);
+    	
     	btChooseFile = new Button("Choose a File to Modify");
     	tfSourceFile = new TextField();
     	tfSourceFile.setPrefWidth(STAGE_WIDTH - 175);
     	fcSourceFile = new FileChooser();
     	formatFileChooserForUsdFiles(fcSourceFile);
     	setInitialDirectory(fcSourceFile);
-    	
-    	gp.add(tfSourceFile, 0, 0);
-    	gp.add(btChooseFile, 1, 0);
+
+    	gp.add(lblProvideValidFile, 0, 0, 2, 1);
+    	gp.add(tfSourceFile, 0, 1);
+    	gp.add(btChooseFile, 1, 1);
 	}
 	
 	private void createCenterPane(GridPane gp) {
@@ -319,13 +326,16 @@ public class App extends Application {
 	private void onAction_tfSourceFile() {
 		String filename = tfSourceFile.getText();
 		File file = new File(filename);
+		gridPaneTop.getChildren().remove(lblProvideValidFile);
 		
 		if (isValidFile(file)) {
 			setUIByOffsets(filename);
-			
+
 			setValidFile();
-		} else
+		} else {
+			gridPaneTop.getChildren().add(lblProvideValidFile);
 			setInvalidFile();
+		}
 	}
 	
 	private boolean isValidFile(File file) {
