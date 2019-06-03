@@ -321,19 +321,7 @@ public class App extends Application {
 		File file = new File(filename);
 		
 		if (isValidFile(file)) {
-    		Format070707 topFrame = new TopFrame();
-    		Format070707 bottomFrame = new BottomFrame();
-    		Format070707 rules = new Rules();
-    		Format4248 background = new Background();
-    		Format070707 cursor = new Cursor();
-
-    		// Read offsets and set UI elements
-    		setColorPickerColor(filename, cpTopFrame, topFrame);
-    		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
-    		setColorPickerColor(filename, cpRules, rules);
-    		setColorPickerColor(filename, cpBackground, background);
-    		setColorPickerColor(filename, cpCursor, cursor);
-			setBackgroundComboBox(filename, cbBackgroundOptions, background);
+			setUIByOffsets(filename);
 			
 			setValidFile();
 		} else
@@ -359,6 +347,22 @@ public class App extends Application {
 		btUpdateFile.setDisable(true);
 		mainBorderPane.setCenter(null);
     	mainBorderPane.setBottom(null);
+	}
+	
+	private void setUIByOffsets(String filename) {
+		Format070707 topFrame = new TopFrame();
+		Format070707 bottomFrame = new BottomFrame();
+		Format070707 rules = new Rules();
+		Format4248 background = new Background();
+		Format070707 cursor = new Cursor();
+
+		// Read offsets and set UI elements
+		setColorPickerColor(filename, cpTopFrame, topFrame);
+		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
+		setColorPickerColor(filename, cpRules, rules);
+		setColorPickerColor(filename, cpBackground, background);
+		setColorPickerColor(filename, cpCursor, cursor);
+		setBackgroundComboBox(filename, cbBackgroundOptions, background);
 	}
 	
 	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
