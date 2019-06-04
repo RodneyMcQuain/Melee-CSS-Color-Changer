@@ -24,7 +24,7 @@ public class App extends Application {
 	private final String PRIMARY_COLOR = "Primary Color";
 	private final String SECONDARY_COLOR = "Secondary Color";
 	private final int STAGE_WIDTH = 550;
-	private final int INVALID_FILE_STAGE_HEIGHT = 45;
+	private final int INVALID_FILE_STAGE_HEIGHT = 75;
 	private final int PADDING = 10;
 	
 	private Stage stage;
