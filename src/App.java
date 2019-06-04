@@ -25,6 +25,7 @@ public class App extends Application {
 	private final String SECONDARY_COLOR = "Secondary Color";
 	private final int STAGE_WIDTH = 550;
 	private final int INVALID_FILE_STAGE_HEIGHT = 45;
+	private final int PADDING = 10;
 	
 	private Stage stage;
 	private BorderPane mainBorderPane;
@@ -90,7 +91,8 @@ public class App extends Application {
 	}
 	
 	private void createTopPane(GridPane gp) {
-    	formatGridPane(gp);
+    	setHVGap(gp);
+    	gp.setPadding(new Insets(PADDING, PADDING, 0, PADDING));
 
     	lblProvideValidFile = new Label("Please provide a valid file.");
     	lblProvideValidFile.setTextFill(Color.RED);
@@ -109,7 +111,8 @@ public class App extends Application {
 	}
 	
 	private void createCenterPane(GridPane gp) {
-    	formatGridPane(gp);
+    	setHVGap(gp);
+    	gp.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
     
 		initialAddToCenterPane(gp);
 
@@ -184,18 +187,18 @@ public class App extends Application {
 	}
 	
 	private void createBottomPane(GridPane gp) {
-    	formatGridPane(gp);
-		
+    	setHVGap(gp);
+    	gp.setPadding(new Insets(0, PADDING, PADDING, PADDING));
+    	
     	btUpdateFile = new Button("Update File");
     	btUpdateFile.setDisable(true);
     	
     	gp.add(btUpdateFile, 0, 1);
 	}
 	
-	private void formatGridPane(GridPane gp) {
-    	gp.setHgap(10);
-    	gp.setVgap(10);
-    	gp.setPadding(new Insets(10, 10, 10, 10));
+	private void setHVGap(GridPane gp) {
+    	gp.setHgap(PADDING);
+    	gp.setVgap(PADDING);
 	}
 	
 	private void formatFileChooserForUsdFiles(FileChooser fc) {
@@ -334,6 +337,7 @@ public class App extends Application {
 			setValidFile();
 		} else {
 			gridPaneTop.getChildren().add(lblProvideValidFile);
+			
 			setInvalidFile();
 		}
 	}
