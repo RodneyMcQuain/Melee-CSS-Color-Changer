@@ -315,7 +315,7 @@ public class App extends Application {
 			background.writeVisible(filename);
 	}
 	
-	public void updateSelectBackgroundFile(String filename, String selectBackgroundOption) {
+	private void updateSelectBackgroundFile(String filename, String selectBackgroundOption) {
 		TwoColor twoColor1 = getTwoColor(cpSelectBackground1);
 		TwoColor twoColor2 = getTwoColor(cpSelectBackground2);
 		Format4248 selectBackground1 = new SelectBackground(twoColor1.primaryColor, twoColor1.secondaryColor);
