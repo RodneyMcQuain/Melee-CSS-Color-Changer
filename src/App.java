@@ -80,8 +80,8 @@ public class App extends Application {
     	createBottomPane(gridPaneBottom);
     	mainBorderPane.setTop(gridPaneTop);
     	
-    	cbSelectBackgroundOptions.setOnAction(e -> onAction_cbSelectBackgroundOptions());
-    	cbBackgroundOptions.setOnAction(e -> onAction_cbBackgroundOptions());
+    	cbSelectBackgroundOptions.setOnAction(e -> setSelectBackgroundUIByOption());
+    	cbBackgroundOptions.setOnAction(e -> setBackgroundUIByOption());
 
 		tfSourceFile.textProperty().addListener(e -> onAction_tfSourceFile());
     	btChooseFile.setOnAction(e -> chooseFile());
@@ -213,7 +213,7 @@ public class App extends Application {
     	fc.setInitialDirectory(new File(defaultDirectory));
 	}
 	
-	private void onAction_cbBackgroundOptions() {
+	private void setBackgroundUIByOption() {
 		String option = cbBackgroundOptions.getValue();
 		
 		gridPaneCenter.getChildren().remove(cpBackground[0]);
@@ -232,7 +232,7 @@ public class App extends Application {
 		}
 	}
 	
-	private void onAction_cbSelectBackgroundOptions() {
+	private void setSelectBackgroundUIByOption() {
 		String option = cbSelectBackgroundOptions.getValue();
 		
 		gridPaneCenter.getChildren().remove(cpSelectBackground1[0]);
