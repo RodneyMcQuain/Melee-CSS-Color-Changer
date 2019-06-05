@@ -83,7 +83,7 @@ public class App extends Application {
     	cbSelectBackgroundOptions.setOnAction(e -> setSelectBackgroundUIByOption());
     	cbBackgroundOptions.setOnAction(e -> setBackgroundUIByOption());
 
-		tfSourceFile.textProperty().addListener(e -> onAction_tfSourceFile());
+		tfSourceFile.textProperty().addListener(e -> setUIByFileValidity());
     	btChooseFile.setOnAction(e -> chooseFile());
 		btUpdateFile.setOnAction(e -> writeToFile());
 		
@@ -325,7 +325,7 @@ public class App extends Application {
 		SelectBackgroundUtility.writeByOption(filename, selectBackgroundOption, selectBackgroundColors);
 	}
 	
-	private void onAction_tfSourceFile() {
+	private void setUIByFileValidity() {
 		String filename = tfSourceFile.getText();
 		File file = new File(filename);
 		gridPaneTop.getChildren().remove(lblProvideValidFile);
