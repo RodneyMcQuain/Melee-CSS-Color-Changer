@@ -84,7 +84,7 @@ public class App extends Application {
     	cbBackgroundOptions.setOnAction(e -> onAction_cbBackgroundOptions());
 
 		tfSourceFile.textProperty().addListener(e -> onAction_tfSourceFile());
-    	btChooseFile.setOnAction(e -> onAction_btChooseFile());
+    	btChooseFile.setOnAction(e -> chooseFile());
 		btUpdateFile.setOnAction(e -> writeToFile());
 		
 		return mainMenu;
@@ -400,7 +400,7 @@ public class App extends Application {
 		}
 	}
     	
-	private void onAction_btChooseFile() {
+	private void chooseFile() {
 		File file = fcSourceFile.showOpenDialog(mainBorderPane.getScene().getWindow());
 		
 		if (file != null) {
