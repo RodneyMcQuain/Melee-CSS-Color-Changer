@@ -333,11 +333,11 @@ public class App extends Application {
 		if (isValidFile(file)) {
 			setUIByOffsets(filename);
 
-			setValidFile();
+			setValidFileUI();
 		} else {
 			gridPaneTop.getChildren().add(lblProvideValidFile);
 			
-			setInvalidFile();
+			setInvalidFileUI();
 		}
 	}
 	
@@ -347,7 +347,7 @@ public class App extends Application {
 				&& file.getName().matches("^(.*sd)");
 	}
 	
-	private void setValidFile() {
+	private void setValidFileUI() {
 		final int VALID_FILE_STAGE_HEIGHT = 460;
 		stage.setHeight(VALID_FILE_STAGE_HEIGHT);
 		btUpdateFile.setDisable(false);
@@ -355,7 +355,7 @@ public class App extends Application {
     	mainBorderPane.setBottom(gridPaneBottom);
 	}
 	
-	private void setInvalidFile() {
+	private void setInvalidFileUI() {
 		stage.setHeight(INVALID_FILE_STAGE_HEIGHT + 40);
 		btUpdateFile.setDisable(true);
 		mainBorderPane.setCenter(null);
