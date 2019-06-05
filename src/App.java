@@ -204,8 +204,7 @@ public class App extends Application {
 	private void formatFileChooserForUsdFiles(FileChooser fc) {
 		fc.setTitle("Open MnSlChr.*sd File");
 		fc.getExtensionFilters().addAll(
-    			new ExtensionFilter(".usd, .0sd, etc. Files", "*.*sd"),
-    			new ExtensionFilter("All Files", "*.*")
+			new ExtensionFilter(".usd, .0sd, etc. Files", "*.*sd")
 		);
 	}
 	
