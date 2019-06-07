@@ -1,6 +1,8 @@
 import java.io.File;
 import java.util.Optional;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -18,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Duration;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -58,6 +61,9 @@ public class App extends Application {
 	private Label lblColor1;
 	private Label lblColor2;
 	private Label lblProvideValidFile;
+	private Label lblSuccess;
+	
+	private SequentialTransition fadeAll;
 	
 	public static void main(String[] args) {
 		DefaultDirectory.createSettings();
@@ -242,7 +248,37 @@ public class App extends Application {
     	btUpdateFile = new Button("Update File");
     	btUpdateFile.setDisable(true);
     	
+    	lblSuccess = new Label("Successful Update");    	
+    	lblSuccess.setTextFill(Color.GREEN);
+    	lblSuccess.setVisible(false);
+    	initializeFadeTransition();
+    	
     	gp.add(btUpdateFile, 0, 1);
+    	gp.add(lblSuccess, 1, 1);
+	}
+	
+	private void initializeFadeTransition() {
+		final int TRANSITION_SECONDS = 2;
+		final int WAIT_SECONDS = 5;
+		final int MAX_OPACITY_VALUE = 1;
+		
+		FadeTransition fadeIn = new FadeTransition(Duration.seconds(TRANSITION_SECONDS));
+		fadeIn.setFromValue(0);
+		fadeIn.setToValue(MAX_OPACITY_VALUE);
+	    fadeIn.setAutoReverse(true);
+		
+	    FadeTransition fadeOut = new FadeTransition(Duration.seconds(TRANSITION_SECONDS));
+		fadeOut.setDelay(Duration.seconds(WAIT_SECONDS));
+		fadeOut.setFromValue(MAX_OPACITY_VALUE);
+		fadeOut.setToValue(0);
+		fadeOut.setAutoReverse(true);
+        
+		fadeAll = new SequentialTransition(
+    		lblSuccess,
+    		fadeIn,
+    		fadeOut
+		);
+        fadeAll.setOnFinished(e -> lblSuccess.setVisible(false));
 	}
 	
 	private void setHVGap(GridPane gp) {
@@ -325,21 +361,20 @@ public class App extends Application {
 		updateRules(filename, cpRules);
 		updateCursor(filename, cpCursor);
 		
+		displaySuccess();
 		setSaved();
-		alert("Update", "File updated successfully.");
+	}
+	
+	private void displaySuccess() {
+		if(!lblSuccess.isVisible()) {
+			lblSuccess.setVisible(true);
+	        fadeAll.playFromStart();
+		}
 	}
 	
 	private void setSaved() {
 		isUnsaved = false;
 		stage.setTitle(TITLE);
-	}
-	
-	private void alert(String title, String content) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setHeaderText(null);
-		alert.setContentText(content);
-		alert.showAndWait();		
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
