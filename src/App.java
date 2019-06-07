@@ -29,6 +29,7 @@ public class App extends Application {
 	private final int STAGE_WIDTH = 550;
 	private final int INVALID_FILE_STAGE_HEIGHT = 75;
 	private final int PADDING = 10;
+	private final String TITLE = "Melee CSS Color Changer - v" + APP_VERSION;
 	
 	private boolean isUnsaved = false;
 	
@@ -68,7 +69,7 @@ public class App extends Application {
     	stage = primaryStage;
 		Scene mainMenu = createMainMenu();
     	
-		stage.setTitle("Melee CSS Color Changer - v" + APP_VERSION);
+		stage.setTitle(TITLE);
 		stage.setScene(mainMenu);
 	    stage.setOnCloseRequest(e -> verifyAppClose(e));
 		stage.show();
@@ -128,6 +129,7 @@ public class App extends Application {
 	
 	private void setUnsaved() {
 		isUnsaved = true;
+		stage.setTitle(TITLE + " *");
 	}
 	
 	private void createTopPane(GridPane gp) {
@@ -322,6 +324,7 @@ public class App extends Application {
 	
 	private void setSaved() {
 		isUnsaved = false;
+		stage.setTitle(TITLE);
 	}
 	
 	private void alert(String title, String content) {
