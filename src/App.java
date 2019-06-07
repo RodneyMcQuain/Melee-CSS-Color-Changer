@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -7,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class App extends Application {
 	private final String APP_VERSION = "1.0";
@@ -65,8 +68,19 @@ public class App extends Application {
     	
 		stage.setTitle("Melee CSS Color Changer - v" + APP_VERSION);
 		stage.setScene(mainMenu);
+	    stage.setOnCloseRequest(e -> verifyAppClose(e));
 		stage.show();
     }
+	
+	private void verifyAppClose(WindowEvent e) {
+		Alert closeApp = new Alert(AlertType.CONFIRMATION);
+		closeApp.setTitle("Close Application");
+		closeApp.setHeaderText(null);
+		closeApp.setContentText("Are you sure you want to close the application?");
+		Optional<ButtonType> optionSelected = closeApp.showAndWait();
+		if (optionSelected.get() == ButtonType.CANCEL)
+			e.consume(); //stops the app from closing
+	}
 	
 	private Scene createMainMenu() {
 		mainBorderPane = new BorderPane();
