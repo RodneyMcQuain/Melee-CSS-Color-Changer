@@ -30,6 +30,8 @@ public class App extends Application {
 	private final int INVALID_FILE_STAGE_HEIGHT = 75;
 	private final int PADDING = 10;
 	
+	private boolean isUnsaved = false;
+	
 	private Stage stage;
 	private BorderPane mainBorderPane;
 	private GridPane gridPaneTop;
@@ -73,13 +75,15 @@ public class App extends Application {
     }
 	
 	private void verifyAppClose(WindowEvent e) {
-		Alert closeApp = new Alert(AlertType.CONFIRMATION);
-		closeApp.setTitle("Close Application");
-		closeApp.setHeaderText(null);
-		closeApp.setContentText("Are you sure you want to close the application?");
-		Optional<ButtonType> optionSelected = closeApp.showAndWait();
-		if (optionSelected.get() == ButtonType.CANCEL)
-			e.consume(); //stops the app from closing
+		if (isUnsaved) {
+			Alert closeApp = new Alert(AlertType.CONFIRMATION);
+			closeApp.setTitle("Close Application");
+			closeApp.setHeaderText(null);
+			closeApp.setContentText("You have unsaved content are you sure you want to close the application?");
+			Optional<ButtonType> optionSelected = closeApp.showAndWait();
+			if (optionSelected.get() == ButtonType.CANCEL)
+				e.consume(); //stops the app from closing
+		}
 	}
 	
 	private Scene createMainMenu() {
@@ -100,8 +104,30 @@ public class App extends Application {
 		tfSourceFile.textProperty().addListener(e -> setUIByFileValidity());
     	btChooseFile.setOnAction(e -> chooseFile());
 		btUpdateFile.setOnAction(e -> writeToFile());
+		addActionsToColorPickers();
 		
 		return mainMenu;
+	}
+	
+	private void addActionsToColorPickers() {
+		ColorPicker[][] twoDimColorPickers = {
+				cpTopFrame,
+				cpBottomFrame,
+				cpRules,
+				cpBackground,
+				cpCursor,
+				cpSelectBackground1,
+				cpSelectBackground2
+		};
+		
+		for (ColorPicker[] colorPickers : twoDimColorPickers) {
+			colorPickers[0].setOnAction(e -> setUnsaved());
+			colorPickers[1].setOnAction(e -> setUnsaved());
+		}		
+	}
+	
+	private void setUnsaved() {
+		isUnsaved = true;
 	}
 	
 	private void createTopPane(GridPane gp) {
@@ -244,6 +270,8 @@ public class App extends Application {
 	        	gridPaneCenter.add(cbBackgroundOptions, 1, 4);		
 				break;
 		}
+		
+		setUnsaved();
 	}
 	
 	private void setSelectBackgroundUIByOption() {
@@ -273,6 +301,8 @@ public class App extends Application {
 		    	gridPaneCenter.add(cpSelectBackground2[1], 2, 8);
 				break;
 		}
+		
+		setUnsaved();
 	}
 	
 	private void writeToFile() {
