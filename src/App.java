@@ -316,7 +316,12 @@ public class App extends Application {
 		updateRules(filename, cpRules);
 		updateCursor(filename, cpCursor);
 		
+		setSaved();
 		alert("Update", "File updated successfully.");
+	}
+	
+	private void setSaved() {
+		isUnsaved = false;
 	}
 	
 	private void alert(String title, String content) {
