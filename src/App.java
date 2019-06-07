@@ -75,14 +75,21 @@ public class App extends Application {
 		stage.show();
     }
 	
+	private boolean unsavedConfirmationAlert(String action) {
+		Alert closeApp = new Alert(AlertType.CONFIRMATION);
+		closeApp.setTitle("Close Application");
+		closeApp.setHeaderText(null);
+		closeApp.setContentText("You have unsaved changes are you sure you want to" + action + "?");
+		Optional<ButtonType> optionSelected = closeApp.showAndWait();
+		if (optionSelected.get() == ButtonType.CANCEL)
+			return false;
+		
+		return true;
+	}
+	
 	private void verifyAppClose(WindowEvent e) {
 		if (isUnsaved) {
-			Alert closeApp = new Alert(AlertType.CONFIRMATION);
-			closeApp.setTitle("Close Application");
-			closeApp.setHeaderText(null);
-			closeApp.setContentText("You have unsaved content are you sure you want to close the application?");
-			Optional<ButtonType> optionSelected = closeApp.showAndWait();
-			if (optionSelected.get() == ButtonType.CANCEL)
+			if (!unsavedConfirmationAlert("close the application"))
 				e.consume(); //stops the app from closing
 		}
 	}
@@ -457,6 +464,9 @@ public class App extends Application {
 	}
     	
 	private void chooseFile() {
+		if (!isFileChange())
+			return;
+		
 		File file = fcSourceFile.showOpenDialog(mainBorderPane.getScene().getWindow());
 		
 		if (file != null) {
@@ -465,7 +475,18 @@ public class App extends Application {
     		
     		new DefaultDirectory(filename).serialize();
         	fcSourceFile.setInitialDirectory(file.getParentFile());
+        	setSaved();
 		}
+	}
+	
+	private boolean isFileChange() {
+		if (isUnsaved) {
+			boolean isFileChange = !unsavedConfirmationAlert("change the file");
+			if (isFileChange)
+				return false;
+		}
+		
+		return true;
 	}
 	
 	private TwoColor getTwoColor(ColorPicker[] cp) {
