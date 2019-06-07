@@ -85,7 +85,7 @@ public class App extends Application {
 		Alert closeApp = new Alert(AlertType.CONFIRMATION);
 		closeApp.setTitle("Close Application");
 		closeApp.setHeaderText(null);
-		closeApp.setContentText("You have unsaved changes are you sure you want to" + action + "?");
+		closeApp.setContentText("You have unsaved changes are you sure you want to " + action + "?");
 		Optional<ButtonType> optionSelected = closeApp.showAndWait();
 		if (optionSelected.get() == ButtonType.CANCEL)
 			return false;
