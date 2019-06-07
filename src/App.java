@@ -272,11 +272,15 @@ public class App extends Application {
 		updateRules(filename, cpRules);
 		updateCursor(filename, cpCursor);
 		
+		alert("Update", "File updated successfully.");
+	}
+	
+	private void alert(String title, String content) {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Update Dialog");
+		alert.setTitle(title);
 		alert.setHeaderText(null);
-		alert.setContentText("File updated successfully.");
-		alert.showAndWait();
+		alert.setContentText(content);
+		alert.showAndWait();		
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
