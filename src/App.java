@@ -80,19 +80,7 @@ public class App extends Application {
 	    stage.setOnCloseRequest(e -> verifyAppClose(e));
 		stage.show();
     }
-	
-	private boolean unsavedConfirmationAlert(String action) {
-		Alert closeApp = new Alert(AlertType.CONFIRMATION);
-		closeApp.setTitle("Close Application");
-		closeApp.setHeaderText(null);
-		closeApp.setContentText("You have unsaved changes are you sure you want to " + action + "?");
-		Optional<ButtonType> optionSelected = closeApp.showAndWait();
-		if (optionSelected.get() == ButtonType.CANCEL)
-			return false;
-		
-		return true;
-	}
-	
+
 	private void verifyAppClose(WindowEvent e) {
 		if (isUnsaved) {
 			if (!unsavedConfirmationAlert("close the application"))
@@ -520,6 +508,18 @@ public class App extends Application {
 			if (isFileChange)
 				return false;
 		}
+		
+		return true;
+	}
+	
+	private boolean unsavedConfirmationAlert(String action) {
+		Alert closeApp = new Alert(AlertType.CONFIRMATION);
+		closeApp.setTitle("Close Application");
+		closeApp.setHeaderText(null);
+		closeApp.setContentText("You have unsaved changes are you sure you want to " + action + "?");
+		Optional<ButtonType> optionSelected = closeApp.showAndWait();
+		if (optionSelected.get() == ButtonType.CANCEL)
+			return false;
 		
 		return true;
 	}
