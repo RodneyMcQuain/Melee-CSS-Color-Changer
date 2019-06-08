@@ -20,19 +20,12 @@ public class MainMenuTopPane {
 	private GridPane centerPane;
 	private GridPane bottomPane;
 
+	private SharedUIElements sharedElements;
+	
 	private Stage stage;
 	private FileChooser fcSourceFile;
 	private Button btChooseFile;
-	private Button btUpdateFile;
-	private TextField tfSourceFile;
-	private ComboBox<String> cbBackgroundOptions;
 	private Label lblProvideValidFile;
-	
-	private ColorPicker[] cpTopFrame;
-	private ColorPicker[] cpBottomFrame;
-	private ColorPicker[] cpRules;
-	private ColorPicker[] cpBackground;
-	private ColorPicker[] cpCursor;
 	
 	public MainMenuTopPane(
 		Stage stage,
@@ -40,33 +33,19 @@ public class MainMenuTopPane {
 		GridPane topPane,
 		GridPane centerPane,
 		GridPane bottomPane,
-		Button btUpdateFile,
-		TextField tfSourceFile,
-		ComboBox<String> cbBackgroundOptions,
-		ColorPicker[] cpTopFrame,
-		ColorPicker[] cpBottomFrame,
-		ColorPicker[] cpRules,
-		ColorPicker[] cpBackground,
-		ColorPicker[] cpCursor
+		SharedUIElements sharedElements
 	) {
 		this.stage = stage;
 		this.mainMenu = mainMenu;
 		this.topPane = topPane;
 		this.centerPane = centerPane;
 		this.bottomPane = bottomPane;
-		this.btUpdateFile = btUpdateFile;
-		this.tfSourceFile = tfSourceFile;
-		
-		this.cpTopFrame = cpTopFrame;
-		this.cpBottomFrame = cpBottomFrame;
-		this.cpRules = cpRules;
-		this.cpBackground = cpBackground;
-		this.cpCursor = cpCursor;
-		
-		this.cbBackgroundOptions = cbBackgroundOptions;
+		this.sharedElements = sharedElements;
 	}
 	
 	public void createTopPane() {
+		TextField tfSourceFile = sharedElements.getTfSourceFile();
+		
     	App.setHVGap(topPane);
     	topPane.setPadding(new Insets(App.PADDING, App.PADDING, 0, App.PADDING));
 
@@ -89,6 +68,8 @@ public class MainMenuTopPane {
 	}
 	
 	private void setUIByFileValidity() {
+		TextField tfSourceFile = sharedElements.getTfSourceFile();
+
 		String filename = tfSourceFile.getText();
 		File file = new File(filename);
 		topPane.getChildren().remove(lblProvideValidFile);
@@ -111,6 +92,8 @@ public class MainMenuTopPane {
 	}
 	
 	private void setValidFileUI() {
+		Button btUpdateFile = sharedElements.getBtUpdateFile();
+
 		final int VALID_FILE_STAGE_HEIGHT = 460;
 		stage.setHeight(VALID_FILE_STAGE_HEIGHT);
 		btUpdateFile.setDisable(false);
@@ -119,6 +102,8 @@ public class MainMenuTopPane {
 	}
 	
 	private void setInvalidFileUI() {
+		Button btUpdateFile = sharedElements.getBtUpdateFile();
+
 		stage.setHeight(App.INVALID_FILE_STAGE_HEIGHT + 40);
 		btUpdateFile.setDisable(true);
 		mainMenu.setCenter(null);
@@ -132,7 +117,8 @@ public class MainMenuTopPane {
 		File file = fcSourceFile.showOpenDialog(mainMenu.getScene().getWindow());
 		
 		if (file != null) {
-    		String filename = file.toString();
+			TextField tfSourceFile = sharedElements.getTfSourceFile();
+			String filename = file.toString();
     		tfSourceFile.setText(filename);
     		
     		new DefaultDirectory(filename).serialize();
@@ -152,6 +138,13 @@ public class MainMenuTopPane {
 	}
 	
 	private void setUIByOffsets(String filename) {
+		ComboBox<String> cbBackgroundOptions = sharedElements.getCbBackgroundOptions();
+		ColorPicker[] cpBackground = sharedElements.getCpBackground();
+		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
+		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
+		ColorPicker[] cpRules = sharedElements.getCpRules();
+		ColorPicker[] cpCursor = sharedElements.getCpCursor();
+		
 		Format070707 topFrame = new TopFrame();
 		Format070707 bottomFrame = new BottomFrame();
 		Format070707 rules = new Rules();
@@ -164,7 +157,7 @@ public class MainMenuTopPane {
 		setColorPickerColor(filename, cpRules, rules);
 		setColorPickerColor(filename, cpBackground, background);
 		setColorPickerColor(filename, cpCursor, cursor);
-		setBackgroundComboBox(filename, cbBackgroundOptions, background);
+		setBackgroundComboBox(filename, cbBackgroundOptions, cpBackground, background);
 	}
 	
 	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
@@ -175,17 +168,22 @@ public class MainMenuTopPane {
 		cp[1].setValue(color2);	
 	}
 	
-	private void setBackgroundComboBox(String filename, ComboBox<String> cb, Format4248 f) {
+	private void setBackgroundComboBox(
+		String filename, 
+		ComboBox<String> cbBackgroundOptions, 
+		ColorPicker[] cpBackground, 
+		Format4248 f
+	) {
 		boolean isTransparent = f.isTransparent(filename);
 		
 		if (isTransparent) {
-			cb.setValue(SelectBackgroundUtility.TRANSPARENT);
+			cbBackgroundOptions.setValue(SelectBackgroundUtility.TRANSPARENT);
 			centerPane.getChildren().remove(cpBackground[0]);
 			centerPane.getChildren().remove(cpBackground[1]);
 			centerPane.getChildren().remove(cbBackgroundOptions);
 			centerPane.add(cbBackgroundOptions, 1, 4);		
 		} else {
-			cb.setValue(App.SPECIFY_COLOR);
+			cbBackgroundOptions.setValue(App.SPECIFY_COLOR);
 		}
 	}
 	

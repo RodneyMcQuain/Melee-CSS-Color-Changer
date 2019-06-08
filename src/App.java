@@ -31,20 +31,8 @@ public class App extends Application {
 	private GridPane gridPaneTop;
 	private GridPane gridPaneCenter;
 	private GridPane gridPaneBottom;
-
-	private ColorPicker[] cpTopFrame;
-	private ColorPicker[] cpBottomFrame;
-	private ColorPicker[] cpRules;
-	private ColorPicker[] cpBackground;
-	private ColorPicker[] cpCursor;
-	private ColorPicker[] cpSelectBackground1;
-	private ColorPicker[] cpSelectBackground2;
-
-	private Button btUpdateFile;
-	private TextField tfSourceFile;
 	
-	private ComboBox<String> cbBackgroundOptions;
-	private ComboBox<String> cbSelectBackgroundOptions;
+	private SharedUIElements sharedElements;
 	
 	public static void main(String[] args) {
 		DefaultDirectory.createSettings();
@@ -87,23 +75,33 @@ public class App extends Application {
 		gridPaneCenter = new GridPane();
     	gridPaneBottom = new GridPane();
 		
-    	tfSourceFile = new TextField();
+    	TextField tfSourceFile = new TextField();
 
-    	cbBackgroundOptions = new ComboBox<String>();
-		cbSelectBackgroundOptions = new ComboBox<String>();
-		initializeColorPickers();
+    	ComboBox<String> cbBackgroundOptions = new ComboBox<String>();
+		ComboBox<String> cbSelectBackgroundOptions = new ComboBox<String>();
+		ColorPicker[] cpTopFrame = createTwoColorPicker();
+		ColorPicker[] cpBottomFrame = createTwoColorPicker();
+		ColorPicker[] cpRules = createTwoColorPicker();
+		ColorPicker[] cpBackground = createTwoColorPicker();
+		ColorPicker[] cpCursor = createTwoColorPicker();
+		ColorPicker[] cpSelectBackground1 = createTwoColorPicker();
+		ColorPicker[] cpSelectBackground2 = createTwoColorPicker();
 		
-    	btUpdateFile = new Button("Update File");
-	}
-	
-	private void initializeColorPickers() {
-		cpTopFrame = createTwoColorPicker();
-		cpBottomFrame = createTwoColorPicker();
-		cpRules = createTwoColorPicker();
-		cpBackground = createTwoColorPicker();
-		cpCursor = createTwoColorPicker();
-		cpSelectBackground1 = createTwoColorPicker();
-		cpSelectBackground2 = createTwoColorPicker();
+    	Button btUpdateFile = new Button("Update File");
+
+    	sharedElements = new SharedUIElements(
+			btUpdateFile,
+			tfSourceFile,
+			cbBackgroundOptions,
+			cbSelectBackgroundOptions,
+			cpTopFrame,
+			cpBottomFrame,
+			cpRules,
+			cpBackground,
+			cpCursor,
+			cpSelectBackground1,
+			cpSelectBackground2
+		);
 	}
 
 	private ColorPicker[] createTwoColorPicker() {
@@ -118,14 +116,7 @@ public class App extends Application {
 			gp,
 			gridPaneCenter,
 			gridPaneBottom,
-			btUpdateFile,
-			tfSourceFile,
-			cbBackgroundOptions,
-			cpTopFrame,
-			cpBottomFrame,
-			cpRules,
-			cpBackground,
-			cpCursor
+			sharedElements
 		);
 		
 		topPane.createTopPane();
@@ -134,15 +125,7 @@ public class App extends Application {
 	private void createCenterPane(GridPane gp) {
 		MainMenuCenterPane centerPane = new MainMenuCenterPane(
 			gp,
-			cbBackgroundOptions,
-			cbSelectBackgroundOptions,
-			cpTopFrame,
-			cpBottomFrame,
-			cpRules,
-			cpBackground,
-			cpCursor,
-			cpSelectBackground1,
-			cpSelectBackground2
+			sharedElements
 		);
 		
 		centerPane.createCenterPane();
@@ -151,17 +134,7 @@ public class App extends Application {
 	private void createBottomPane(GridPane gp) {
 		MainMenuBottomPane bottomPane = new MainMenuBottomPane(
 			gp,
-			btUpdateFile,
-			tfSourceFile,
-			cbBackgroundOptions,
-			cbSelectBackgroundOptions,
-			cpTopFrame,
-			cpBottomFrame,
-			cpRules,
-			cpBackground,
-			cpCursor,
-			cpSelectBackground1,
-			cpSelectBackground2
+			sharedElements
 		);
 			
 		bottomPane.createBottomPane();

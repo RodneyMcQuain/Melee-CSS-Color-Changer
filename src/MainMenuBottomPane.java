@@ -12,56 +12,21 @@ import javafx.util.Duration;
 
 public class MainMenuBottomPane {
 	private GridPane gp;
-	private Button btUpdateFile;
-	private TextField tfSourceFile;
+	
+	private SharedUIElements sharedElements;
 	
 	private Label lblSuccess;
 	private SequentialTransition fadeAll;
-	
-	private ComboBox<String> cbBackgroundOptions;
-	private ComboBox<String> cbSelectBackgroundOptions;
-	
-	private ColorPicker[] cpTopFrame;
-	private ColorPicker[] cpBottomFrame;
-	private ColorPicker[] cpRules;
-	private ColorPicker[] cpBackground;
-	private ColorPicker[] cpCursor;
-	private ColorPicker[] cpSelectBackground1;
-	private ColorPicker[] cpSelectBackground2;
-	
-	public MainMenuBottomPane(
-		GridPane gp,
-		Button btUpdateFile,
-		TextField tfSourceFile,
-		ComboBox<String> cbBackgroundOptions,
-		ComboBox<String> cbSelectBackgroundOptions,
-		ColorPicker[] cpTopFrame,
-		ColorPicker[] cpBottomFrame,
-		ColorPicker[] cpRules,
-		ColorPicker[] cpBackground,
-		ColorPicker[] cpCursor,
-		ColorPicker[] cpSelectBackground1,
-		ColorPicker[] cpSelectBackground2
-	) {
+
+	public MainMenuBottomPane(GridPane gp, SharedUIElements sharedElements) {
 		this.gp = gp;
-		this.btUpdateFile = btUpdateFile;
-		this.tfSourceFile = tfSourceFile;
-		
-		this.cpTopFrame = cpTopFrame;
-		this.cpBottomFrame = cpBottomFrame;
-		this.cpRules = cpRules;
-		this.cpBackground = cpBackground;
-		this.cpCursor = cpCursor;
-		this.cpSelectBackground1 = cpSelectBackground1;
-		this.cpSelectBackground2 = cpSelectBackground2;
-		
-		this.cbBackgroundOptions = cbBackgroundOptions;
-		this.cbSelectBackgroundOptions = cbSelectBackgroundOptions;
+		this.sharedElements = sharedElements;
 	}
 	
 	public void createBottomPane() {
     	App.setHVGap(gp);
     	gp.setPadding(new Insets(0, App.PADDING, App.PADDING, App.PADDING));
+    	Button btUpdateFile = sharedElements.getBtUpdateFile();
     	
     	btUpdateFile.setDisable(true);
     	
@@ -101,11 +66,27 @@ public class MainMenuBottomPane {
 	}
 	
 	private void writeToFile() {
+		ComboBox<String> cbSelectBackgroundOptions = sharedElements.getCbSelectBackgroundOptions();
+		ComboBox<String> cbBackgroundOptions = sharedElements.getCbBackgroundOptions();
+		TextField tfSourceFile = sharedElements.getTfSourceFile();
+		ColorPicker[] cpBackground = sharedElements.getCpBackground();
+		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
+		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
+		ColorPicker[] cpRules = sharedElements.getCpRules();
+		ColorPicker[] cpCursor = sharedElements.getCpCursor();
+		ColorPicker[] cpSelectBackground1 = sharedElements.getCpSelectBackground1();
+		ColorPicker[] cpSelectBackground2 = sharedElements.getCpSelectBackground2();
+
 		String filename = tfSourceFile.getText();
 
-		updateSelectBackgroundFile(filename, cbSelectBackgroundOptions.getValue());
+		updateSelectBackgroundFile(
+			filename, 
+			cpSelectBackground1, 
+			cpSelectBackground2, 
+			cbSelectBackgroundOptions.getValue()
+		);
 		
-		updateBackground(filename, cpBackground, cbBackgroundOptions);
+		updateBackground(filename, cpBackground, cbBackgroundOptions.getValue());
 		updateTopFrame(filename, cpTopFrame);
 		updateBottomFrame(filename, cpBottomFrame);
 		updateRules(filename, cpRules);
@@ -146,10 +127,10 @@ public class MainMenuBottomPane {
 		cursor.writeColors(filename);
 	}
 	
-	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, ComboBox<String> cbBackgroundOptions) {
+	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, String selectBackgroundOption) {
 		TwoColor twoColor = getTwoColor(cpBackgrounds);
 		Background background = new Background(twoColor.primaryColor, twoColor.secondaryColor);	
-		boolean isTransparent = cbBackgroundOptions.getValue() == SelectBackgroundUtility.TRANSPARENT ? true : false;
+		boolean isTransparent = selectBackgroundOption == SelectBackgroundUtility.TRANSPARENT ? true : false;
 		
 		background.writeColors(filename);
 		if (isTransparent)
@@ -158,7 +139,12 @@ public class MainMenuBottomPane {
 			background.writeVisible(filename);
 	}
 	
-	private void updateSelectBackgroundFile(String filename, String selectBackgroundOption) {
+	private void updateSelectBackgroundFile(
+		String filename, 
+		ColorPicker[] cpSelectBackground1, 
+		ColorPicker[] cpSelectBackground2, 
+		String selectBackgroundOption
+	) {
 		TwoColor twoColor1 = getTwoColor(cpSelectBackground1);
 		TwoColor twoColor2 = getTwoColor(cpSelectBackground2);
 		Format4248 selectBackground1 = new SelectBackground(twoColor1.primaryColor, twoColor1.secondaryColor);

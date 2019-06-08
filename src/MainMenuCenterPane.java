@@ -7,47 +7,24 @@ import javafx.scene.layout.GridPane;
 public class MainMenuCenterPane {
 	private GridPane gp;
 	
-	private ColorPicker[] cpTopFrame;
-	private ColorPicker[] cpBottomFrame;
-	private ColorPicker[] cpRules;
-	private ColorPicker[] cpBackground;
-	private ColorPicker[] cpCursor;
-	private ColorPicker[] cpSelectBackground1;
-	private ColorPicker[] cpSelectBackground2;
-	
-	private ComboBox<String> cbBackgroundOptions;
-	private ComboBox<String> cbSelectBackgroundOptions;
+	private SharedUIElements sharedElements;
 	
 	private Label lblColor1;
 	private Label lblColor2;
 	
 	public MainMenuCenterPane(
 		GridPane gp,
-		ComboBox<String> cbBackgroundOptions,
-		ComboBox<String> cbSelectBackgroundOptions,
-		ColorPicker[] cpTopFrame,
-		ColorPicker[] cpBottomFrame,
-		ColorPicker[] cpRules,
-		ColorPicker[] cpBackground,
-		ColorPicker[] cpCursor,
-		ColorPicker[] cpSelectBackground1,
-		ColorPicker[] cpSelectBackground2
+		SharedUIElements sharedElements
 	) {
 		this.gp = gp;
 		
-		this.cpTopFrame = cpTopFrame;
-		this.cpBottomFrame = cpBottomFrame;
-		this.cpRules = cpRules;
-		this.cpBackground = cpBackground;
-		this.cpCursor = cpCursor;
-		this.cpSelectBackground1 = cpSelectBackground1;
-		this.cpSelectBackground2 = cpSelectBackground2;
-		
-		this.cbBackgroundOptions = cbBackgroundOptions;
-		this.cbSelectBackgroundOptions = cbSelectBackgroundOptions;
+		this.sharedElements = sharedElements;
 	}
 	
 	public void createCenterPane() {
+		ComboBox<String> cbBackgroundOptions = sharedElements.getCbBackgroundOptions();
+		ComboBox<String> cbSelectBackgroundOptions = sharedElements.getCbSelectBackgroundOptions();
+
     	App.setHVGap(gp);
     	gp.setPadding(new Insets(App.PADDING, App.PADDING, App.PADDING, App.PADDING));
     
@@ -56,12 +33,20 @@ public class MainMenuCenterPane {
     	setBackgroundOptions(cbBackgroundOptions);
     	SelectBackgroundUtility.setComboBoxOptions(cbSelectBackgroundOptions);
     	
-    	cbSelectBackgroundOptions.setOnAction(e -> setSelectBackgroundUIByOption());
-    	cbBackgroundOptions.setOnAction(e -> setBackgroundUIByOption());
+    	cbSelectBackgroundOptions.setOnAction(e -> setSelectBackgroundUIByOption(cbSelectBackgroundOptions));
+    	cbBackgroundOptions.setOnAction(e -> setBackgroundUIByOption(cbBackgroundOptions));
 		addActionsToColorPickers();
 	}
 	
 	private void initialAddToCenterPane(GridPane gp) {
+		ComboBox<String> cbBackgroundOptions = sharedElements.getCbBackgroundOptions();
+		ComboBox<String> cbSelectBackgroundOptions = sharedElements.getCbSelectBackgroundOptions();
+		ColorPicker[] cpBackground = sharedElements.getCpBackground();
+		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
+		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
+		ColorPicker[] cpRules = sharedElements.getCpRules();
+		ColorPicker[] cpCursor = sharedElements.getCpCursor();
+		
     	Label lblPrimaryColor = new Label("Primary Color");
     	Label lblSecondaryColor = new Label("Secondary Color");
     	Label lblTopFrame = new Label("Top Frame: ");
@@ -103,13 +88,14 @@ public class MainMenuCenterPane {
 	
 	private void setBackgroundOptions(ComboBox<String> cb) {
 		cb.getItems().addAll(
-        		App.SPECIFY_COLOR,
-    			SelectBackgroundUtility.TRANSPARENT
+    		App.SPECIFY_COLOR,
+			SelectBackgroundUtility.TRANSPARENT
 		);
 		cb.setValue(App.SPECIFY_COLOR);
 	}
     
-	private void setBackgroundUIByOption() {
+	private void setBackgroundUIByOption(ComboBox<String> cbBackgroundOptions) {
+		ColorPicker[] cpBackground = sharedElements.getCpBackground();
 		String option = cbBackgroundOptions.getValue();
 		
 		gp.getChildren().remove(cpBackground[0]);
@@ -130,7 +116,10 @@ public class MainMenuCenterPane {
 		App.setUnsaved();
 	}
 	
-	private void setSelectBackgroundUIByOption() {
+	private void setSelectBackgroundUIByOption(ComboBox<String> cbSelectBackgroundOptions) {
+		ColorPicker[] cpSelectBackground1 = sharedElements.getCpSelectBackground1();
+		ColorPicker[] cpSelectBackground2 = sharedElements.getCpSelectBackground2();
+		
 		String option = cbSelectBackgroundOptions.getValue();
 		
 		gp.getChildren().remove(cpSelectBackground1[0]);
@@ -162,6 +151,14 @@ public class MainMenuCenterPane {
 	}
 	
 	private void addActionsToColorPickers() {
+		ColorPicker[] cpBackground = sharedElements.getCpBackground();
+		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
+		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
+		ColorPicker[] cpRules = sharedElements.getCpRules();
+		ColorPicker[] cpCursor = sharedElements.getCpCursor();
+		ColorPicker[] cpSelectBackground1 = sharedElements.getCpSelectBackground1();
+		ColorPicker[] cpSelectBackground2 = sharedElements.getCpSelectBackground2();
+		
 		ColorPicker[][] twoDimColorPickers = {
 				cpTopFrame,
 				cpBottomFrame,
