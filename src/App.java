@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.util.Optional;
 
@@ -25,18 +26,17 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class App extends Application {
-	private final String APP_VERSION = "1.0";
-	private final String SPECIFY_COLOR = "Specify Color";
-	private final String PRIMARY_COLOR = "Primary Color";
-	private final String SECONDARY_COLOR = "Secondary Color";
+	public final static int PADDING = 10;
+	public final static String SPECIFY_COLOR = "Specify Color";
+
+	private final static String APP_VERSION = "1.0";
+	private final static String TITLE = "Melee CSS Color Changer - v" + APP_VERSION;
 	private final int STAGE_WIDTH = 550;
 	private final int INVALID_FILE_STAGE_HEIGHT = 75;
-	private final int PADDING = 10;
-	private final String TITLE = "Melee CSS Color Changer - v" + APP_VERSION;
 	
-	private boolean isUnsaved = false;
+	private static boolean isUnsaved = false;
 	
-	private Stage stage;
+	private static Stage stage;
 	private BorderPane mainBorderPane;
 	private GridPane gridPaneTop;
 	private GridPane gridPaneCenter;
@@ -58,8 +58,6 @@ public class App extends Application {
 	private ComboBox<String> cbBackgroundOptions;
 	private ComboBox<String> cbSelectBackgroundOptions;
 
-	private Label lblColor1;
-	private Label lblColor2;
 	private Label lblProvideValidFile;
 	private Label lblSuccess;
 	
@@ -99,38 +97,12 @@ public class App extends Application {
     	createCenterPane(gridPaneCenter);
     	createBottomPane(gridPaneBottom);
     	mainBorderPane.setTop(gridPaneTop);
-    	
-    	cbSelectBackgroundOptions.setOnAction(e -> setSelectBackgroundUIByOption());
-    	cbBackgroundOptions.setOnAction(e -> setBackgroundUIByOption());
 
 		tfSourceFile.textProperty().addListener(e -> setUIByFileValidity());
     	btChooseFile.setOnAction(e -> chooseFile());
 		btUpdateFile.setOnAction(e -> writeToFile());
-		addActionsToColorPickers();
 		
 		return mainMenu;
-	}
-	
-	private void addActionsToColorPickers() {
-		ColorPicker[][] twoDimColorPickers = {
-				cpTopFrame,
-				cpBottomFrame,
-				cpRules,
-				cpBackground,
-				cpCursor,
-				cpSelectBackground1,
-				cpSelectBackground2
-		};
-		
-		for (ColorPicker[] colorPickers : twoDimColorPickers) {
-			colorPickers[0].setOnAction(e -> setUnsaved());
-			colorPickers[1].setOnAction(e -> setUnsaved());
-		}		
-	}
-	
-	private void setUnsaved() {
-		isUnsaved = true;
-		stage.setTitle(TITLE + " *");
 	}
 	
 	private void createTopPane(GridPane gp) {
@@ -154,64 +126,24 @@ public class App extends Application {
 	}
 	
 	private void createCenterPane(GridPane gp) {
-    	setHVGap(gp);
-    	gp.setPadding(new Insets(PADDING, PADDING, PADDING, PADDING));
-    
-		initialAddToCenterPane(gp);
-
-    	setBackgroundOptions(cbBackgroundOptions);
-    	SelectBackgroundUtility.setComboBoxOptions(cbSelectBackgroundOptions);
-	}
-	
-	private void initialAddToCenterPane(GridPane gp) {
-    	Label lblPrimaryColor = new Label(PRIMARY_COLOR);
-    	Label lblSecondaryColor = new Label(SECONDARY_COLOR);
-    	Label lblTopFrame = new Label("Top Frame: ");
-    	Label lblBottomFrame = new Label("Bottom Frame: ");
-    	Label lblRules = new Label("Rules: ");
-    	Label lblBackground = new Label("Background: ");
-    	Label lblCursor = new Label("Cursor: ");
-    	Label lblSelectBackground = new Label("Selects in Background: ");
-		lblColor1 = new Label("\tColor 1: ");
-		lblColor2 = new Label("\tColor 2: ");
 		cbBackgroundOptions = new ComboBox<String>();
 		cbSelectBackgroundOptions = new ComboBox<String>();
 		initializeColorPickers();
 		
-		gp.add(lblPrimaryColor, 1, 0);
-    	gp.add(lblSecondaryColor, 2, 0);
-
-    	gp.add(lblTopFrame, 0, 1);
-    	gp.add(cpTopFrame[0], 1, 1);
-    	gp.add(cpTopFrame[1], 2, 1);
-
-    	gp.add(lblBottomFrame, 0, 2);
-    	gp.add(cpBottomFrame[0], 1, 2);
-    	gp.add(cpBottomFrame[1], 2, 2);
-
-    	gp.add(lblRules, 0, 3);
-    	gp.add(cpRules[0], 1, 3);
-    	gp.add(cpRules[1], 2, 3);
-
-    	gp.add(lblBackground, 0, 4);
-    	gp.add(cpBackground[0], 1, 4);
-    	gp.add(cpBackground[1], 2, 4);
-    	gp.add(cbBackgroundOptions, 3, 4);
-
-    	gp.add(lblCursor, 0, 5);
-    	gp.add(cpCursor[0], 1, 5);
-    	gp.add(cpCursor[1], 2, 5);
-    	
-    	gp.add(lblSelectBackground, 0, 6);
-    	gp.add(cbSelectBackgroundOptions, 1, 6, 2, 1);
-	}
-	
-	private void setBackgroundOptions(ComboBox<String> cb) {
-		cb.getItems().addAll(
-        		SPECIFY_COLOR,
-    			SelectBackgroundUtility.TRANSPARENT
+		MainMenuCenterPane centerPane = new MainMenuCenterPane(
+			gp,
+			cbBackgroundOptions,
+			cbSelectBackgroundOptions,
+			cpTopFrame,
+			cpBottomFrame,
+			cpRules,
+			cpBackground,
+			cpCursor,
+			cpSelectBackground1,
+			cpSelectBackground2
 		);
-		cb.setValue(SPECIFY_COLOR);
+		
+		centerPane.createCenterPane(gp);
 	}
 	
 	private void initializeColorPickers() {
@@ -269,7 +201,7 @@ public class App extends Application {
         fadeAll.setOnFinished(e -> lblSuccess.setVisible(false));
 	}
 	
-	private void setHVGap(GridPane gp) {
+	public static void setHVGap(GridPane gp) {
     	gp.setHgap(PADDING);
     	gp.setVgap(PADDING);
 	}
@@ -284,58 +216,6 @@ public class App extends Application {
 	private void setInitialDirectory(FileChooser fc) {
     	String defaultDirectory = DefaultDirectory.deserialize();
     	fc.setInitialDirectory(new File(defaultDirectory));
-	}
-	
-	private void setBackgroundUIByOption() {
-		String option = cbBackgroundOptions.getValue();
-		
-		gridPaneCenter.getChildren().remove(cpBackground[0]);
-		gridPaneCenter.getChildren().remove(cpBackground[1]);
-		gridPaneCenter.getChildren().remove(cbBackgroundOptions);
-		
-		switch(option) {
-			case SPECIFY_COLOR:
-	        	gridPaneCenter.add(cpBackground[0], 1, 4);
-	        	gridPaneCenter.add(cpBackground[1], 2, 4);
-	        	gridPaneCenter.add(cbBackgroundOptions, 3, 4);		
-				break;
-			case SelectBackgroundUtility.TRANSPARENT:
-	        	gridPaneCenter.add(cbBackgroundOptions, 1, 4);		
-				break;
-		}
-		
-		setUnsaved();
-	}
-	
-	private void setSelectBackgroundUIByOption() {
-		String option = cbSelectBackgroundOptions.getValue();
-		
-		gridPaneCenter.getChildren().remove(cpSelectBackground1[0]);
-		gridPaneCenter.getChildren().remove(cpSelectBackground1[1]);
-		gridPaneCenter.getChildren().remove(cpSelectBackground2[0]);
-		gridPaneCenter.getChildren().remove(cpSelectBackground2[1]);
-		gridPaneCenter.getChildren().remove(lblColor1);
-		gridPaneCenter.getChildren().remove(lblColor2);
-		
-		switch (option) {
-			case SelectBackgroundUtility.ONE_COLOR:
-    	    	gridPaneCenter.add(lblColor1, 0, 7);
-    			gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
-    	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
-				break;
-			case SelectBackgroundUtility.ALTERNATE:
-			case SelectBackgroundUtility.ALTERNATE_FULL:
-			case SelectBackgroundUtility.TRI:
-    	    	gridPaneCenter.add(lblColor1, 0, 7);
-				gridPaneCenter.add(cpSelectBackground1[0], 1, 7);
-    	    	gridPaneCenter.add(cpSelectBackground1[1], 2, 7);
-    	    	gridPaneCenter.add(lblColor2, 0, 8);
-		    	gridPaneCenter.add(cpSelectBackground2[0], 1, 8);
-		    	gridPaneCenter.add(cpSelectBackground2[1], 2, 8);
-				break;
-		}
-		
-		setUnsaved();
 	}
 	
 	private void writeToFile() {
@@ -363,6 +243,11 @@ public class App extends Application {
 	private void setSaved() {
 		isUnsaved = false;
 		stage.setTitle(TITLE);
+	}
+	
+	public static void setUnsaved() {
+		isUnsaved = true;
+		stage.setTitle(TITLE + " *");
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
