@@ -1,11 +1,9 @@
 
-import java.io.File;
 import java.util.Optional;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,8 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -28,11 +24,11 @@ import javafx.stage.WindowEvent;
 public class App extends Application {
 	public final static int PADDING = 10;
 	public final static String SPECIFY_COLOR = "Specify Color";
+	public final static int INVALID_FILE_STAGE_HEIGHT = 75;
 
 	private final static String APP_VERSION = "1.0";
 	private final static String TITLE = "Melee CSS Color Changer - v" + APP_VERSION;
-	private final int STAGE_WIDTH = 550;
-	private final int INVALID_FILE_STAGE_HEIGHT = 75;
+	public final static int STAGE_WIDTH = 550;
 	
 	private static boolean isUnsaved = false;
 	
@@ -50,15 +46,12 @@ public class App extends Application {
 	private ColorPicker[] cpSelectBackground1;
 	private ColorPicker[] cpSelectBackground2;
 
-	private FileChooser fcSourceFile;
 	private Button btUpdateFile;
-	private Button btChooseFile;
 	private TextField tfSourceFile;
 	
 	private ComboBox<String> cbBackgroundOptions;
 	private ComboBox<String> cbSelectBackgroundOptions;
 
-	private Label lblProvideValidFile;
 	private Label lblSuccess;
 	
 	private SequentialTransition fadeAll;
@@ -90,46 +83,62 @@ public class App extends Application {
 		mainBorderPane = new BorderPane();
     	Scene mainMenu =  new Scene(mainBorderPane, STAGE_WIDTH, INVALID_FILE_STAGE_HEIGHT);
     	
-    	gridPaneTop = new GridPane();
-		gridPaneCenter = new GridPane();
-    	gridPaneBottom = new GridPane();
+    	initializeUIComponents();
     	createTopPane(gridPaneTop);
     	createCenterPane(gridPaneCenter);
     	createBottomPane(gridPaneBottom);
     	mainBorderPane.setTop(gridPaneTop);
 
-		tfSourceFile.textProperty().addListener(e -> setUIByFileValidity());
-    	btChooseFile.setOnAction(e -> chooseFile());
 		btUpdateFile.setOnAction(e -> writeToFile());
 		
 		return mainMenu;
 	}
 	
-	private void createTopPane(GridPane gp) {
-    	setHVGap(gp);
-    	gp.setPadding(new Insets(PADDING, PADDING, 0, PADDING));
-
-    	lblProvideValidFile = new Label("Please provide a valid file.");
-    	lblProvideValidFile.setTextFill(Color.RED);
-    	GridPane.setHalignment(lblProvideValidFile, HPos.CENTER);
-    	
-    	btChooseFile = new Button("Choose a File to Modify");
+	private void initializeUIComponents() {		
+		gridPaneTop = new GridPane();
+		gridPaneCenter = new GridPane();
+    	gridPaneBottom = new GridPane();
+		
     	tfSourceFile = new TextField();
-    	tfSourceFile.setPrefWidth(STAGE_WIDTH - 175);
-    	fcSourceFile = new FileChooser();
-    	formatFileChooserForUsdFiles(fcSourceFile);
-    	setInitialDirectory(fcSourceFile);
 
-    	gp.add(lblProvideValidFile, 0, 0, 2, 1);
-    	gp.add(tfSourceFile, 0, 1);
-    	gp.add(btChooseFile, 1, 1);
-	}
-	
-	private void createCenterPane(GridPane gp) {
-		cbBackgroundOptions = new ComboBox<String>();
+    	cbBackgroundOptions = new ComboBox<String>();
 		cbSelectBackgroundOptions = new ComboBox<String>();
 		initializeColorPickers();
 		
+    	btUpdateFile = new Button("Update File");
+	}
+	
+	private void initializeColorPickers() {
+		cpTopFrame = createTwoColorPicker();
+		cpBottomFrame = createTwoColorPicker();
+		cpRules = createTwoColorPicker();
+		cpBackground = createTwoColorPicker();
+		cpCursor = createTwoColorPicker();
+		cpSelectBackground1 = createTwoColorPicker();
+		cpSelectBackground2 = createTwoColorPicker();
+	}
+
+	private void createTopPane(GridPane gp) {
+		MainMenuTopPane topPane = new MainMenuTopPane(
+			stage,
+			mainBorderPane,
+			gridPaneTop,
+			gridPaneCenter,
+			gridPaneBottom,
+			btUpdateFile,
+			tfSourceFile,
+			cbBackgroundOptions,
+			cpTopFrame,
+			cpBottomFrame,
+			cpRules,
+			cpBackground,
+			cpCursor
+		);
+		
+		topPane.createTopPane();
+	}
+	
+	private void createCenterPane(GridPane gp) {
 		MainMenuCenterPane centerPane = new MainMenuCenterPane(
 			gp,
 			cbBackgroundOptions,
@@ -146,15 +155,6 @@ public class App extends Application {
 		centerPane.createCenterPane(gp);
 	}
 	
-	private void initializeColorPickers() {
-    	cpTopFrame = createTwoColorPicker();
-    	cpBottomFrame = createTwoColorPicker();
-    	cpRules = createTwoColorPicker();
-    	cpBackground = createTwoColorPicker();
-    	cpCursor = createTwoColorPicker();
-    	cpSelectBackground1 = createTwoColorPicker();
-    	cpSelectBackground2 = createTwoColorPicker();
-	}
 	
     private ColorPicker[] createTwoColorPicker() {
     	ColorPicker[] cps = { new ColorPicker(), new ColorPicker() };
@@ -165,7 +165,6 @@ public class App extends Application {
     	setHVGap(gp);
     	gp.setPadding(new Insets(0, PADDING, PADDING, PADDING));
     	
-    	btUpdateFile = new Button("Update File");
     	btUpdateFile.setDisable(true);
     	
     	lblSuccess = new Label("Successful Update");    	
@@ -206,18 +205,6 @@ public class App extends Application {
     	gp.setVgap(PADDING);
 	}
 	
-	private void formatFileChooserForUsdFiles(FileChooser fc) {
-		fc.setTitle("Open MnSlChr.*sd File");
-		fc.getExtensionFilters().addAll(
-			new ExtensionFilter(".usd, .0sd, etc. Files", "*.*sd")
-		);
-	}
-	
-	private void setInitialDirectory(FileChooser fc) {
-    	String defaultDirectory = DefaultDirectory.deserialize();
-    	fc.setInitialDirectory(new File(defaultDirectory));
-	}
-	
 	private void writeToFile() {
 		String filename = tfSourceFile.getText();
 
@@ -240,7 +227,7 @@ public class App extends Application {
 		}
 	}
 	
-	private void setSaved() {
+	public static void setSaved() {
 		isUnsaved = false;
 		stage.setTitle(TITLE);
 	}
@@ -248,6 +235,10 @@ public class App extends Application {
 	public static void setUnsaved() {
 		isUnsaved = true;
 		stage.setTitle(TITLE + " *");
+	}
+	
+	public static boolean getIsUnsaved() {
+		return isUnsaved;
 	}
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
@@ -296,108 +287,7 @@ public class App extends Application {
 		SelectBackgroundUtility.writeByOption(filename, selectBackgroundOption, selectBackgroundColors);
 	}
 	
-	private void setUIByFileValidity() {
-		String filename = tfSourceFile.getText();
-		File file = new File(filename);
-		gridPaneTop.getChildren().remove(lblProvideValidFile);
-		
-		if (isValidFile(file)) {
-			setUIByOffsets(filename);
-
-			setValidFileUI();
-		} else {
-			gridPaneTop.getChildren().add(lblProvideValidFile);
-			
-			setInvalidFileUI();
-		}
-	}
-	
-	private boolean isValidFile(File file) {
-		return file != null
-				&& file.exists()
-				&& file.getName().matches("^(.*sd)");
-	}
-	
-	private void setValidFileUI() {
-		final int VALID_FILE_STAGE_HEIGHT = 460;
-		stage.setHeight(VALID_FILE_STAGE_HEIGHT);
-		btUpdateFile.setDisable(false);
-		mainBorderPane.setCenter(gridPaneCenter);
-    	mainBorderPane.setBottom(gridPaneBottom);
-	}
-	
-	private void setInvalidFileUI() {
-		stage.setHeight(INVALID_FILE_STAGE_HEIGHT + 40);
-		btUpdateFile.setDisable(true);
-		mainBorderPane.setCenter(null);
-    	mainBorderPane.setBottom(null);
-	}
-	
-	private void setUIByOffsets(String filename) {
-		Format070707 topFrame = new TopFrame();
-		Format070707 bottomFrame = new BottomFrame();
-		Format070707 rules = new Rules();
-		Format4248 background = new Background();
-		Format070707 cursor = new Cursor();
-
-		// Read offsets and set UI elements
-		setColorPickerColor(filename, cpTopFrame, topFrame);
-		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
-		setColorPickerColor(filename, cpRules, rules);
-		setColorPickerColor(filename, cpBackground, background);
-		setColorPickerColor(filename, cpCursor, cursor);
-		setBackgroundComboBox(filename, cbBackgroundOptions, background);
-	}
-	
-	private void setColorPickerColor(String filename, ColorPicker[] cp, TwoColorFormat f) {
-		Color color1 = f.readColors(filename, f.getPrimaryColorOffset());
-		cp[0].setValue(color1);	
-		
-		Color color2 = f.readColors(filename, f.getSecondaryColorOffset());
-		cp[1].setValue(color2);	
-	}
-	
-	private void setBackgroundComboBox(String filename, ComboBox<String> cb, Format4248 f) {
-		boolean isTransparent = f.isTransparent(filename);
-		
-		if (isTransparent) {
-			cb.setValue(SelectBackgroundUtility.TRANSPARENT);
-			gridPaneCenter.getChildren().remove(cpBackground[0]);
-			gridPaneCenter.getChildren().remove(cpBackground[1]);
-			gridPaneCenter.getChildren().remove(cbBackgroundOptions);
-			gridPaneCenter.add(cbBackgroundOptions, 1, 4);		
-		} else {
-			cb.setValue(SPECIFY_COLOR);
-		}
-	}
-    	
-	private void chooseFile() {
-		if (!isFileChange())
-			return;
-		
-		File file = fcSourceFile.showOpenDialog(mainBorderPane.getScene().getWindow());
-		
-		if (file != null) {
-    		String filename = file.toString();
-    		tfSourceFile.setText(filename);
-    		
-    		new DefaultDirectory(filename).serialize();
-        	fcSourceFile.setInitialDirectory(file.getParentFile());
-        	setSaved();
-		}
-	}
-	
-	private boolean isFileChange() {
-		if (isUnsaved) {
-			boolean isFileChange = !unsavedConfirmationAlert("change the file");
-			if (isFileChange)
-				return false;
-		}
-		
-		return true;
-	}
-	
-	private boolean unsavedConfirmationAlert(String action) {
+	public static boolean unsavedConfirmationAlert(String action) {
 		Alert closeApp = new Alert(AlertType.CONFIRMATION);
 		closeApp.setTitle("Close Application");
 		closeApp.setHeaderText(null);
