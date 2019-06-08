@@ -47,7 +47,7 @@ public class MainMenuCenterPane {
 		this.cbSelectBackgroundOptions = cbSelectBackgroundOptions;
 	}
 	
-	public void createCenterPane(GridPane gp) {
+	public void createCenterPane() {
     	App.setHVGap(gp);
     	gp.setPadding(new Insets(App.PADDING, App.PADDING, App.PADDING, App.PADDING));
     

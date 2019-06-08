@@ -122,7 +122,7 @@ public class App extends Application {
 		MainMenuTopPane topPane = new MainMenuTopPane(
 			stage,
 			mainBorderPane,
-			gridPaneTop,
+			gp,
 			gridPaneCenter,
 			gridPaneBottom,
 			btUpdateFile,
@@ -152,7 +152,7 @@ public class App extends Application {
 			cpSelectBackground2
 		);
 		
-		centerPane.createCenterPane(gp);
+		centerPane.createCenterPane();
 	}
 	
 	
