@@ -1,11 +1,12 @@
+package Models;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import javafx.scene.paint.Color;
 
-abstract class TwoColorFormat {
-	protected HexRGB primaryColor;
-	protected HexRGB secondaryColor;
+public abstract class TwoColorFormat {
+	private HexRGB primaryColor;
+	private HexRGB secondaryColor;
 	protected int startOffset;
 
 	public TwoColorFormat(Color primary, Color secondary) {
@@ -56,5 +57,17 @@ abstract class TwoColorFormat {
 		}
 		
 		return color;
+	}
+
+	public HexRGB getPrimaryColor() {
+		return primaryColor;
+	}
+
+	public HexRGB getSecondaryColor() {
+		return secondaryColor;
+	}
+
+	public int getStartOffset() {
+		return startOffset;
 	}
 }

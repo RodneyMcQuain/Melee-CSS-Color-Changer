@@ -1,3 +1,4 @@
+package Models;
 import javafx.scene.paint.Color;
 
 public class Format070707 extends TwoColorFormat {

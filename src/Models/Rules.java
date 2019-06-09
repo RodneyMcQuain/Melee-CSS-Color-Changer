@@ -1,3 +1,4 @@
+package Models;
 import javafx.scene.paint.Color;
 
 public class Rules extends Format070707 {

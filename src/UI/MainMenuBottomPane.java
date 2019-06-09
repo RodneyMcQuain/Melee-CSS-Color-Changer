@@ -1,3 +1,13 @@
+package UI;
+import Models.Background;
+import Models.BottomFrame;
+import Models.Cursor;
+import Models.Format070707;
+import Models.Format4248;
+import Models.Rules;
+import Models.SelectBackground;
+import Models.TopFrame;
+import Models.TwoColor;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.geometry.Insets;
@@ -105,31 +115,31 @@ public class MainMenuBottomPane {
 	
 	private void updateTopFrame(String filename, ColorPicker[] cpTopFrames) {
 		TwoColor twoColor = getTwoColor(cpTopFrames);
-		Format070707 topFrame = new TopFrame(twoColor.primaryColor, twoColor.secondaryColor);		
+		Format070707 topFrame = new TopFrame(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());		
 		topFrame.writeColors(filename);
 	}
 	
 	private void updateBottomFrame(String filename, ColorPicker[] cpBottomFrames) {
 		TwoColor twoColor = getTwoColor(cpBottomFrames);
-		Format070707 bottomFrame = new BottomFrame(twoColor.primaryColor, twoColor.secondaryColor);
+		Format070707 bottomFrame = new BottomFrame(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());
 		bottomFrame.writeColors(filename);
 	}
 	
 	private void updateRules(String filename, ColorPicker[] cpRules) {
 		TwoColor twoColor = getTwoColor(cpRules);
-		Format070707 rules = new Rules(twoColor.primaryColor, twoColor.secondaryColor);
+		Format070707 rules = new Rules(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());
 		rules.writeColors(filename);
 	}
 	
 	private void updateCursor(String filename, ColorPicker[] cpCursor) {
 		TwoColor twoColor = getTwoColor(cpCursor);
-		Format070707 cursor = new Cursor(twoColor.primaryColor, twoColor.secondaryColor);
+		Format070707 cursor = new Cursor(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());
 		cursor.writeColors(filename);
 	}
 	
 	private void updateBackground(String filename, ColorPicker[] cpBackgrounds, String selectBackgroundOption) {
 		TwoColor twoColor = getTwoColor(cpBackgrounds);
-		Background background = new Background(twoColor.primaryColor, twoColor.secondaryColor);	
+		Background background = new Background(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());	
 		boolean isTransparent = selectBackgroundOption == SelectBackgroundUtility.TRANSPARENT ? true : false;
 		
 		background.writeColors(filename);
@@ -147,8 +157,8 @@ public class MainMenuBottomPane {
 	) {
 		TwoColor twoColor1 = getTwoColor(cpSelectBackground1);
 		TwoColor twoColor2 = getTwoColor(cpSelectBackground2);
-		Format4248 selectBackground1 = new SelectBackground(twoColor1.primaryColor, twoColor1.secondaryColor);
-		Format4248 selectBackground2 = new SelectBackground(twoColor2.primaryColor, twoColor2.secondaryColor);
+		Format4248 selectBackground1 = new SelectBackground(twoColor1.getPrimaryColor(), twoColor1.getSecondaryColor());
+		Format4248 selectBackground2 = new SelectBackground(twoColor2.getPrimaryColor(), twoColor2.getSecondaryColor());
 		Format4248[] selectBackgroundColors = { selectBackground1, selectBackground2 };
 		
 		SelectBackgroundUtility.writeByOption(filename, selectBackgroundOption, selectBackgroundColors);

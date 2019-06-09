@@ -1,3 +1,8 @@
+package UI;
+
+import Models.Format4248;
+import Models.HexRGB;
+import Models.SelectBackground;
 import javafx.scene.control.ComboBox;
 
 public class SelectBackgroundUtility {
@@ -13,8 +18,8 @@ public class SelectBackgroundUtility {
 	public final static String VISIBLE = "Visible";
 	
 	public static void writeByOption(String filename, String option, Format4248[] selectBackgroundColors) {
-		HexRGB[] twoColorRgb1 = { selectBackgroundColors[0].primaryColor, selectBackgroundColors[0].secondaryColor };
-		HexRGB[] twoColorRgb2 = { selectBackgroundColors[1].primaryColor,  selectBackgroundColors[1].secondaryColor };
+		HexRGB[] twoColorRgb1 = { selectBackgroundColors[0].getPrimaryColor(), selectBackgroundColors[0].getSecondaryColor() };
+		HexRGB[] twoColorRgb2 = { selectBackgroundColors[1].getPrimaryColor(),  selectBackgroundColors[1].getSecondaryColor() };
 		
 		switch (option) {
 			case SelectBackgroundUtility.RANDOM:
