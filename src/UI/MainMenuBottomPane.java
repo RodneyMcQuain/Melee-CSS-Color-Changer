@@ -60,13 +60,11 @@ public class MainMenuBottomPane {
 		FadeTransition fadeIn = new FadeTransition(Duration.seconds(IN_TRANSITION_SECONDS));
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(MAX_OPACITY_VALUE);
-	    fadeIn.setAutoReverse(true);
 		
 	    FadeTransition fadeOut = new FadeTransition(Duration.seconds(OUT_TRANSITION_SECONDS));
 		fadeOut.setDelay(Duration.seconds(WAIT_SECONDS));
 		fadeOut.setFromValue(MAX_OPACITY_VALUE);
 		fadeOut.setToValue(0);
-		fadeOut.setAutoReverse(true);
         
 		fadeAll = new SequentialTransition(
     		lblSuccess,
