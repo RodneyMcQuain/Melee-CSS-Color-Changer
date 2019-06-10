@@ -52,16 +52,17 @@ public class MainMenuBottomPane {
 	}
 	
 	private void initializeFadeTransition() {
-		final int TRANSITION_SECONDS = 2;
+		final double IN_TRANSITION_SECONDS = .5;
+		final int OUT_TRANSITION_SECONDS = 2;
 		final int WAIT_SECONDS = 5;
 		final int MAX_OPACITY_VALUE = 1;
 		
-		FadeTransition fadeIn = new FadeTransition(Duration.seconds(TRANSITION_SECONDS));
+		FadeTransition fadeIn = new FadeTransition(Duration.seconds(IN_TRANSITION_SECONDS));
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(MAX_OPACITY_VALUE);
 	    fadeIn.setAutoReverse(true);
 		
-	    FadeTransition fadeOut = new FadeTransition(Duration.seconds(TRANSITION_SECONDS));
+	    FadeTransition fadeOut = new FadeTransition(Duration.seconds(OUT_TRANSITION_SECONDS));
 		fadeOut.setDelay(Duration.seconds(WAIT_SECONDS));
 		fadeOut.setFromValue(MAX_OPACITY_VALUE);
 		fadeOut.setToValue(0);
