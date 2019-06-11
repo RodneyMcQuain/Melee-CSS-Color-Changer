@@ -77,6 +77,7 @@ public class App extends Application {
 		gridPaneCenter = new GridPane();
     	gridPaneBottom = new GridPane();
 		
+    	Button btUpdateFile = new Button("Update File");
     	TextField tfSourceFile = new TextField();
 
     	ComboBox<String> cbBackgroundOptions = new ComboBox<String>();
@@ -89,7 +90,6 @@ public class App extends Application {
 		ColorPicker[] cpSelectBackground1 = createTwoColorPicker();
 		ColorPicker[] cpSelectBackground2 = createTwoColorPicker();
 		
-    	Button btUpdateFile = new Button("Update File");
 
     	sharedElements = new SharedUIElements(
 			btUpdateFile,
