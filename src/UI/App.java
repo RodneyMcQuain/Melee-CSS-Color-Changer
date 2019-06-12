@@ -167,9 +167,7 @@ public class App extends Application {
 		closeApp.setHeaderText(null);
 		closeApp.setContentText("You have unsaved changes are you sure you want to " + action + "?");
 		Optional<ButtonType> optionSelected = closeApp.showAndWait();
-		if (optionSelected.get() == ButtonType.CANCEL)
-			return false;
-		
-		return true;
+
+		return optionSelected.get() != ButtonType.CANCEL;
 	}
 }
