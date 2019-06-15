@@ -53,10 +53,13 @@ public class App extends Application {
     }
 
 	private void verifyAppClose(WindowEvent e) {
-		if (isUnsaved) {
+		if (isUnsaved)
 			if (!unsavedConfirmationAlert("close the application"))
-				e.consume(); //stops the app from closing
-		}
+				stopAppFromClosing(e);
+	}
+	
+	private void stopAppFromClosing(WindowEvent e) {
+		e.consume();
 	}
 	
 	private Scene createMainMenu() {
