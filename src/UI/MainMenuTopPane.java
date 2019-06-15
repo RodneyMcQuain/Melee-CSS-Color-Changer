@@ -62,9 +62,9 @@ public class MainMenuTopPane {
     	btChooseFile = new Button("Choose a File to Modify");
     	fcSourceFile = new FileChooser();
     	lblProvideValidFile = new Label("Please provide a valid file.");
+    	
     	lblProvideValidFile.setTextFill(Color.RED);
     	GridPane.setHalignment(lblProvideValidFile, HPos.CENTER);
-    	
     	tfSourceFile.setPrefWidth(App.STAGE_WIDTH - 175);
     	formatFileChooserForUsdFiles(fcSourceFile);
     	setInitialDirectory(fcSourceFile);
