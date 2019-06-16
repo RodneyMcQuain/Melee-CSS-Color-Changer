@@ -5,19 +5,18 @@ Melee CSS Color Changer is used to change various colors on the character select
 The program does not currently suppport reading the color of background "selects." When updating the other colors and you don't want to overwrite your background "selects" color(s) then set the option to "Do Nothing" for the "Background Selects:" combo box.
 
 ## Example Input and Output of the Application
+Program input and output:  
+![](https://imgur.com/e6IcL6A.png)
+![](https://i.imgur.com/rtecYi0.png)
+
 Transparent Background with "Background Selects" at "Alternate" with color 1 as white and color 2 as black
-![Alt Text](https://thumbs.gfycat.com/HideousParallelAruanas.webp)
+![](https://thumbs.gfycat.com/HideousParallelAruanas.webp)
 
 Transparent Background with "Background Selects" at "Tri" with color 1 as white and color 2 as black
-![Alt Text](https://thumbs.gfycat.com/UniqueOddballBrontosaurus.webp)
+![](https://thumbs.gfycat.com/UniqueOddballBrontosaurus.webp)
 
 Transparent Background with "Background Selects" at "Random"
-![Alt Text](https://thumbs.gfycat.com/ConcreteGraciousCuscus.webp)
-
-Some ugly colors to show program input and output  
-![Alt Text](https://i.imgur.com/MD3RyE1.png)
-![Alt Text](https://i.imgur.com/7TAQWhM.png)
-
+![](https://thumbs.gfycat.com/ConcreteGraciousCuscus.webp)
 
 ## MnSlChr.usd Start Offset Documentation  
 42 48 Format    | Starting Offset
