@@ -18,6 +18,13 @@ Transparent Background with "Background Selects" at "Tri" with color 1 as white 
 Transparent Background with "Background Selects" at "Random"
 ![](https://thumbs.gfycat.com/ConcreteGraciousCuscus.webp)
 
+Some other examples  
+![](https://media.giphy.com/media/YmaxEUjhXJQU5jHanY/giphy.gif)
+![](https://media.giphy.com/media/jsCGchgNEuuDRfAKEa/giphy.gif)
+![](https://media.giphy.com/media/kboTn0eF0dPeaGM6zL/giphy.gif)
+![](https://media.giphy.com/media/mDT65dpD2ZenaZzB6G/giphy.gif)
+![](https://media.giphy.com/media/cJSerfJeOrSXpMIapF/giphy.gif)
+
 ## MnSlChr.usd Start Offset Documentation  
 42 48 Format    | Starting Offset
 --------------- | ---------------
