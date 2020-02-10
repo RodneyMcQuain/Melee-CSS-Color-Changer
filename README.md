@@ -1,6 +1,16 @@
 # Melee-CSS-Color-Changer
 
-Melee CSS Color Changer is used to change various colors on the character select screen of Super Smash Bros. Melee. The user just provides the appropriate MnSlChr.usd and adjusts the colors for background, top frame, bottom frame, rules, cursor, and the many "selects" in the background.
+The Melee CSS Color Changer is used to change various colors on the character select screen of Super Smash Bros. Melee. The app supports changing the:
+* Bottom frame 
+* Top frame
+* Cursor 
+* Rules
+* Background
+* Selects in the background
+
+of the CSS.
+
+All that needs to be done is provide a valid MnSlChr.*sd (MnSlChr.usd, MnSlChr.0sd, etc.) file, pick your desired colors, and replace that file back into a Melee ISO. I recommend using [DAT Texture Wizard](https://smashboards.com/threads/dat-texture-wizard-current-version-5-5.373777/) to get and replace that file.
 
 The program does not currently suppport reading the color of background "selects." When updating the other colors and you don't want to overwrite your background "selects" color(s) then set the option to "Do Nothing" for the "Background Selects:" combo box.
 
@@ -25,7 +35,7 @@ Some other examples
 ![](https://media.giphy.com/media/mDT65dpD2ZenaZzB6G/giphy.gif)
 ![](https://media.giphy.com/media/cJSerfJeOrSXpMIapF/giphy.gif)
 
-## MnSlChr.usd Start Offset Documentation  
+## MnSlChr.usd Starting Offset Documentation  
 42 48 Format    | Starting Offset
 --------------- | ---------------
 Background | 0x000958  
