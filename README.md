@@ -1,6 +1,6 @@
 # Melee-CSS-Color-Changer
 
-The Melee CSS Color Changer is used to change various colors on the character select screen of Super Smash Bros. Melee. The app supports changing the:
+The Melee CSS (Character Select Screen) Color Changer is used to change various colors on the character select screen of Super Smash Bros. Melee. The app supports changing the:
 * Bottom frame 
 * Top frame
 * Cursor 
