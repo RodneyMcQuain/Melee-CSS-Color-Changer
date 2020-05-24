@@ -10,8 +10,34 @@ The Melee CSS Color Changer is used to change various colors on the character se
 
 of the CSS.
 
-All that needs to be done is provide a valid MnSlChr.*sd (MnSlChr.usd, MnSlChr.0sd, etc.) file, pick your desired colors, and replace that file back into a Melee ISO. I recommend using [DAT Texture Wizard](https://smashboards.com/threads/dat-texture-wizard-current-version-5-5.373777/) to get and replace that file.
+## How to Use
+There are a few ways to use this program, but this section will cover how to use it with [DAT Texture Wizard](https://smashboards.com/threads/dat-texture-wizard-current-version-5-5.373777/).
 
+1. Have a Super Smash Bros. Melee (Melee) ISO
+1. Download [DAT Texture Wizard](https://www.mediafire.com/file/dzay2wgw2fa6f0v/DAT_Texture_Wizard_-_v5.5_%28x64%29.zip/file)
+2. Open DAT Texture Wizard
+3. Click "File" in the top left
+4. Click "Open Disc" in the newly appeared "File" menu
+5. Locate and Open your Melee ISO from the file explorer
+6. While under the "Disc File Tree" tab Locate MnSlChr file (note: the file extension changes based on what version of Melee your ISO is, e.g. MnSlChr.usd for vanilla Melee, MnSlChr.0sd for 20XX 4.07++, etc.)
+7. Click the MnSlChr that you just found
+8. Click "Export" on the right side of the application
+9. Save the file to your desired location
+10. [Download the newest .jar release for CSS Color Changer](https://github.com/RodneyMcQuain/Melee-CSS-Color-Changer/releases)
+11. Open the CSS Color Changer
+12. Click "Choose a File to Modify"
+13. Select the MnSlChr file that you recently saved (from DAT Texture Wizard)
+14. Pick your desired colors and modifications to the Melee CSS
+15. Once you finish making your changes click "Update File"
+16. Switch back to the DAT Texture Wizard application
+17. If you closed your ISO from earlier refer back to steps 2-6 to get back to where you need to be
+18. While highlighting the MnSlChr file Click "Import" on the right side of the application
+19. Locate and Open the MnSlChr file that you saved earlier
+21. Press Ctrl+s or go to "File" -> "Save" to save your changes
+
+Your ISO now has the changes you just made to the CSS and you can run it on your console or emulator!
+
+## Limitations
 The program does not currently suppport reading the color of background "selects." When updating the other colors and you don't want to overwrite your background "selects" color(s) then set the option to "Do Nothing" for the "Background Selects:" combo box.
 
 ## Example Input and Output of the Application
