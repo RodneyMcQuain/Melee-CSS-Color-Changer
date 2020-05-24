@@ -8,7 +8,7 @@ The Melee CSS (Character Select Screen) Color Changer is used to change various 
 * Background
 * Selects in the background
 
-of the CSS.
+of the CSS. For more information on the process involved for creating an application like this, [check out my blog post](https://rodneymcquain.com/blog-posts/coloring-in-a-20-year-old-video-game).
 
 ## How to Use
 There are a few ways to use this program, but this section will cover how to use it with [DAT Texture Wizard](https://smashboards.com/threads/dat-texture-wizard-current-version-5-5.373777/).
