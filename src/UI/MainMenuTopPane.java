@@ -106,7 +106,7 @@ public class MainMenuTopPane {
 	private void setValidFileUI() {
 		Button btUpdateFile = sharedElements.getBtUpdateFile();
 
-		final int VALID_FILE_STAGE_HEIGHT = 460;
+		final int VALID_FILE_STAGE_HEIGHT = 540;
 		stage.setHeight(VALID_FILE_STAGE_HEIGHT);
 		btUpdateFile.setDisable(false);
 		mainMenu.setCenter(centerPane);

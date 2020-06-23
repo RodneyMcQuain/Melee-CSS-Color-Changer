@@ -64,7 +64,7 @@ public class App extends Application {
 	
 	private Scene createMainMenu() {
 		mainBorderPane = new BorderPane();
-    	Scene mainMenu =  new Scene(mainBorderPane, STAGE_WIDTH, INVALID_FILE_STAGE_HEIGHT);
+		Scene mainMenu = new Scene(mainBorderPane, STAGE_WIDTH, INVALID_FILE_STAGE_HEIGHT);
     	
     	initializeMainMenuComponents();
     	createTopPane(gridPaneTop);

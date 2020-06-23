@@ -117,12 +117,12 @@ public class MainMenuCenterPane {
 		
 		switch(option) {
 			case App.SPECIFY_COLOR:
-	        	gp.add(cpBackground[0], 1, 4);
-	        	gp.add(cpBackground[1], 2, 4);
-	        	gp.add(cbBackgroundOptions, 3, 4);		
+	        	gp.add(cpBackground[0], 1, 6);
+	        	gp.add(cpBackground[1], 2, 6);
+	        	gp.add(cbBackgroundOptions, 3, 6);		
 				break;
 			case SelectBackgroundUtility.TRANSPARENT:
-	        	gp.add(cbBackgroundOptions, 1, 4);		
+	        	gp.add(cbBackgroundOptions, 1, 6);		
 				break;
 		}
 		
@@ -144,19 +144,19 @@ public class MainMenuCenterPane {
 		
 		switch (option) {
 			case SelectBackgroundUtility.ONE_COLOR:
-    	    	gp.add(lblColor1, 0, 7);
-    			gp.add(cpSelectBackground1[0], 1, 7);
-    	    	gp.add(cpSelectBackground1[1], 2, 7);
+    	    	gp.add(lblColor1, 0, 9);
+    			gp.add(cpSelectBackground1[0], 1, 9);
+    	    	gp.add(cpSelectBackground1[1], 2, 9);
 				break;
 			case SelectBackgroundUtility.ALTERNATE:
 			case SelectBackgroundUtility.ALTERNATE_FULL:
 			case SelectBackgroundUtility.TRI:
-    	    	gp.add(lblColor1, 0, 7);
-				gp.add(cpSelectBackground1[0], 1, 7);
-    	    	gp.add(cpSelectBackground1[1], 2, 7);
-    	    	gp.add(lblColor2, 0, 8);
-		    	gp.add(cpSelectBackground2[0], 1, 8);
-		    	gp.add(cpSelectBackground2[1], 2, 8);
+    	    	gp.add(lblColor1, 0, 9);
+				gp.add(cpSelectBackground1[0], 1, 9);
+    	    	gp.add(cpSelectBackground1[1], 2, 9);
+    	    	gp.add(lblColor2, 0, 10);
+		    	gp.add(cpSelectBackground2[0], 1, 10);
+		    	gp.add(cpSelectBackground2[1], 2, 10);
 				break;
 		}
 		
