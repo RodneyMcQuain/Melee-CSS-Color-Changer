@@ -8,6 +8,8 @@ import Models.DefaultDirectory;
 import Models.Format070707;
 import Models.Format4248;
 import Models.Rules;
+import Models.SinglePlayerBottomFrame;
+import Models.SinglePlayerTopFrame;
 import Models.TopFrame;
 import Models.TwoColorFormat;
 import javafx.geometry.HPos;
@@ -151,12 +153,16 @@ public class MainMenuTopPane {
 		ComboBox<String> cbBackgroundOptions = sharedElements.getCbBackgroundOptions();
 		ColorPicker[] cpBackground = sharedElements.getCpBackground();
 		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
+		ColorPicker[] cpSinglePlayerTopFrame = sharedElements.getCpSinglePlayerTopFrame();
+		ColorPicker[] cpSinglePlayerBottomFrame = sharedElements.getCpSinglePlayerBottomFrame();
 		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
 		ColorPicker[] cpRules = sharedElements.getCpRules();
 		ColorPicker[] cpCursor = sharedElements.getCpCursor();
 		
 		Format070707 topFrame = new TopFrame();
 		Format070707 bottomFrame = new BottomFrame();
+		Format070707 singlePlayerTopFrame = new SinglePlayerTopFrame();
+		Format070707 singlePlayerBottomFrame = new SinglePlayerBottomFrame();
 		Format070707 rules = new Rules();
 		Format4248 background = new Background();
 		Format070707 cursor = new Cursor();
@@ -164,6 +170,8 @@ public class MainMenuTopPane {
 		// Read offsets and set UI elements
 		setColorPickerColor(filename, cpTopFrame, topFrame);
 		setColorPickerColor(filename, cpBottomFrame, bottomFrame);
+		setColorPickerColor(filename, cpSinglePlayerTopFrame, singlePlayerTopFrame);
+		setColorPickerColor(filename, cpSinglePlayerBottomFrame, singlePlayerBottomFrame);
 		setColorPickerColor(filename, cpRules, rules);
 		setColorPickerColor(filename, cpBackground, background);
 		setColorPickerColor(filename, cpCursor, cursor);

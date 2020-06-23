@@ -6,6 +6,8 @@ import Models.Format070707;
 import Models.Format4248;
 import Models.Rules;
 import Models.SelectBackground;
+import Models.SinglePlayerBottomFrame;
+import Models.SinglePlayerTopFrame;
 import Models.TopFrame;
 import Models.TwoColor;
 import javafx.animation.FadeTransition;
@@ -81,6 +83,8 @@ public class MainMenuBottomPane {
 		ColorPicker[] cpBackground = sharedElements.getCpBackground();
 		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
 		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
+		ColorPicker[] cpSinglePlayerTopFrame = sharedElements.getCpSinglePlayerTopFrame();
+		ColorPicker[] cpSinglePlayerBottomFrame = sharedElements.getCpSinglePlayerBottomFrame();
 		ColorPicker[] cpRules = sharedElements.getCpRules();
 		ColorPicker[] cpCursor = sharedElements.getCpCursor();
 		ColorPicker[] cpSelectBackground1 = sharedElements.getCpSelectBackground1();
@@ -98,6 +102,8 @@ public class MainMenuBottomPane {
 		updateBackground(filename, cpBackground, cbBackgroundOptions.getValue());
 		updateTopFrame(filename, cpTopFrame);
 		updateBottomFrame(filename, cpBottomFrame);
+		updateSinglePlayerTopFrame(filename, cpSinglePlayerTopFrame);
+		updateSinglePlayerBottomFrame(filename, cpSinglePlayerBottomFrame);
 		updateRules(filename, cpRules);
 		updateCursor(filename, cpCursor);
 		
@@ -121,6 +127,18 @@ public class MainMenuBottomPane {
 	private void updateBottomFrame(String filename, ColorPicker[] cpBottomFrames) {
 		TwoColor twoColor = getTwoColor(cpBottomFrames);
 		Format070707 bottomFrame = new BottomFrame(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());
+		bottomFrame.writeColors(filename);
+	}
+	
+	private void updateSinglePlayerTopFrame(String filename, ColorPicker[] cpTopFrames) {
+		TwoColor twoColor = getTwoColor(cpTopFrames);
+		Format070707 topFrame = new SinglePlayerTopFrame(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());		
+		topFrame.writeColors(filename);
+	}
+	
+	private void updateSinglePlayerBottomFrame(String filename, ColorPicker[] cpBottomFrames) {
+		TwoColor twoColor = getTwoColor(cpBottomFrames);
+		Format070707 bottomFrame = new SinglePlayerBottomFrame(twoColor.getPrimaryColor(), twoColor.getSecondaryColor());
 		bottomFrame.writeColors(filename);
 	}
 	

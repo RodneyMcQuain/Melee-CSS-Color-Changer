@@ -24,7 +24,7 @@ public class App extends Application {
 
 	private final static String APP_VERSION = "1.1";
 	private final static String TITLE = "Melee CSS Color Changer - v" + APP_VERSION;
-	public final static int STAGE_WIDTH = 550;
+	public final static int STAGE_WIDTH = 600;
 	
 	private static boolean isUnsaved = false;
 	
@@ -87,6 +87,8 @@ public class App extends Application {
 		ComboBox<String> cbSelectBackgroundOptions = new ComboBox<String>();
 		ColorPicker[] cpTopFrame = createTwoColorPicker();
 		ColorPicker[] cpBottomFrame = createTwoColorPicker();
+		ColorPicker[] cpSinglePlayerTopFrame = createTwoColorPicker();
+		ColorPicker[] cpSinglePlayerBottomFrame = createTwoColorPicker();
 		ColorPicker[] cpRules = createTwoColorPicker();
 		ColorPicker[] cpBackground = createTwoColorPicker();
 		ColorPicker[] cpCursor = createTwoColorPicker();
@@ -101,6 +103,8 @@ public class App extends Application {
 			cbSelectBackgroundOptions,
 			cpTopFrame,
 			cpBottomFrame,
+			cpSinglePlayerTopFrame,
+			cpSinglePlayerBottomFrame,
 			cpRules,
 			cpBackground,
 			cpCursor,

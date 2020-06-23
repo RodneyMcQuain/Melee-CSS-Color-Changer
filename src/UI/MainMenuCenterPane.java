@@ -45,13 +45,17 @@ public class MainMenuCenterPane {
 		ColorPicker[] cpBackground = sharedElements.getCpBackground();
 		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
 		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
+		ColorPicker[] cpSinglePlayerTopFrame = sharedElements.getCpSinglePlayerTopFrame();
+		ColorPicker[] cpSinglePlayerBottomFrame = sharedElements.getCpSinglePlayerBottomFrame();
 		ColorPicker[] cpRules = sharedElements.getCpRules();
 		ColorPicker[] cpCursor = sharedElements.getCpCursor();
 		
     	Label lblPrimaryColor = new Label("Primary Color");
     	Label lblSecondaryColor = new Label("Secondary Color");
-    	Label lblTopFrame = new Label("Top Frame: ");
-    	Label lblBottomFrame = new Label("Bottom Frame: ");
+    	Label lblTopFrame = new Label("Multiplayer Top Frame: ");
+    	Label lblBottomFrame = new Label("Multiplayer Bottom Frame: ");
+    	Label lblSinglePlayerTopFrame = new Label("Single Player Top Frame: ");
+    	Label lblSinglePlayerBottomFrame = new Label("Single Player Bottom Frame: ");
     	Label lblRules = new Label("Rules: ");
     	Label lblBackground = new Label("Background: ");
     	Label lblCursor = new Label("Cursor: ");
@@ -69,22 +73,30 @@ public class MainMenuCenterPane {
     	gp.add(lblBottomFrame, 0, 2);
     	gp.add(cpBottomFrame[0], 1, 2);
     	gp.add(cpBottomFrame[1], 2, 2);
-
-    	gp.add(lblRules, 0, 3);
-    	gp.add(cpRules[0], 1, 3);
-    	gp.add(cpRules[1], 2, 3);
-
-    	gp.add(lblBackground, 0, 4);
-    	gp.add(cpBackground[0], 1, 4);
-    	gp.add(cpBackground[1], 2, 4);
-    	gp.add(cbBackgroundOptions, 3, 4);
-
-    	gp.add(lblCursor, 0, 5);
-    	gp.add(cpCursor[0], 1, 5);
-    	gp.add(cpCursor[1], 2, 5);
     	
-    	gp.add(lblSelectBackground, 0, 6);
-    	gp.add(cbSelectBackgroundOptions, 1, 6, 2, 1);
+    	gp.add(lblSinglePlayerTopFrame, 0, 3);
+    	gp.add(cpSinglePlayerTopFrame[0], 1, 3);
+    	gp.add(cpSinglePlayerTopFrame[1], 2, 3);
+
+    	gp.add(lblSinglePlayerBottomFrame, 0, 4);
+    	gp.add(cpSinglePlayerBottomFrame[0], 1, 4);
+    	gp.add(cpSinglePlayerBottomFrame[1], 2, 4);
+
+    	gp.add(lblRules, 0, 5);
+    	gp.add(cpRules[0], 1, 5);
+    	gp.add(cpRules[1], 2, 5);
+
+    	gp.add(lblBackground, 0, 6);
+    	gp.add(cpBackground[0], 1, 6);
+    	gp.add(cpBackground[1], 2, 6);
+    	gp.add(cbBackgroundOptions, 3, 6);
+
+    	gp.add(lblCursor, 0, 7);
+    	gp.add(cpCursor[0], 1, 7);
+    	gp.add(cpCursor[1], 2, 7);
+    	
+    	gp.add(lblSelectBackground, 0, 8);
+    	gp.add(cbSelectBackgroundOptions, 1, 8, 2, 1);
 	}
 	
 	private void setBackgroundOptions(ComboBox<String> cb) {
@@ -155,6 +167,8 @@ public class MainMenuCenterPane {
 		ColorPicker[] cpBackground = sharedElements.getCpBackground();
 		ColorPicker[] cpTopFrame = sharedElements.getCpTopFrame();
 		ColorPicker[] cpBottomFrame = sharedElements.getCpBottomFrame();
+		ColorPicker[] cpSinglePlayerTopFrame = sharedElements.getCpSinglePlayerTopFrame();
+		ColorPicker[] cpSinglePlayerBottomFrame = sharedElements.getCpSinglePlayerBottomFrame();
 		ColorPicker[] cpRules = sharedElements.getCpRules();
 		ColorPicker[] cpCursor = sharedElements.getCpCursor();
 		ColorPicker[] cpSelectBackground1 = sharedElements.getCpSelectBackground1();
@@ -163,6 +177,8 @@ public class MainMenuCenterPane {
 		ColorPicker[][] twoDimColorPickers = {
 				cpTopFrame,
 				cpBottomFrame,
+				cpSinglePlayerTopFrame,
+				cpSinglePlayerBottomFrame,
 				cpRules,
 				cpBackground,
 				cpCursor,

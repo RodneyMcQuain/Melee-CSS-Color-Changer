@@ -13,6 +13,8 @@ public class SharedUIElements {
 
 	private ColorPicker[] cpTopFrame;
 	private ColorPicker[] cpBottomFrame;
+	private ColorPicker[] cpSinglePlayerTopFrame;
+	private ColorPicker[] cpSinglePlayerBottomFrame;
 	private ColorPicker[] cpRules;
 	private ColorPicker[] cpBackground;
 	private ColorPicker[] cpCursor;
@@ -26,6 +28,8 @@ public class SharedUIElements {
 		ComboBox<String> cbSelectBackgroundOptions,
 		ColorPicker[] cpTopFrame,
 		ColorPicker[] cpBottomFrame,
+		ColorPicker[] cpSinglePlayerTopFrame,
+		ColorPicker[] cpSinglePlayerBottomFrame,
 		ColorPicker[] cpRules,
 		ColorPicker[] cpBackground,
 		ColorPicker[] cpCursor,
@@ -40,6 +44,8 @@ public class SharedUIElements {
 		
 		this.cpTopFrame = cpTopFrame;
 		this.cpBottomFrame = cpBottomFrame;
+		this.cpSinglePlayerTopFrame = cpSinglePlayerTopFrame;
+		this.cpSinglePlayerBottomFrame = cpSinglePlayerBottomFrame;
 		this.cpRules = cpRules;
 		this.cpBackground = cpBackground;
 		this.cpCursor = cpCursor;
@@ -47,6 +53,14 @@ public class SharedUIElements {
 		this.cpSelectBackground2 = cpSelectBackground2;		
 	}
 
+	public ColorPicker[] getCpSinglePlayerTopFrame() {
+		return cpSinglePlayerTopFrame;
+	}
+
+	public ColorPicker[] getCpSinglePlayerBottomFrame() {
+		return cpSinglePlayerBottomFrame;
+	}
+	
 	public ColorPicker[] getCpTopFrame() {
 		return cpTopFrame;
 	}
