@@ -22,7 +22,7 @@ public class App extends Application {
 	public final static String SPECIFY_COLOR = "Specify Color";
 	public final static int INVALID_FILE_STAGE_HEIGHT = 75;
 
-	private final static String APP_VERSION = "1.1";
+	private final static String APP_VERSION = "1.2";
 	private final static String TITLE = "Melee CSS Color Changer - v" + APP_VERSION;
 	public final static int STAGE_WIDTH = 600;
 	
