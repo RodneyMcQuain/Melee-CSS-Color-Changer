@@ -69,7 +69,9 @@ Selects in Background | 0x000984 to 0x0019D8
 
 07 07 07 Format | Starting Offset
 --------------- | ---------------
-Bottom Frame | 0x348E88  
-Cursor | 0x01005C  
-Top Frame | 0x349008  
+Multiplayer Top Frame | 0x349008 
+Multiplayer Bottom Frame | 0x348E88
+Single Player Top Frame | 0x382F04
+Single Player Bottom Frame | 0x382E44
+Cursor | 0x01005C   
 Rules | 0x348F48  
