@@ -61,6 +61,9 @@ Some other examples
 ![](https://media.giphy.com/media/mDT65dpD2ZenaZzB6G/giphy.gif)
 ![](https://media.giphy.com/media/cJSerfJeOrSXpMIapF/giphy.gif)
 
+## Slippi 2.0 Support
+![CSS on Slippi 2.0 with Slippi themed colors](assets/slippi-css.gif)
+
 ## MnSlChr.usd Starting Offset Documentation  
 42 48 Format    | Starting Offset
 --------------- | ---------------
